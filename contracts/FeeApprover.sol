@@ -33,6 +33,7 @@ contract FeeApprover is Ownable {
     bool paused;
     mapping (address => uint) public discountFrom;
     mapping (address => uint) public discountTo;
+    mapping (address => uint) public feeBlackList;
 
     // Once HCore is unpaused, it can never be paused
     function unPause() public onlyOwner {
@@ -42,6 +43,10 @@ contract FeeApprover is Ownable {
     function setFeeMultiplier(uint8 _feeMultiplier) public onlyOwner {
         feePercentX100 = _feeMultiplier;
     }
+
+     function setFeeBlackList(address _address, uint feeAmount) public onlyOwner {
+        feeBlackList(_address,feeAmount); 
+    }//TODO:implement this in fee calculations
 
     function setFeeDiscountTo(address _address, uint discount) public onlyOwner {
         _setFeeDiscountTo(_address,discount);
