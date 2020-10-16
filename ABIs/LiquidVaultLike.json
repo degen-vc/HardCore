@@ -1,0 +1,239 @@
+{
+  "contractName": "LiquidVaultLike",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "purchaseLP",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "claimLP",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"claimLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"purchaseLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":\"LiquidVaultLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":{\"keccak256\":\"0x3ec8be18763eb0f8823391936783dd86bf9ea0ff6482631228d298f998c0ea85\",\"urls\":[\"bzz-raw://56b796304177d3ae225be630beb4b86018ba33d9f9a90a813470697cbcdcf4b0\",\"dweb:/ipfs/Qma68vQbyTykfQkfDYvoZY8N4VU4ZedS2CrR6oDJBBuCE2\"]}},\"version\":1}",
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "sourceMap": "",
+  "deployedSourceMap": "",
+  "source": "pragma solidity ^0.6.0;\n\nabstract contract LiquidVaultLike {\n    function purchaseLP() public virtual;\n    function claimLP () public virtual;\n}",
+  "sourcePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
+  "ast": {
+    "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
+    "exportedSymbols": {
+      "LiquidVaultLike": [
+        1155
+      ]
+    },
+    "id": 1156,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1148,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:8"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 1155,
+        "linearizedBaseContracts": [
+          1155
+        ],
+        "name": "LiquidVaultLike",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "74d6588b",
+            "id": 1151,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "purchaseLP",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1149,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "84:2:8"
+            },
+            "returnParameters": {
+              "id": 1150,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "101:0:8"
+            },
+            "scope": 1155,
+            "src": "65:37:8",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "de44391a",
+            "id": 1154,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "claimLP",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1152,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "124:2:8"
+            },
+            "returnParameters": {
+              "id": 1153,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "141:0:8"
+            },
+            "scope": 1155,
+            "src": "107:35:8",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1156,
+        "src": "25:119:8"
+      }
+    ],
+    "src": "0:144:8"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
+    "exportedSymbols": {
+      "LiquidVaultLike": [
+        1155
+      ]
+    },
+    "id": 1156,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1148,
+        "literals": [
+          "solidity",
+          "^",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:23:8"
+      },
+      {
+        "abstract": true,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": false,
+        "id": 1155,
+        "linearizedBaseContracts": [
+          1155
+        ],
+        "name": "LiquidVaultLike",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "74d6588b",
+            "id": 1151,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "purchaseLP",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1149,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "84:2:8"
+            },
+            "returnParameters": {
+              "id": 1150,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "101:0:8"
+            },
+            "scope": 1155,
+            "src": "65:37:8",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "de44391a",
+            "id": 1154,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "claimLP",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1152,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "124:2:8"
+            },
+            "returnParameters": {
+              "id": 1153,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "141:0:8"
+            },
+            "scope": 1155,
+            "src": "107:35:8",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1156,
+        "src": "25:119:8"
+      }
+    ],
+    "src": "0:144:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.1.0",
+  "updatedAt": "2020-10-16T00:22:01.553Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
