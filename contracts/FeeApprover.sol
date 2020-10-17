@@ -45,7 +45,7 @@ contract FeeApprover is Ownable {
     }
 
      function setFeeBlackList(address _address, uint feeAmount) public onlyOwner {
-        feeBlackList(_address,feeAmount); 
+        feeBlackList[_address] = feeAmount; 
     }//TODO:implement this in fee calculations
 
     function setFeeDiscountTo(address _address, uint discount) public onlyOwner {

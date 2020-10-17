@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile":"rm build/contracts/* && truffle compile && cp build/contracts/* ABIs/"
   },
   "author": "",
   "license": "ISC",

@@ -26,14 +26,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/UniswapRouterLike.sol",
     "exportedSymbols": {
       "UniswapRouterLike": [
-        1164
+        1169
       ]
     },
-    "id": 1165,
+    "id": 1170,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1157,
+        "id": 1162,
         "literals": [
           "solidity",
           "^",
@@ -46,10 +46,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./ERC20Like.sol",
-        "id": 1158,
+        "id": 1163,
         "nodeType": "ImportDirective",
-        "scope": 1165,
-        "sourceUnit": 1125,
+        "scope": 1170,
+        "sourceUnit": 1130,
         "src": "24:25:9",
         "symbolAliases": [],
         "unitAlias": ""
@@ -61,9 +61,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1164,
+        "id": 1169,
         "linearizedBaseContracts": [
-          1164
+          1169
         ],
         "name": "UniswapRouterLike",
         "nodeType": "ContractDefinition",
@@ -72,7 +72,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "ad5c4648",
-            "id": 1163,
+            "id": 1168,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -80,38 +80,38 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1159,
+              "id": 1164,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "105:2:9"
             },
             "returnParameters": {
-              "id": 1162,
+              "id": 1167,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1161,
+                  "id": 1166,
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1163,
+                  "scope": 1168,
                   "src": "132:9:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_ERC20Like_$1124",
+                    "typeIdentifier": "t_contract$_ERC20Like_$1129",
                     "typeString": "contract ERC20Like"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1160,
+                    "id": 1165,
                     "name": "ERC20Like",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 1124,
+                    "referencedDeclaration": 1129,
                     "src": "132:9:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ERC20Like_$1124",
+                      "typeIdentifier": "t_contract$_ERC20Like_$1129",
                       "typeString": "contract ERC20Like"
                     }
                   },
@@ -121,14 +121,14 @@
               ],
               "src": "131:11:9"
             },
-            "scope": 1164,
+            "scope": 1169,
             "src": "92:51:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1165,
+        "scope": 1170,
         "src": "51:94:9"
       }
     ],
@@ -138,14 +138,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/UniswapRouterLike.sol",
     "exportedSymbols": {
       "UniswapRouterLike": [
-        1164
+        1169
       ]
     },
-    "id": 1165,
+    "id": 1170,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1157,
+        "id": 1162,
         "literals": [
           "solidity",
           "^",
@@ -158,10 +158,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./ERC20Like.sol",
-        "id": 1158,
+        "id": 1163,
         "nodeType": "ImportDirective",
-        "scope": 1165,
-        "sourceUnit": 1125,
+        "scope": 1170,
+        "sourceUnit": 1130,
         "src": "24:25:9",
         "symbolAliases": [],
         "unitAlias": ""
@@ -173,9 +173,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1164,
+        "id": 1169,
         "linearizedBaseContracts": [
-          1164
+          1169
         ],
         "name": "UniswapRouterLike",
         "nodeType": "ContractDefinition",
@@ -184,7 +184,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "ad5c4648",
-            "id": 1163,
+            "id": 1168,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -192,38 +192,38 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1159,
+              "id": 1164,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "105:2:9"
             },
             "returnParameters": {
-              "id": 1162,
+              "id": 1167,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1161,
+                  "id": 1166,
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1163,
+                  "scope": 1168,
                   "src": "132:9:9",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_ERC20Like_$1124",
+                    "typeIdentifier": "t_contract$_ERC20Like_$1129",
                     "typeString": "contract ERC20Like"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1160,
+                    "id": 1165,
                     "name": "ERC20Like",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 1124,
+                    "referencedDeclaration": 1129,
                     "src": "132:9:9",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ERC20Like_$1124",
+                      "typeIdentifier": "t_contract$_ERC20Like_$1129",
                       "typeString": "contract ERC20Like"
                     }
                   },
@@ -233,14 +233,14 @@
               ],
               "src": "131:11:9"
             },
-            "scope": 1164,
+            "scope": 1169,
             "src": "92:51:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1165,
+        "scope": 1170,
         "src": "51:94:9"
       }
     ],
@@ -252,7 +252,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-16T00:22:01.554Z",
+  "updatedAt": "2020-10-17T14:15:19.209Z",
   "devdoc": {
     "methods": {}
   },
