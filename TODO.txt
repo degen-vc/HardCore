@@ -1,0 +1,2 @@
+1. super claim transfer
+2. 30 days per tx, not per user
