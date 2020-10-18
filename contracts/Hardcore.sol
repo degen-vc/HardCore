@@ -9,14 +9,10 @@ import "@openzeppelin/contracts/utils/Address.sol";
 import "./facades/FeeApproverLike.sol";
 import "@nomiclabs/buidler/console.sol";
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; // for WETH
-
 import '@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol';
 import '@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol';
-
+import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./facades/UniswapRouterLike.sol";
-// import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
  * @dev Implementation of the {IERC20} interface.
@@ -56,7 +52,6 @@ contract HardCore is Context, IERC20, Ownable {
     string private _symbol;
     uint8 private _decimals;
     uint256 public constant initialSupply = 10000e18; // to change
-    uint256 public contractStartTimestamp;
 
 
     /**
@@ -71,9 +66,8 @@ contract HardCore is Context, IERC20, Ownable {
         _symbol = "HCORE";
         _decimals = 18;
         _mint(address(this), initialSupply);
-        contractStartTimestamp = block.timestamp;
         uniswapFactory = IUniswapV2Factory(factory != address(0) ? factory : 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f); // For testing
-        uniswapRouter = UniswapRouterLike(router != address(0) ? router : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D); // For testing
+        uniswapRouter = IUniswapV2Router02(router != address(0) ? router : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D); // For testing
         createUniswapPairMainnet();
     }
 
@@ -120,7 +114,7 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     IUniswapV2Factory public uniswapFactory;
-    UniswapRouterLike public uniswapRouter;
+    IUniswapV2Router02 public uniswapRouter;
 
     address public tokenUniswapPair;
 

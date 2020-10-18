@@ -22,12 +22,25 @@
     },
     {
       "inputs": [],
-      "name": "liquidVaultShare",
+      "name": "hcore",
       "outputs": [
         {
-          "internalType": "uint256",
+          "internalType": "contract ERC20Like",
           "name": "",
-          "type": "uint256"
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "initialized",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -41,6 +54,29 @@
           "internalType": "address",
           "name": "",
           "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "recipients",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "liquidVault",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "dev",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "liquidVaultShare",
+          "type": "uint256"
         }
       ],
       "stateMutability": "view",
@@ -69,12 +105,27 @@
     {
       "inputs": [
         {
+          "internalType": "address",
+          "name": "hardCore",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "liquidVault",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "dev",
+          "type": "address"
+        },
+        {
           "internalType": "uint256",
-          "name": "share",
+          "name": "liquidVaultShare",
           "type": "uint256"
         }
       ],
-      "name": "setLiquidShare",
+      "name": "seed",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -87,21 +138,21 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"liquidVaultShare\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"share\",\"type\":\"uint256\"}],\"name\":\"setLiquidShare\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol\":\"FeeDistributor\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol\":{\"keccak256\":\"0xff378f57841e57780fd431ac1158c8cd6775206f80b672563cb1f2d742a828f4\",\"urls\":[\"bzz-raw://06fd100470a5e65b522f8f05221edc0d2e1287c5063a18c146fb3a3901436646\",\"dweb:/ipfs/QmST67ms9XzYR922D8Z1Y9zwXYdxck2VTEMpv9hL1N2wG1\"]},\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0xdb26cbf4d028490f49831a7865c2fe1b28db44b535ca8d343785a3b768aae183\",\"urls\":[\"bzz-raw://840b14ce0315c47d49ba328f1f9fa7654ded1c9e1559e6c5e777a7b2dc28bf0a\",\"dweb:/ipfs/QmTLLabn4wcfGro9LEmUXUN2nwKqZSotXMvjDCLXEnLtZP\"]},\"@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0x4bd6402ca6b3419008c2b482aff54e66836e8cb4eba2680e42ac5884ae6424fc\",\"urls\":[\"bzz-raw://8f9f711fb8d0d92aeea1c327e3845d13ca1fa8f142e47f8723cd5b3106fb29a3\",\"dweb:/ipfs/QmVQUReDW9f4zGqhizwHnyU8EntMs95tbASdqkGncnikba\"]}},\"version\":1}",
-  "bytecode": "0x608060405260006100146100b760201b60201c565b9050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3506100bf565b600033905090565b610652806100ce6000396000f3fe608060405234801561001057600080fd5b50600436106100625760003560e01c8063715018a6146100675780638da5cb5b14610071578063bb57ad20146100bb578063d1629436146100c5578063d910d47d146100f3578063f2fde38b14610111575b600080fd5b61006f610155565b005b6100796102dd565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100c3610306565b005b6100f1600480360360208110156100db57600080fd5b8101908080359060200190929190505050610308565b005b6100fb6103db565b6040518082815260200191505060405180910390f35b6101536004803603602081101561012757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506103e1565b005b61015d6105ee565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161461021e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b565b6103106105ee565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146103d1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b8060018190555050565b60015481565b6103e96105ee565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146104aa576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610530576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260268152602001806105f76026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60003390509056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373a2646970667358221220c7d78478ad8bb9ef64209409aded70d33bcdfcc13c4eae500179fe18425db8d164736f6c63430006020033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100625760003560e01c8063715018a6146100675780638da5cb5b14610071578063bb57ad20146100bb578063d1629436146100c5578063d910d47d146100f3578063f2fde38b14610111575b600080fd5b61006f610155565b005b6100796102dd565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b6100c3610306565b005b6100f1600480360360208110156100db57600080fd5b8101908080359060200190929190505050610308565b005b6100fb6103db565b6040518082815260200191505060405180910390f35b6101536004803603602081101561012757600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff1690602001909291905050506103e1565b005b61015d6105ee565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff161461021e576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b565b6103106105ee565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146103d1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b8060018190555050565b60015481565b6103e96105ee565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146104aa576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610530576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260268152602001806105f76026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60003390509056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f2061646472657373a2646970667358221220c7d78478ad8bb9ef64209409aded70d33bcdfcc13c4eae500179fe18425db8d164736f6c63430006020033",
-  "sourceMap": "78:252:1:-:0;;;865:17:12;885:12;:10;;;:12;;:::i;:::-;865:32;;916:9;907:6;;:18;;;;;;;;;;;;;;;;;;973:9;940:43;;969:1;940:43;;;;;;;;;;;;831:159;78:252:1;;590:104:11;643:15;677:10;670:17;;590:104;:::o;78:252:1:-;;;;;;;",
-  "deployedSourceMap": "78:252:1:-:0;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;78:252:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1689:145:12;;;:::i;:::-;;1066:77;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;287:41:1;;;:::i;:::-;;120:95;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;120:95:1;;;;;;;;;;;;;;;;;:::i;:::-;;221:28;;;:::i;:::-;;;;;;;;;;;;;;;;;;;1983:240:12;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1983:240:12;;;;;;;;;;;;;;;;;;;:::i;:::-;;1689:145;1280:12;:10;:12::i;:::-;1270:22;;:6;;;;;;;;;;;:22;;;1262:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1795:1:::1;1758:40;;1779:6;::::0;::::1;;;;;;;;;1758:40;;;;;;;;;;;;1825:1;1808:6:::0;::::1;:19;;;;;;;;;;;;;;;;;;1689:145::o:0;1066:77::-;1104:7;1130:6;;;;;;;;;;;1123:13;;1066:77;:::o;287:41:1:-;:::o;120:95::-;1280:12:12;:10;:12::i;:::-;1270:22;;:6;;;;;;;;;;;:22;;;1262:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;203:5:1::1;184:16;:24;;;;120:95:::0;:::o;221:28::-;;;;:::o;1983:240:12:-;1280:12;:10;:12::i;:::-;1270:22;;:6;;;;;;;;;;;:22;;;1262:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2091:1:::1;2071:22;;:8;:22;;;;2063:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2180:8;2151:38;;2172:6;::::0;::::1;;;;;;;;;2151:38;;;;;;;;;;;;2208:8;2199:6;::::0;:17:::1;;;;;;;;;;;;;;;;;;1983:240:::0;:::o;590:104:11:-;643:15;677:10;670:17;;590:104;:::o",
-  "source": "pragma solidity ^0.6.0;\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\n\ncontract FeeDistributor is Ownable {\n\n    function setLiquidShare (uint share) public onlyOwner {\n        liquidVaultShare = share;\n    }\n\n    uint public liquidVaultShare; //percentage between 0 and 100\n\n    function distributeFees() public {\n\n    }\n}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"hcore\",\"outputs\":[{\"internalType\":\"contract ERC20Like\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialized\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"recipients\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"liquidVault\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"dev\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"liquidVaultShare\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"hardCore\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"liquidVault\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"dev\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"liquidVaultShare\",\"type\":\"uint256\"}],\"name\":\"seed\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner.     * NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol\":\"FeeDistributor\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol\":{\"keccak256\":\"0x2d452f98b02fc0c01460e53fab1578de337e0a6e21486bd3735fa65cc498a631\",\"urls\":[\"bzz-raw://87b7ab4edc0464dc189e9d154d6951cf35058180caa9215ac74ec248bab81952\",\"dweb:/ipfs/QmUowGbiFbCF4VDTS4LSfxAm3dgDSeMp7mASsEFsZZ2nr1\"]},\"/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol\":{\"keccak256\":\"0xb3c70f48a07b1483caada8a465b3eeb66d14655b23f263832f1e19e8f3fd24a2\",\"urls\":[\"bzz-raw://1387727a9e916753289814d0c5e7b5aac8b14818d9f067b8379d8dff82a2b61f\",\"dweb:/ipfs/QmeM6VjTJoq27HajYcjkgeuodASgMPm2kUSFWEWXRVYk3s\"]},\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0xdb26cbf4d028490f49831a7865c2fe1b28db44b535ca8d343785a3b768aae183\",\"urls\":[\"bzz-raw://840b14ce0315c47d49ba328f1f9fa7654ded1c9e1559e6c5e777a7b2dc28bf0a\",\"dweb:/ipfs/QmTLLabn4wcfGro9LEmUXUN2nwKqZSotXMvjDCLXEnLtZP\"]},\"@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0x4bd6402ca6b3419008c2b482aff54e66836e8cb4eba2680e42ac5884ae6424fc\",\"urls\":[\"bzz-raw://8f9f711fb8d0d92aeea1c327e3845d13ca1fa8f142e47f8723cd5b3106fb29a3\",\"dweb:/ipfs/QmVQUReDW9f4zGqhizwHnyU8EntMs95tbASdqkGncnikba\"]}},\"version\":1}",
+  "bytecode": "0x608060405260006100146100b760201b60201c565b9050806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508073ffffffffffffffffffffffffffffffffffffffff16600073ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3506100bf565b600033905090565b610e60806100ce6000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c8063731adf7d1161005b578063731adf7d146101cb5780638da5cb5b14610215578063bb57ad201461025f578063f2fde38b1461026957610088565b80630e57d4ce1461008d578063158ef93e146101115780633438298e14610133578063715018a6146101c1575b600080fd5b6100956102ad565b604051808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828152602001935050505060405180910390f35b610119610305565b604051808215151515815260200191505060405180910390f35b6101bf6004803603608081101561014957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610318565b005b6101c961052e565b005b6101d36106b6565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61021d6106dc565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610267610705565b005b6102ab6004803603602081101561027f57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610b3c565b005b60028060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020154905083565b600560009054906101000a900460ff1681565b610320610d49565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146103e1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b606481111561043b576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252604d815260200180610db6604d913960600191505060405180910390fd5b83600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555082600260000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600260010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508060028001819055506001600560006101000a81548160ff02191690831515021790555050505050565b610536610d49565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146105f7576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b600560009054906101000a900460ff1661076a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252603e815260200180610d78603e913960400191505060405180910390fd5b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060206040518083038186803b15801561080b57600080fd5b505afa15801561081f573d6000803e3d6000fd5b505050506040513d602081101561083557600080fd5b8101908080519060200190929190505050905060006064826002800154028161085a57fe5b049050600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb600260000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561092b57600080fd5b505af115801561093f573d6000803e3d6000fd5b505050506040513d602081101561095557600080fd5b81019080805190602001909291905050506109bb576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526028815260200180610e036028913960400191505060405180910390fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb600260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff168385036040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b158015610a8b57600080fd5b505af1158015610a9f573d6000803e3d6000fd5b505050506040513d6020811015610ab557600080fd5b8101908080519060200190929190505050610b38576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f48415244434f52453a207472616e7366657220746f20646576206661696c656481525060200191505060405180910390fd5b5050565b610b44610d49565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614610c05576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610c8b576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526026815260200180610d526026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60003390509056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f206164647265737348415244434f52453a20466565732063616e6e6f7420626520646973747269627574656420756e74696c204469737472696275746f72207365656465642e48415244434f52453a206c69717569645661756c74207368617265206d757374206265206578707265737365642061732070657263656e74616765206265747765656e203020616e642031303048415244434f52453a207472616e7366657220746f206c69717569645661756c74206661696c6564a264697066735822122044f65b2de7a3998171a5e2d014a8a4c08aebc24956893e1df912ec948b94eecc64736f6c63430006020033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100885760003560e01c8063731adf7d1161005b578063731adf7d146101cb5780638da5cb5b14610215578063bb57ad201461025f578063f2fde38b1461026957610088565b80630e57d4ce1461008d578063158ef93e146101115780633438298e14610133578063715018a6146101c1575b600080fd5b6100956102ad565b604051808473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020018373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001828152602001935050505060405180910390f35b610119610305565b604051808215151515815260200191505060405180910390f35b6101bf6004803603608081101561014957600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff169060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919080359060200190929190505050610318565b005b6101c961052e565b005b6101d36106b6565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61021d6106dc565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b610267610705565b005b6102ab6004803603602081101561027f57600080fd5b81019080803573ffffffffffffffffffffffffffffffffffffffff169060200190929190505050610b3c565b005b60028060000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16908060020154905083565b600560009054906101000a900460ff1681565b610320610d49565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146103e1576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b606481111561043b576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252604d815260200180610db6604d913960600191505060405180910390fd5b83600160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555082600260000160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555081600260010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508060028001819055506001600560006101000a81548160ff02191690831515021790555050505050565b610536610d49565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16146105f7576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a360008060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550565b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b600560009054906101000a900460ff1661076a576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040180806020018281038252603e815260200180610d78603e913960400191505060405180910390fd5b6000600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff166370a08231306040518263ffffffff1660e01b8152600401808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060206040518083038186803b15801561080b57600080fd5b505afa15801561081f573d6000803e3d6000fd5b505050506040513d602081101561083557600080fd5b8101908080519060200190929190505050905060006064826002800154028161085a57fe5b049050600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb600260000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16836040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b15801561092b57600080fd5b505af115801561093f573d6000803e3d6000fd5b505050506040513d602081101561095557600080fd5b81019080805190602001909291905050506109bb576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526028815260200180610e036028913960400191505060405180910390fd5b600160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1663a9059cbb600260010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff168385036040518363ffffffff1660e01b8152600401808373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200182815260200192505050602060405180830381600087803b158015610a8b57600080fd5b505af1158015610a9f573d6000803e3d6000fd5b505050506040513d6020811015610ab557600080fd5b8101908080519060200190929190505050610b38576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f48415244434f52453a207472616e7366657220746f20646576206661696c656481525060200191505060405180910390fd5b5050565b610b44610d49565b73ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614610c05576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004018080602001828103825260208152602001807f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657281525060200191505060405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff161415610c8b576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401808060200182810382526026815260200180610d526026913960400191505060405180910390fd5b8073ffffffffffffffffffffffffffffffffffffffff166000809054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a3806000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff16021790555050565b60003390509056fe4f776e61626c653a206e6577206f776e657220697320746865207a65726f206164647265737348415244434f52453a20466565732063616e6e6f7420626520646973747269627574656420756e74696c204469737472696275746f72207365656465642e48415244434f52453a206c69717569645661756c74207368617265206d757374206265206578707265737365642061732070657263656e74616765206265747765656e203020616e642031303048415244434f52453a207472616e7366657220746f206c69717569645661756c74206661696c6564a264697066735822122044f65b2de7a3998171a5e2d014a8a4c08aebc24956893e1df912ec948b94eecc64736f6c63430006020033",
+  "sourceMap": "144:1303:1:-:0;;;865:17:12;885:12;:10;;;:12;;:::i;:::-;865:32;;916:9;907:6;;:18;;;;;;;;;;;;;;;;;;973:9;940:43;;969:1;940:43;;;;;;;;;;;;831:159;144:1303:1;;590:104:11;643:15;677:10;670:17;;590:104;:::o;144:1303:1:-;;;;;;;",
+  "deployedSourceMap": "144:1303:1:-:0;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;144:1303:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;364:30;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;401:23;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;566:429;;;;;;13:3:-1;8;5:12;2:2;;;30:1;27;20:12;2:2;566:429:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;1689:145:12;;;:::i;:::-;;186:22:1;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1066:77:12;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;1001:444:1;;;:::i;:::-;;1983:240:12;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;1983:240:12;;;;;;;;;;;;;;;;;;;:::i;:::-;;364:30:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;401:23::-;;;;;;;;;;;;;:::o;566:429::-;1280:12:12;:10;:12::i;:::-;1270:22;;:6;;;;;;;;;;;:22;;;1262:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;707:3:1::1;689:16;:21;;681:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;820:8;802:5;;:27;;;;;;;;;;;;;;;;;;864:11;839:10;:22;;;:36;;;;;;;;;;;;;;;;;;902:3;885:10;:14;;;:20;;;;;;;;;;;;;;;;;;944:16;915:10;:27:::0;::::1;:45;;;;984:4;970:11;;:18;;;;;;;;;;;;;;;;;;566:429:::0;;;;:::o;1689:145:12:-;1280:12;:10;:12::i;:::-;1270:22;;:6;;;;;;;;;;;:22;;;1262:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1795:1:::1;1758:40;;1779:6;::::0;::::1;;;;;;;;;1758:40;;;;;;;;;;;;1825:1;1808:6:::0;::::1;:19;;;;;;;;;;;;;;;;;;1689:145::o:0;186:22:1:-;;;;;;;;;;;;;:::o;1066:77:12:-;1104:7;1130:6;;;;;;;;;;;1123:13;;1066:77;:::o;1001:444:1:-;465:11;;;;;;;;;;;457:85;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1051:12:::1;1066:5;;;;;;;;;;;:15;;;1090:4;1066:30;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27::::0;20:12:::1;5:2;1066:30:1;;;;8:9:-1;5:2;;;45:16;42:1;39::::0;24:38:::1;77:16;74:1;67:27;5:2;1066:30:1;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26::::0;19:12:::1;2:2;1066:30:1;;;;;;;;;;;;;;;;1051:45;;1106:16;1163:3;1154:7;1126:10;:27:::0;::::1;;:35;1125:41;;;;;;1106:60;;1238:5;;;;;;;;;;;:14;;;1253:10;:22;;;;;;;;;;;;1276:11;1238:50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27::::0;20:12:::1;5:2;1238:50:1;;;;8:9:-1;5:2;;;45:16;42:1;39::::0;24:38:::1;77:16;74:1;67:27;5:2;1238:50:1;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26::::0;19:12:::1;2:2;1238:50:1;;;;;;;;;;;;;;;;1230:102;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1350:5;;;;;;;;;;;:14;;;1365:10;:14;;;;;;;;;;;;1390:11;1380:7;:21;1350:52;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;8:9:-1;5:2;;;30:1;27::::0;20:12:::1;5:2;1350:52:1;;;;8:9:-1;5:2;;;45:16;42:1;39::::0;24:38:::1;77:16;74:1;67:27;5:2;1350:52:1;;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26::::0;19:12:::1;2:2;1350:52:1;;;;;;;;;;;;;;;;1342:96;;;;;;;;;;;;;;;;;;;;;;;;;;;::::0;::::1;;;;;;;;;;;;;552:1;;1001:444::o:0;1983:240:12:-;1280:12;:10;:12::i;:::-;1270:22;;:6;;;;;;;;;;;:22;;;1262:67;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2091:1:::1;2071:22;;:8;:22;;;;2063:73;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2180:8;2151:38;;2172:6;::::0;::::1;;;;;;;;;2151:38;;;;;;;;;;;;2208:8;2199:6;::::0;:17:::1;;;;;;;;;;;;;;;;;;1983:240:::0;:::o;590:104:11:-;643:15;677:10;670:17;;590:104;:::o",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\nimport \"@openzeppelin/contracts/access/Ownable.sol\";\nimport \"./facades/ERC20Like.sol\";\n\ncontract FeeDistributor is Ownable {\n\n    ERC20Like public hcore;\n    \n    struct feeRecipient {\n        address liquidVault;\n        address dev;\n        uint liquidVaultShare; //percentage between 0 and 100\n    }\n\n    feeRecipient public recipients;\n\n    bool public initialized;\n\n    modifier seeded {\n        require(initialized,\"HARDCORE: Fees cannot be distributed until Distributor seeded.\");\n        _;\n    }\n\n    function seed(address hardCore, address liquidVault, address dev, uint liquidVaultShare) public onlyOwner{\n        require(liquidVaultShare<=100, \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\");\n        hcore = ERC20Like(hardCore);\n        recipients.liquidVault = liquidVault;\n        recipients.dev = dev;\n        recipients.liquidVaultShare= liquidVaultShare;\n        initialized = true;\n    }\n\n    function distributeFees() public seeded {\n        uint balance = hcore.balanceOf(address(this));\n        uint liquidShare = (recipients.liquidVaultShare*balance)/100; //overflow not possible because balance is capped low\n        require(hcore.transfer(recipients.liquidVault,liquidShare),\"HARDCORE: transfer to liquidVault failed\");\n        require(hcore.transfer(recipients.dev,balance - liquidShare),\"HARDCORE: transfer to dev failed\");\n    }\n}",
   "sourcePath": "/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol",
   "ast": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol",
     "exportedSymbols": {
       "FeeDistributor": [
-        285
+        387
       ]
     },
-    "id": 286,
+    "id": 388,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -113,16 +164,27 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "32:23:1"
       },
       {
         "absolutePath": "@openzeppelin/contracts/access/Ownable.sol",
         "file": "@openzeppelin/contracts/access/Ownable.sol",
         "id": 264,
         "nodeType": "ImportDirective",
-        "scope": 286,
-        "sourceUnit": 9374,
-        "src": "24:52:1",
+        "scope": 388,
+        "sourceUnit": 9758,
+        "src": "56:52:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
+        "file": "./facades/ERC20Like.sol",
+        "id": 265,
+        "nodeType": "ImportDirective",
+        "scope": 388,
+        "sourceUnit": 1506,
+        "src": "109:33:1",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -133,59 +195,689 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 265,
+              "id": 266,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 9373,
-              "src": "105:7:1",
+              "referencedDeclaration": 9757,
+              "src": "171:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$9373",
+                "typeIdentifier": "t_contract$_Ownable_$9757",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 266,
+            "id": 267,
             "nodeType": "InheritanceSpecifier",
-            "src": "105:7:1"
+            "src": "171:7:1"
           }
         ],
         "contractDependencies": [
-          9270,
-          9373
+          9654,
+          9757
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 285,
+        "id": 387,
         "linearizedBaseContracts": [
-          285,
-          9373,
-          9270
+          387,
+          9757,
+          9654
         ],
         "name": "FeeDistributor",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "body": {
+            "constant": false,
+            "functionSelector": "731adf7d",
+            "id": 269,
+            "name": "hcore",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 387,
+            "src": "186:22:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+              "typeString": "contract ERC20Like"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 268,
+              "name": "ERC20Like",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1505,
+              "src": "186:9:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                "typeString": "contract ERC20Like"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "FeeDistributor.feeRecipient",
+            "id": 276,
+            "members": [
+              {
+                "constant": false,
+                "id": 271,
+                "name": "liquidVault",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 276,
+                "src": "249:19:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 270,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "249:7:1",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 273,
+                "name": "dev",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 276,
+                "src": "278:11:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 272,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "278:7:1",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 275,
+                "name": "liquidVaultShare",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 276,
+                "src": "299:21:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 274,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "299:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "feeRecipient",
+            "nodeType": "StructDefinition",
+            "scope": 387,
+            "src": "219:139:1",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "0e57d4ce",
+            "id": 278,
+            "name": "recipients",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 387,
+            "src": "364:30:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+              "typeString": "struct FeeDistributor.feeRecipient"
+            },
+            "typeName": {
+              "contractScope": null,
               "id": 277,
+              "name": "feeRecipient",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 276,
+              "src": "364:12:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_feeRecipient_$276_storage_ptr",
+                "typeString": "struct FeeDistributor.feeRecipient"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "158ef93e",
+            "id": 280,
+            "name": "initialized",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 387,
+            "src": "401:23:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 279,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "401:4:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 288,
               "nodeType": "Block",
-              "src": "174:41:1",
+              "src": "447:113:1",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 275,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 283,
+                        "name": "initialized",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 280,
+                        "src": "465:11:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a20466565732063616e6e6f7420626520646973747269627574656420756e74696c204469737472696275746f72207365656465642e",
+                        "id": 284,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "477:64:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_6a1fa65805785892cd090c3b6a453e869396da9c623d015c778813716830a834",
+                          "typeString": "literal_string \"HARDCORE: Fees cannot be distributed until Distributor seeded.\""
+                        },
+                        "value": "HARDCORE: Fees cannot be distributed until Distributor seeded."
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_6a1fa65805785892cd090c3b6a453e869396da9c623d015c778813716830a834",
+                          "typeString": "literal_string \"HARDCORE: Fees cannot be distributed until Distributor seeded.\""
+                        }
+                      ],
+                      "id": 282,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "457:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 285,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "457:85:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 286,
+                  "nodeType": "ExpressionStatement",
+                  "src": "457:85:1"
+                },
+                {
+                  "id": 287,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "552:1:1"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 289,
+            "name": "seeded",
+            "nodeType": "ModifierDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 281,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "447:0:1"
+            },
+            "src": "431:129:1",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 337,
+              "nodeType": "Block",
+              "src": "671:324:1",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 305,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "id": 303,
+                          "name": "liquidVaultShare",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 297,
+                          "src": "689:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "<=",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "hexValue": "313030",
+                          "id": 304,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "707:3:1",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_100_by_1",
+                            "typeString": "int_const 100"
+                          },
+                          "value": "100"
+                        },
+                        "src": "689:21:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a206c69717569645661756c74207368617265206d757374206265206578707265737365642061732070657263656e74616765206265747765656e203020616e6420313030",
+                        "id": 306,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "712:79:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_78a850e025c805a07f486dc9e6929031946e23d4c74daeb435b3bae60bc0a060",
+                          "typeString": "literal_string \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\""
+                        },
+                        "value": "HARDCORE: liquidVault share must be expressed as percentage between 0 and 100"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_78a850e025c805a07f486dc9e6929031946e23d4c74daeb435b3bae60bc0a060",
+                          "typeString": "literal_string \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\""
+                        }
+                      ],
+                      "id": 302,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "681:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 307,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "681:111:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 308,
+                  "nodeType": "ExpressionStatement",
+                  "src": "681:111:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 313,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 273,
-                      "name": "liquidVaultShare",
+                      "id": 309,
+                      "name": "hcore",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 280,
-                      "src": "184:16:1",
+                      "referencedDeclaration": 269,
+                      "src": "802:5:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeString": "contract ERC20Like"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 311,
+                          "name": "hardCore",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 291,
+                          "src": "820:8:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 310,
+                        "name": "ERC20Like",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1505,
+                        "src": "810:9:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_ERC20Like_$1505_$",
+                          "typeString": "type(contract ERC20Like)"
+                        }
+                      },
+                      "id": 312,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "810:19:1",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeString": "contract ERC20Like"
+                      }
+                    },
+                    "src": "802:27:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                      "typeString": "contract ERC20Like"
+                    }
+                  },
+                  "id": 314,
+                  "nodeType": "ExpressionStatement",
+                  "src": "802:27:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 319,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 315,
+                        "name": "recipients",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 278,
+                        "src": "839:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                        }
+                      },
+                      "id": 317,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "liquidVault",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 271,
+                      "src": "839:22:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 318,
+                      "name": "liquidVault",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 293,
+                      "src": "864:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "839:36:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 320,
+                  "nodeType": "ExpressionStatement",
+                  "src": "839:36:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 325,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 321,
+                        "name": "recipients",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 278,
+                        "src": "885:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                        }
+                      },
+                      "id": 323,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "dev",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 273,
+                      "src": "885:14:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 324,
+                      "name": "dev",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 295,
+                      "src": "902:3:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "885:20:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 326,
+                  "nodeType": "ExpressionStatement",
+                  "src": "885:20:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 331,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 327,
+                        "name": "recipients",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 278,
+                        "src": "915:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                        }
+                      },
+                      "id": 329,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "liquidVaultShare",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 275,
+                      "src": "915:27:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -195,70 +887,205 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 274,
-                      "name": "share",
+                      "id": 330,
+                      "name": "liquidVaultShare",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 268,
-                      "src": "203:5:1",
+                      "referencedDeclaration": 297,
+                      "src": "944:16:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "184:24:1",
+                    "src": "915:45:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 276,
+                  "id": 332,
                   "nodeType": "ExpressionStatement",
-                  "src": "184:24:1"
+                  "src": "915:45:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 335,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 333,
+                      "name": "initialized",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 280,
+                      "src": "970:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "74727565",
+                      "id": 334,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "984:4:1",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "true"
+                    },
+                    "src": "970:18:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 336,
+                  "nodeType": "ExpressionStatement",
+                  "src": "970:18:1"
                 }
               ]
             },
             "documentation": null,
-            "functionSelector": "d1629436",
-            "id": 278,
+            "functionSelector": "3438298e",
+            "id": 338,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 271,
+                "id": 300,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 270,
+                  "id": 299,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 9324,
-                  "src": "164:9:1",
+                  "referencedDeclaration": 9708,
+                  "src": "662:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "164:9:1"
+                "src": "662:9:1"
               }
             ],
-            "name": "setLiquidShare",
+            "name": "seed",
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 269,
+              "id": 298,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 268,
-                  "name": "share",
+                  "id": 291,
+                  "name": "hardCore",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 278,
-                  "src": "145:10:1",
+                  "scope": 338,
+                  "src": "580:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 290,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "580:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 293,
+                  "name": "liquidVault",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 338,
+                  "src": "598:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 292,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "598:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 295,
+                  "name": "dev",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 338,
+                  "src": "619:11:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 294,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "619:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 297,
+                  "name": "liquidVaultShare",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 338,
+                  "src": "632:21:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -266,10 +1093,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 267,
+                    "id": 296,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "145:4:1",
+                    "src": "632:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -279,97 +1106,757 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "144:12:1"
+              "src": "579:75:1"
             },
             "returnParameters": {
-              "id": 272,
+              "id": 301,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "174:0:1"
+              "src": "671:0:1"
             },
-            "scope": 285,
-            "src": "120:95:1",
+            "scope": 387,
+            "src": "566:429:1",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           },
           {
-            "constant": false,
-            "functionSelector": "d910d47d",
-            "id": 280,
-            "name": "liquidVaultShare",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 285,
-            "src": "221:28:1",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 279,
-              "name": "uint",
-              "nodeType": "ElementaryTypeName",
-              "src": "221:4:1",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
             "body": {
-              "id": 283,
+              "id": 385,
               "nodeType": "Block",
-              "src": "320:8:1",
-              "statements": []
+              "src": "1041:404:1",
+              "statements": [
+                {
+                  "assignments": [
+                    344
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 344,
+                      "name": "balance",
+                      "nodeType": "VariableDeclaration",
+                      "overrides": null,
+                      "scope": 385,
+                      "src": "1051:12:1",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 343,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1051:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 352,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 349,
+                            "name": "this",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -28,
+                            "src": "1090:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeString": "contract FeeDistributor"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeString": "contract FeeDistributor"
+                            }
+                          ],
+                          "id": 348,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "1082:7:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": {
+                            "id": 347,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "1082:7:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": null,
+                              "typeString": null
+                            }
+                          }
+                        },
+                        "id": 350,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1082:13:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 345,
+                        "name": "hcore",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 269,
+                        "src": "1066:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                          "typeString": "contract ERC20Like"
+                        }
+                      },
+                      "id": 346,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "balanceOf",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1451,
+                      "src": "1066:15:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
+                        "typeString": "function (address) view external returns (uint256)"
+                      }
+                    },
+                    "id": 351,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1066:30:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1051:45:1"
+                },
+                {
+                  "assignments": [
+                    354
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 354,
+                      "name": "liquidShare",
+                      "nodeType": "VariableDeclaration",
+                      "overrides": null,
+                      "scope": 385,
+                      "src": "1106:16:1",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 353,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1106:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 362,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 361,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "components": [
+                        {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 358,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 355,
+                              "name": "recipients",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 278,
+                              "src": "1126:10:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                              }
+                            },
+                            "id": 356,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "liquidVaultShare",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 275,
+                            "src": "1126:27:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "*",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "id": 357,
+                            "name": "balance",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 344,
+                            "src": "1154:7:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "1126:35:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "id": 359,
+                      "isConstant": false,
+                      "isInlineArray": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "TupleExpression",
+                      "src": "1125:37:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "/",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "hexValue": "313030",
+                      "id": 360,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1163:3:1",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_100_by_1",
+                        "typeString": "int_const 100"
+                      },
+                      "value": "100"
+                    },
+                    "src": "1125:41:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1106:60:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 366,
+                              "name": "recipients",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 278,
+                              "src": "1253:10:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                              }
+                            },
+                            "id": 367,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "liquidVault",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 271,
+                            "src": "1253:22:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 368,
+                            "name": "liquidShare",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 354,
+                            "src": "1276:11:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 364,
+                            "name": "hcore",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 269,
+                            "src": "1238:5:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeString": "contract ERC20Like"
+                            }
+                          },
+                          "id": 365,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "transfer",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1460,
+                          "src": "1238:14:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
+                            "typeString": "function (address,uint256) external returns (bool)"
+                          }
+                        },
+                        "id": 369,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1238:50:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a207472616e7366657220746f206c69717569645661756c74206661696c6564",
+                        "id": 370,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1289:42:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_bbfeb682076246605339c39a3977c299583388c82898be22d5df99029416b439",
+                          "typeString": "literal_string \"HARDCORE: transfer to liquidVault failed\""
+                        },
+                        "value": "HARDCORE: transfer to liquidVault failed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_bbfeb682076246605339c39a3977c299583388c82898be22d5df99029416b439",
+                          "typeString": "literal_string \"HARDCORE: transfer to liquidVault failed\""
+                        }
+                      ],
+                      "id": 363,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "1230:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 371,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1230:102:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 372,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1230:102:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 376,
+                              "name": "recipients",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 278,
+                              "src": "1365:10:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                              }
+                            },
+                            "id": 377,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "dev",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 273,
+                            "src": "1365:14:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "commonType": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "id": 380,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "leftExpression": {
+                              "argumentTypes": null,
+                              "id": 378,
+                              "name": "balance",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 344,
+                              "src": "1380:7:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "nodeType": "BinaryOperation",
+                            "operator": "-",
+                            "rightExpression": {
+                              "argumentTypes": null,
+                              "id": 379,
+                              "name": "liquidShare",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 354,
+                              "src": "1390:11:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "src": "1380:21:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 374,
+                            "name": "hcore",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 269,
+                            "src": "1350:5:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeString": "contract ERC20Like"
+                            }
+                          },
+                          "id": 375,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "transfer",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1460,
+                          "src": "1350:14:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
+                            "typeString": "function (address,uint256) external returns (bool)"
+                          }
+                        },
+                        "id": 381,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1350:52:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a207472616e7366657220746f20646576206661696c6564",
+                        "id": 382,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1403:34:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_2bcb87ddbbd2fc1d1fb5545bd5536c89398409e1a2ed65e3c8f621a129633bf2",
+                          "typeString": "literal_string \"HARDCORE: transfer to dev failed\""
+                        },
+                        "value": "HARDCORE: transfer to dev failed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_2bcb87ddbbd2fc1d1fb5545bd5536c89398409e1a2ed65e3c8f621a129633bf2",
+                          "typeString": "literal_string \"HARDCORE: transfer to dev failed\""
+                        }
+                      ],
+                      "id": 373,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "1342:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 383,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1342:96:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 384,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1342:96:1"
+                }
+              ]
             },
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 284,
+            "id": 386,
             "implemented": true,
             "kind": "function",
-            "modifiers": [],
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 341,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 340,
+                  "name": "seeded",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 289,
+                  "src": "1034:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1034:6:1"
+              }
+            ],
             "name": "distributeFees",
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 281,
+              "id": 339,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "310:2:1"
+              "src": "1024:2:1"
             },
             "returnParameters": {
-              "id": 282,
+              "id": 342,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "320:0:1"
+              "src": "1041:0:1"
             },
-            "scope": 285,
-            "src": "287:41:1",
+            "scope": 387,
+            "src": "1001:444:1",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 286,
-        "src": "78:252:1"
+        "scope": 388,
+        "src": "144:1303:1"
       }
     ],
-    "src": "0:330:1"
+    "src": "32:1415:1"
   },
   "legacyAST": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol",
     "exportedSymbols": {
       "FeeDistributor": [
-        285
+        387
       ]
     },
-    "id": 286,
+    "id": 388,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -381,16 +1868,27 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:1"
+        "src": "32:23:1"
       },
       {
         "absolutePath": "@openzeppelin/contracts/access/Ownable.sol",
         "file": "@openzeppelin/contracts/access/Ownable.sol",
         "id": 264,
         "nodeType": "ImportDirective",
-        "scope": 286,
-        "sourceUnit": 9374,
-        "src": "24:52:1",
+        "scope": 388,
+        "sourceUnit": 9758,
+        "src": "56:52:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
+        "file": "./facades/ERC20Like.sol",
+        "id": 265,
+        "nodeType": "ImportDirective",
+        "scope": 388,
+        "sourceUnit": 1506,
+        "src": "109:33:1",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -401,59 +1899,689 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 265,
+              "id": 266,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 9373,
-              "src": "105:7:1",
+              "referencedDeclaration": 9757,
+              "src": "171:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$9373",
+                "typeIdentifier": "t_contract$_Ownable_$9757",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 266,
+            "id": 267,
             "nodeType": "InheritanceSpecifier",
-            "src": "105:7:1"
+            "src": "171:7:1"
           }
         ],
         "contractDependencies": [
-          9270,
-          9373
+          9654,
+          9757
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 285,
+        "id": 387,
         "linearizedBaseContracts": [
-          285,
-          9373,
-          9270
+          387,
+          9757,
+          9654
         ],
         "name": "FeeDistributor",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "body": {
+            "constant": false,
+            "functionSelector": "731adf7d",
+            "id": 269,
+            "name": "hcore",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 387,
+            "src": "186:22:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+              "typeString": "contract ERC20Like"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 268,
+              "name": "ERC20Like",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1505,
+              "src": "186:9:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                "typeString": "contract ERC20Like"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "FeeDistributor.feeRecipient",
+            "id": 276,
+            "members": [
+              {
+                "constant": false,
+                "id": 271,
+                "name": "liquidVault",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 276,
+                "src": "249:19:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 270,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "249:7:1",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 273,
+                "name": "dev",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 276,
+                "src": "278:11:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 272,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "278:7:1",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 275,
+                "name": "liquidVaultShare",
+                "nodeType": "VariableDeclaration",
+                "overrides": null,
+                "scope": 276,
+                "src": "299:21:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 274,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "299:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "feeRecipient",
+            "nodeType": "StructDefinition",
+            "scope": 387,
+            "src": "219:139:1",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "0e57d4ce",
+            "id": 278,
+            "name": "recipients",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 387,
+            "src": "364:30:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+              "typeString": "struct FeeDistributor.feeRecipient"
+            },
+            "typeName": {
+              "contractScope": null,
               "id": 277,
+              "name": "feeRecipient",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 276,
+              "src": "364:12:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_struct$_feeRecipient_$276_storage_ptr",
+                "typeString": "struct FeeDistributor.feeRecipient"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "158ef93e",
+            "id": 280,
+            "name": "initialized",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 387,
+            "src": "401:23:1",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_bool",
+              "typeString": "bool"
+            },
+            "typeName": {
+              "id": 279,
+              "name": "bool",
+              "nodeType": "ElementaryTypeName",
+              "src": "401:4:1",
+              "typeDescriptions": {
+                "typeIdentifier": "t_bool",
+                "typeString": "bool"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 288,
               "nodeType": "Block",
-              "src": "174:41:1",
+              "src": "447:113:1",
               "statements": [
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 275,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 283,
+                        "name": "initialized",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 280,
+                        "src": "465:11:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a20466565732063616e6e6f7420626520646973747269627574656420756e74696c204469737472696275746f72207365656465642e",
+                        "id": 284,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "477:64:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_6a1fa65805785892cd090c3b6a453e869396da9c623d015c778813716830a834",
+                          "typeString": "literal_string \"HARDCORE: Fees cannot be distributed until Distributor seeded.\""
+                        },
+                        "value": "HARDCORE: Fees cannot be distributed until Distributor seeded."
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_6a1fa65805785892cd090c3b6a453e869396da9c623d015c778813716830a834",
+                          "typeString": "literal_string \"HARDCORE: Fees cannot be distributed until Distributor seeded.\""
+                        }
+                      ],
+                      "id": 282,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "457:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 285,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "457:85:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 286,
+                  "nodeType": "ExpressionStatement",
+                  "src": "457:85:1"
+                },
+                {
+                  "id": 287,
+                  "nodeType": "PlaceholderStatement",
+                  "src": "552:1:1"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 289,
+            "name": "seeded",
+            "nodeType": "ModifierDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 281,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "447:0:1"
+            },
+            "src": "431:129:1",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 337,
+              "nodeType": "Block",
+              "src": "671:324:1",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 305,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "id": 303,
+                          "name": "liquidVaultShare",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 297,
+                          "src": "689:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "<=",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "hexValue": "313030",
+                          "id": 304,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "707:3:1",
+                          "subdenomination": null,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_100_by_1",
+                            "typeString": "int_const 100"
+                          },
+                          "value": "100"
+                        },
+                        "src": "689:21:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a206c69717569645661756c74207368617265206d757374206265206578707265737365642061732070657263656e74616765206265747765656e203020616e6420313030",
+                        "id": 306,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "712:79:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_78a850e025c805a07f486dc9e6929031946e23d4c74daeb435b3bae60bc0a060",
+                          "typeString": "literal_string \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\""
+                        },
+                        "value": "HARDCORE: liquidVault share must be expressed as percentage between 0 and 100"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_78a850e025c805a07f486dc9e6929031946e23d4c74daeb435b3bae60bc0a060",
+                          "typeString": "literal_string \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\""
+                        }
+                      ],
+                      "id": 302,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "681:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 307,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "681:111:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 308,
+                  "nodeType": "ExpressionStatement",
+                  "src": "681:111:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 313,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 273,
-                      "name": "liquidVaultShare",
+                      "id": 309,
+                      "name": "hcore",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 280,
-                      "src": "184:16:1",
+                      "referencedDeclaration": 269,
+                      "src": "802:5:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeString": "contract ERC20Like"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "arguments": [
+                        {
+                          "argumentTypes": null,
+                          "id": 311,
+                          "name": "hardCore",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 291,
+                          "src": "820:8:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": [
+                          {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        ],
+                        "id": 310,
+                        "name": "ERC20Like",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1505,
+                        "src": "810:9:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_contract$_ERC20Like_$1505_$",
+                          "typeString": "type(contract ERC20Like)"
+                        }
+                      },
+                      "id": 312,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "kind": "typeConversion",
+                      "lValueRequested": false,
+                      "names": [],
+                      "nodeType": "FunctionCall",
+                      "src": "810:19:1",
+                      "tryCall": false,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeString": "contract ERC20Like"
+                      }
+                    },
+                    "src": "802:27:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                      "typeString": "contract ERC20Like"
+                    }
+                  },
+                  "id": 314,
+                  "nodeType": "ExpressionStatement",
+                  "src": "802:27:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 319,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 315,
+                        "name": "recipients",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 278,
+                        "src": "839:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                        }
+                      },
+                      "id": 317,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "liquidVault",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 271,
+                      "src": "839:22:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 318,
+                      "name": "liquidVault",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 293,
+                      "src": "864:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "839:36:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 320,
+                  "nodeType": "ExpressionStatement",
+                  "src": "839:36:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 325,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 321,
+                        "name": "recipients",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 278,
+                        "src": "885:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                        }
+                      },
+                      "id": 323,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "dev",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 273,
+                      "src": "885:14:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 324,
+                      "name": "dev",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 295,
+                      "src": "902:3:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "885:20:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 326,
+                  "nodeType": "ExpressionStatement",
+                  "src": "885:20:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 331,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 327,
+                        "name": "recipients",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 278,
+                        "src": "915:10:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                        }
+                      },
+                      "id": 329,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "liquidVaultShare",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 275,
+                      "src": "915:27:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -463,70 +2591,205 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 274,
-                      "name": "share",
+                      "id": 330,
+                      "name": "liquidVaultShare",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 268,
-                      "src": "203:5:1",
+                      "referencedDeclaration": 297,
+                      "src": "944:16:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "184:24:1",
+                    "src": "915:45:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "id": 276,
+                  "id": 332,
                   "nodeType": "ExpressionStatement",
-                  "src": "184:24:1"
+                  "src": "915:45:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 335,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "id": 333,
+                      "name": "initialized",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 280,
+                      "src": "970:11:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "hexValue": "74727565",
+                      "id": 334,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "bool",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "984:4:1",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_bool",
+                        "typeString": "bool"
+                      },
+                      "value": "true"
+                    },
+                    "src": "970:18:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 336,
+                  "nodeType": "ExpressionStatement",
+                  "src": "970:18:1"
                 }
               ]
             },
             "documentation": null,
-            "functionSelector": "d1629436",
-            "id": 278,
+            "functionSelector": "3438298e",
+            "id": 338,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 271,
+                "id": 300,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 270,
+                  "id": 299,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 9324,
-                  "src": "164:9:1",
+                  "referencedDeclaration": 9708,
+                  "src": "662:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
                     "typeString": "modifier ()"
                   }
                 },
                 "nodeType": "ModifierInvocation",
-                "src": "164:9:1"
+                "src": "662:9:1"
               }
             ],
-            "name": "setLiquidShare",
+            "name": "seed",
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 269,
+              "id": 298,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 268,
-                  "name": "share",
+                  "id": 291,
+                  "name": "hardCore",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 278,
-                  "src": "145:10:1",
+                  "scope": 338,
+                  "src": "580:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 290,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "580:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 293,
+                  "name": "liquidVault",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 338,
+                  "src": "598:19:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 292,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "598:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 295,
+                  "name": "dev",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 338,
+                  "src": "619:11:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 294,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "619:7:1",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 297,
+                  "name": "liquidVaultShare",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 338,
+                  "src": "632:21:1",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -534,10 +2797,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 267,
+                    "id": 296,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
-                    "src": "145:4:1",
+                    "src": "632:4:1",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -547,88 +2810,748 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "144:12:1"
+              "src": "579:75:1"
             },
             "returnParameters": {
-              "id": 272,
+              "id": 301,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "174:0:1"
+              "src": "671:0:1"
             },
-            "scope": 285,
-            "src": "120:95:1",
+            "scope": 387,
+            "src": "566:429:1",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           },
           {
-            "constant": false,
-            "functionSelector": "d910d47d",
-            "id": 280,
-            "name": "liquidVaultShare",
-            "nodeType": "VariableDeclaration",
-            "overrides": null,
-            "scope": 285,
-            "src": "221:28:1",
-            "stateVariable": true,
-            "storageLocation": "default",
-            "typeDescriptions": {
-              "typeIdentifier": "t_uint256",
-              "typeString": "uint256"
-            },
-            "typeName": {
-              "id": 279,
-              "name": "uint",
-              "nodeType": "ElementaryTypeName",
-              "src": "221:4:1",
-              "typeDescriptions": {
-                "typeIdentifier": "t_uint256",
-                "typeString": "uint256"
-              }
-            },
-            "value": null,
-            "visibility": "public"
-          },
-          {
             "body": {
-              "id": 283,
+              "id": 385,
               "nodeType": "Block",
-              "src": "320:8:1",
-              "statements": []
+              "src": "1041:404:1",
+              "statements": [
+                {
+                  "assignments": [
+                    344
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 344,
+                      "name": "balance",
+                      "nodeType": "VariableDeclaration",
+                      "overrides": null,
+                      "scope": 385,
+                      "src": "1051:12:1",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 343,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1051:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 352,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "id": 349,
+                            "name": "this",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": -28,
+                            "src": "1090:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeString": "contract FeeDistributor"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeString": "contract FeeDistributor"
+                            }
+                          ],
+                          "id": 348,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "lValueRequested": false,
+                          "nodeType": "ElementaryTypeNameExpression",
+                          "src": "1082:7:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_type$_t_address_$",
+                            "typeString": "type(address)"
+                          },
+                          "typeName": {
+                            "id": 347,
+                            "name": "address",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "1082:7:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": null,
+                              "typeString": null
+                            }
+                          }
+                        },
+                        "id": 350,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "typeConversion",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1082:13:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 345,
+                        "name": "hcore",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 269,
+                        "src": "1066:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                          "typeString": "contract ERC20Like"
+                        }
+                      },
+                      "id": 346,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "balanceOf",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 1451,
+                      "src": "1066:15:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
+                        "typeString": "function (address) view external returns (uint256)"
+                      }
+                    },
+                    "id": 351,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1066:30:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1051:45:1"
+                },
+                {
+                  "assignments": [
+                    354
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 354,
+                      "name": "liquidShare",
+                      "nodeType": "VariableDeclaration",
+                      "overrides": null,
+                      "scope": 385,
+                      "src": "1106:16:1",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 353,
+                        "name": "uint",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1106:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "value": null,
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 362,
+                  "initialValue": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 361,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "components": [
+                        {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 358,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 355,
+                              "name": "recipients",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 278,
+                              "src": "1126:10:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                              }
+                            },
+                            "id": 356,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "liquidVaultShare",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 275,
+                            "src": "1126:27:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "*",
+                          "rightExpression": {
+                            "argumentTypes": null,
+                            "id": 357,
+                            "name": "balance",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 344,
+                            "src": "1154:7:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "1126:35:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        }
+                      ],
+                      "id": 359,
+                      "isConstant": false,
+                      "isInlineArray": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "TupleExpression",
+                      "src": "1125:37:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "/",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "hexValue": "313030",
+                      "id": 360,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1163:3:1",
+                      "subdenomination": null,
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_100_by_1",
+                        "typeString": "int_const 100"
+                      },
+                      "value": "100"
+                    },
+                    "src": "1125:41:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1106:60:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 366,
+                              "name": "recipients",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 278,
+                              "src": "1253:10:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                              }
+                            },
+                            "id": 367,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "liquidVault",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 271,
+                            "src": "1253:22:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "id": 368,
+                            "name": "liquidShare",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 354,
+                            "src": "1276:11:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 364,
+                            "name": "hcore",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 269,
+                            "src": "1238:5:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeString": "contract ERC20Like"
+                            }
+                          },
+                          "id": 365,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "transfer",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1460,
+                          "src": "1238:14:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
+                            "typeString": "function (address,uint256) external returns (bool)"
+                          }
+                        },
+                        "id": 369,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1238:50:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a207472616e7366657220746f206c69717569645661756c74206661696c6564",
+                        "id": 370,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1289:42:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_bbfeb682076246605339c39a3977c299583388c82898be22d5df99029416b439",
+                          "typeString": "literal_string \"HARDCORE: transfer to liquidVault failed\""
+                        },
+                        "value": "HARDCORE: transfer to liquidVault failed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_bbfeb682076246605339c39a3977c299583388c82898be22d5df99029416b439",
+                          "typeString": "literal_string \"HARDCORE: transfer to liquidVault failed\""
+                        }
+                      ],
+                      "id": 363,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "1230:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 371,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1230:102:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 372,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1230:102:1"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "arguments": [
+                          {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 376,
+                              "name": "recipients",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 278,
+                              "src": "1365:10:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeString": "struct FeeDistributor.feeRecipient storage ref"
+                              }
+                            },
+                            "id": 377,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "memberName": "dev",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 273,
+                            "src": "1365:14:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          {
+                            "argumentTypes": null,
+                            "commonType": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            },
+                            "id": 380,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "leftExpression": {
+                              "argumentTypes": null,
+                              "id": 378,
+                              "name": "balance",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 344,
+                              "src": "1380:7:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "nodeType": "BinaryOperation",
+                            "operator": "-",
+                            "rightExpression": {
+                              "argumentTypes": null,
+                              "id": 379,
+                              "name": "liquidShare",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 354,
+                              "src": "1390:11:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "src": "1380:21:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            },
+                            {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": null,
+                            "id": 374,
+                            "name": "hcore",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 269,
+                            "src": "1350:5:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeString": "contract ERC20Like"
+                            }
+                          },
+                          "id": 375,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "transfer",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 1460,
+                          "src": "1350:14:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
+                            "typeString": "function (address,uint256) external returns (bool)"
+                          }
+                        },
+                        "id": 381,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "1350:52:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "argumentTypes": null,
+                        "hexValue": "48415244434f52453a207472616e7366657220746f20646576206661696c6564",
+                        "id": 382,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "1403:34:1",
+                        "subdenomination": null,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_2bcb87ddbbd2fc1d1fb5545bd5536c89398409e1a2ed65e3c8f621a129633bf2",
+                          "typeString": "literal_string \"HARDCORE: transfer to dev failed\""
+                        },
+                        "value": "HARDCORE: transfer to dev failed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_2bcb87ddbbd2fc1d1fb5545bd5536c89398409e1a2ed65e3c8f621a129633bf2",
+                          "typeString": "literal_string \"HARDCORE: transfer to dev failed\""
+                        }
+                      ],
+                      "id": 373,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        -18,
+                        -18
+                      ],
+                      "referencedDeclaration": -18,
+                      "src": "1342:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 383,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1342:96:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 384,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1342:96:1"
+                }
+              ]
             },
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 284,
+            "id": 386,
             "implemented": true,
             "kind": "function",
-            "modifiers": [],
+            "modifiers": [
+              {
+                "arguments": null,
+                "id": 341,
+                "modifierName": {
+                  "argumentTypes": null,
+                  "id": 340,
+                  "name": "seeded",
+                  "nodeType": "Identifier",
+                  "overloadedDeclarations": [],
+                  "referencedDeclaration": 289,
+                  "src": "1034:6:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_modifier$__$",
+                    "typeString": "modifier ()"
+                  }
+                },
+                "nodeType": "ModifierInvocation",
+                "src": "1034:6:1"
+              }
+            ],
             "name": "distributeFees",
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 281,
+              "id": 339,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "310:2:1"
+              "src": "1024:2:1"
             },
             "returnParameters": {
-              "id": 282,
+              "id": 342,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "320:0:1"
+              "src": "1041:0:1"
             },
-            "scope": 285,
-            "src": "287:41:1",
+            "scope": 387,
+            "src": "1001:444:1",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 286,
-        "src": "78:252:1"
+        "scope": 388,
+        "src": "144:1303:1"
       }
     ],
-    "src": "0:330:1"
+    "src": "32:1415:1"
   },
   "compiler": {
     "name": "solc",
@@ -636,7 +3559,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-17T14:15:19.197Z",
+  "updatedAt": "2020-10-18T19:18:25.726Z",
   "devdoc": {
     "methods": {
       "owner()": {

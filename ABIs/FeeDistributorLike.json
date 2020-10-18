@@ -9,25 +9,25 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":\"FeeDistributorLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":{\"keccak256\":\"0xd020372b12a77e0ad860f48840ce732ab4f6b176b19ea428b7b623be22412b43\",\"urls\":[\"bzz-raw://532a7d462ab93a24b0763d3fc8b7ab6c2d4c89a34bd9c549843f3a9e15312768\",\"dweb:/ipfs/QmTZpN6cxJBnKVa2G64HabCaqoYdiPNcrzwyskZR6N8q5L\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":\"FeeDistributorLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":{\"keccak256\":\"0xd47c051efd1ad11edaad7b05c8f11c68c16efb35044cc33ec041310a13cd2a9e\",\"urls\":[\"bzz-raw://d1848d92cd785317b04a3a5681240463a3a41e0438e7e929811caba267fbc65a\",\"dweb:/ipfs/QmeX2efGsPppUpiMyw5gypiuHbZYJyESQ4iBJFBKMtULmb\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.6.0;\n\nabstract contract FeeDistributorLike {\n    function distributeFees() public virtual;\n}",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\n\nabstract contract FeeDistributorLike {\n    function distributeFees() public virtual;\n}",
   "sourcePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
   "ast": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1151
+        1527
       ]
     },
-    "id": 1152,
+    "id": 1528,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1147,
+        "id": 1523,
         "literals": [
           "solidity",
           "^",
@@ -35,7 +35,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "32:23:7"
       },
       {
         "abstract": true,
@@ -44,9 +44,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1151,
+        "id": 1527,
         "linearizedBaseContracts": [
-          1151
+          1527
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -55,7 +55,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1150,
+            "id": 1526,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -63,42 +63,42 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1148,
+              "id": 1524,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "91:2:7"
+              "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1149,
+              "id": 1525,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "108:0:7"
+              "src": "140:0:7"
             },
-            "scope": 1151,
-            "src": "68:41:7",
+            "scope": 1527,
+            "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1152,
-        "src": "25:86:7"
+        "scope": 1528,
+        "src": "57:86:7"
       }
     ],
-    "src": "0:111:7"
+    "src": "32:111:7"
   },
   "legacyAST": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1151
+        1527
       ]
     },
-    "id": 1152,
+    "id": 1528,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1147,
+        "id": 1523,
         "literals": [
           "solidity",
           "^",
@@ -106,7 +106,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:23:7"
+        "src": "32:23:7"
       },
       {
         "abstract": true,
@@ -115,9 +115,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1151,
+        "id": 1527,
         "linearizedBaseContracts": [
-          1151
+          1527
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -126,7 +126,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1150,
+            "id": 1526,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -134,29 +134,29 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1148,
+              "id": 1524,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "91:2:7"
+              "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1149,
+              "id": 1525,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "108:0:7"
+              "src": "140:0:7"
             },
-            "scope": 1151,
-            "src": "68:41:7",
+            "scope": 1527,
+            "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1152,
-        "src": "25:86:7"
+        "scope": 1528,
+        "src": "57:86:7"
       }
     ],
-    "src": "0:111:7"
+    "src": "32:111:7"
   },
   "compiler": {
     "name": "solc",
@@ -164,7 +164,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-17T14:15:19.208Z",
+  "updatedAt": "2020-10-18T19:18:25.740Z",
   "devdoc": {
     "methods": {}
   },

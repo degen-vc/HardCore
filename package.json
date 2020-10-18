@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile":"rm build/contracts/* && truffle compile && cp build/contracts/* ABIs/"
+    "compile": "rm build/contracts/* && truffle compile && cp build/contracts/* ABIs/"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "@nomiclabs/buidler": "^1.4.8",
     "@openzeppelin/contracts": "^3.2.0",
     "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "save": "^2.4.0"
   }
 }
