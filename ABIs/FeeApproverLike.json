@@ -47,14 +47,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol",
     "exportedSymbols": {
       "FeeApproverLike": [
-        1521
+        1669
       ]
     },
-    "id": 1522,
+    "id": 1670,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1507,
+        "id": 1655,
         "literals": [
           "solidity",
           "^",
@@ -71,9 +71,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1521,
+        "id": 1669,
         "linearizedBaseContracts": [
-          1521
+          1669
         ],
         "name": "FeeApproverLike",
         "nodeType": "ContractDefinition",
@@ -82,7 +82,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "301a5801",
-            "id": 1520,
+            "id": 1668,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -90,16 +90,16 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1514,
+              "id": 1662,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1509,
+                  "id": 1657,
                   "name": "sender",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "149:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -108,7 +108,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1508,
+                    "id": 1656,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "149:7:6",
@@ -123,11 +123,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1511,
+                  "id": 1659,
                   "name": "recipient",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "174:17:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -136,7 +136,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1510,
+                    "id": 1658,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "174:7:6",
@@ -151,11 +151,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1513,
+                  "id": 1661,
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "201:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -164,7 +164,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1512,
+                    "id": 1660,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "201:7:6",
@@ -180,16 +180,16 @@
               "src": "131:94:6"
             },
             "returnParameters": {
-              "id": 1519,
+              "id": 1667,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1516,
+                  "id": 1664,
                   "name": "transferToAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "250:24:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -198,7 +198,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1515,
+                    "id": 1663,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "250:7:6",
@@ -212,11 +212,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1518,
+                  "id": 1666,
                   "name": "transferToFeeDistributorAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "276:38:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -225,7 +225,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1517,
+                    "id": 1665,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "276:7:6",
@@ -240,14 +240,14 @@
               ],
               "src": "249:66:6"
             },
-            "scope": 1521,
+            "scope": 1669,
             "src": "98:219:6",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1522,
+        "scope": 1670,
         "src": "57:262:6"
       }
     ],
@@ -257,14 +257,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol",
     "exportedSymbols": {
       "FeeApproverLike": [
-        1521
+        1669
       ]
     },
-    "id": 1522,
+    "id": 1670,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1507,
+        "id": 1655,
         "literals": [
           "solidity",
           "^",
@@ -281,9 +281,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1521,
+        "id": 1669,
         "linearizedBaseContracts": [
-          1521
+          1669
         ],
         "name": "FeeApproverLike",
         "nodeType": "ContractDefinition",
@@ -292,7 +292,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "301a5801",
-            "id": 1520,
+            "id": 1668,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -300,16 +300,16 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1514,
+              "id": 1662,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1509,
+                  "id": 1657,
                   "name": "sender",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "149:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -318,7 +318,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1508,
+                    "id": 1656,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "149:7:6",
@@ -333,11 +333,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1511,
+                  "id": 1659,
                   "name": "recipient",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "174:17:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -346,7 +346,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1510,
+                    "id": 1658,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "174:7:6",
@@ -361,11 +361,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1513,
+                  "id": 1661,
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "201:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -374,7 +374,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1512,
+                    "id": 1660,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "201:7:6",
@@ -390,16 +390,16 @@
               "src": "131:94:6"
             },
             "returnParameters": {
-              "id": 1519,
+              "id": 1667,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1516,
+                  "id": 1664,
                   "name": "transferToAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "250:24:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -408,7 +408,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1515,
+                    "id": 1663,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "250:7:6",
@@ -422,11 +422,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 1518,
+                  "id": 1666,
                   "name": "transferToFeeDistributorAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1520,
+                  "scope": 1668,
                   "src": "276:38:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -435,7 +435,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1517,
+                    "id": 1665,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "276:7:6",
@@ -450,14 +450,14 @@
               ],
               "src": "249:66:6"
             },
-            "scope": 1521,
+            "scope": 1669,
             "src": "98:219:6",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1522,
+        "scope": 1670,
         "src": "57:262:6"
       }
     ],
@@ -469,7 +469,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-18T19:18:25.740Z",
+  "updatedAt": "2020-10-18T22:58:38.707Z",
   "devdoc": {
     "methods": {}
   },

@@ -211,14 +211,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol",
     "exportedSymbols": {
       "HardCoreLike": [
-        1544
+        1692
       ]
     },
-    "id": 1545,
+    "id": 1693,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1529,
+        "id": 1677,
         "literals": [
           "solidity",
           "^",
@@ -231,10 +231,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./ERC20Like.sol",
-        "id": 1530,
+        "id": 1678,
         "nodeType": "ImportDirective",
-        "scope": 1545,
-        "sourceUnit": 1506,
+        "scope": 1693,
+        "sourceUnit": 1654,
         "src": "56:25:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -242,10 +242,10 @@
       {
         "absolutePath": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
         "file": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
-        "id": 1531,
+        "id": 1679,
         "nodeType": "ImportDirective",
-        "scope": 1545,
-        "sourceUnit": 10903,
+        "scope": 1693,
+        "sourceUnit": 11051,
         "src": "82:75:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -257,31 +257,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1532,
+              "id": 1680,
               "name": "ERC20Like",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1505,
+              "referencedDeclaration": 1653,
               "src": "193:9:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                "typeIdentifier": "t_contract$_ERC20Like_$1653",
                 "typeString": "contract ERC20Like"
               }
             },
-            "id": 1533,
+            "id": 1681,
             "nodeType": "InheritanceSpecifier",
             "src": "193:9:8"
           }
         ],
         "contractDependencies": [
-          1505
+          1653
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1544,
+        "id": 1692,
         "linearizedBaseContracts": [
-          1544,
-          1505
+          1692,
+          1653
         ],
         "name": "HardCoreLike",
         "nodeType": "ContractDefinition",
@@ -290,7 +290,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "735de9f7",
-            "id": 1538,
+            "id": 1686,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -298,38 +298,38 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1534,
+              "id": 1682,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "231:2:8"
             },
             "returnParameters": {
-              "id": 1537,
+              "id": 1685,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1536,
+                  "id": 1684,
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1538,
+                  "scope": 1686,
                   "src": "258:18:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$10902",
+                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$11050",
                     "typeString": "contract IUniswapV2Router02"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1535,
+                    "id": 1683,
                     "name": "IUniswapV2Router02",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 10902,
+                    "referencedDeclaration": 11050,
                     "src": "258:18:8",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$10902",
+                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$11050",
                       "typeString": "contract IUniswapV2Router02"
                     }
                   },
@@ -339,7 +339,7 @@
               ],
               "src": "257:20:8"
             },
-            "scope": 1544,
+            "scope": 1692,
             "src": "209:69:8",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -349,7 +349,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "4d332457",
-            "id": 1543,
+            "id": 1691,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -357,22 +357,22 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1539,
+              "id": 1687,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "308:2:8"
             },
             "returnParameters": {
-              "id": 1542,
+              "id": 1690,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1541,
+                  "id": 1689,
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1543,
+                  "scope": 1691,
                   "src": "335:7:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -381,7 +381,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1540,
+                    "id": 1688,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "335:7:8",
@@ -397,14 +397,14 @@
               ],
               "src": "334:9:8"
             },
-            "scope": 1544,
+            "scope": 1692,
             "src": "283:61:8",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1545,
+        "scope": 1693,
         "src": "159:189:8"
       }
     ],
@@ -414,14 +414,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol",
     "exportedSymbols": {
       "HardCoreLike": [
-        1544
+        1692
       ]
     },
-    "id": 1545,
+    "id": 1693,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1529,
+        "id": 1677,
         "literals": [
           "solidity",
           "^",
@@ -434,10 +434,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./ERC20Like.sol",
-        "id": 1530,
+        "id": 1678,
         "nodeType": "ImportDirective",
-        "scope": 1545,
-        "sourceUnit": 1506,
+        "scope": 1693,
+        "sourceUnit": 1654,
         "src": "56:25:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -445,10 +445,10 @@
       {
         "absolutePath": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
         "file": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
-        "id": 1531,
+        "id": 1679,
         "nodeType": "ImportDirective",
-        "scope": 1545,
-        "sourceUnit": 10903,
+        "scope": 1693,
+        "sourceUnit": 11051,
         "src": "82:75:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -460,31 +460,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1532,
+              "id": 1680,
               "name": "ERC20Like",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1505,
+              "referencedDeclaration": 1653,
               "src": "193:9:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                "typeIdentifier": "t_contract$_ERC20Like_$1653",
                 "typeString": "contract ERC20Like"
               }
             },
-            "id": 1533,
+            "id": 1681,
             "nodeType": "InheritanceSpecifier",
             "src": "193:9:8"
           }
         ],
         "contractDependencies": [
-          1505
+          1653
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1544,
+        "id": 1692,
         "linearizedBaseContracts": [
-          1544,
-          1505
+          1692,
+          1653
         ],
         "name": "HardCoreLike",
         "nodeType": "ContractDefinition",
@@ -493,7 +493,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "735de9f7",
-            "id": 1538,
+            "id": 1686,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -501,38 +501,38 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1534,
+              "id": 1682,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "231:2:8"
             },
             "returnParameters": {
-              "id": 1537,
+              "id": 1685,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1536,
+                  "id": 1684,
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1538,
+                  "scope": 1686,
                   "src": "258:18:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$10902",
+                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$11050",
                     "typeString": "contract IUniswapV2Router02"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1535,
+                    "id": 1683,
                     "name": "IUniswapV2Router02",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 10902,
+                    "referencedDeclaration": 11050,
                     "src": "258:18:8",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$10902",
+                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$11050",
                       "typeString": "contract IUniswapV2Router02"
                     }
                   },
@@ -542,7 +542,7 @@
               ],
               "src": "257:20:8"
             },
-            "scope": 1544,
+            "scope": 1692,
             "src": "209:69:8",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -552,7 +552,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "4d332457",
-            "id": 1543,
+            "id": 1691,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -560,22 +560,22 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1539,
+              "id": 1687,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "308:2:8"
             },
             "returnParameters": {
-              "id": 1542,
+              "id": 1690,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1541,
+                  "id": 1689,
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1543,
+                  "scope": 1691,
                   "src": "335:7:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -584,7 +584,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1540,
+                    "id": 1688,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "335:7:8",
@@ -600,14 +600,14 @@
               ],
               "src": "334:9:8"
             },
-            "scope": 1544,
+            "scope": 1692,
             "src": "283:61:8",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1545,
+        "scope": 1693,
         "src": "159:189:8"
       }
     ],
@@ -619,7 +619,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-18T19:18:25.740Z",
+  "updatedAt": "2020-10-18T22:58:38.708Z",
   "devdoc": {
     "methods": {}
   },

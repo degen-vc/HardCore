@@ -149,14 +149,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol",
     "exportedSymbols": {
       "FeeDistributor": [
-        387
+        414
       ]
     },
-    "id": 388,
+    "id": 415,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 263,
+        "id": 290,
         "literals": [
           "solidity",
           "^",
@@ -169,10 +169,10 @@
       {
         "absolutePath": "@openzeppelin/contracts/access/Ownable.sol",
         "file": "@openzeppelin/contracts/access/Ownable.sol",
-        "id": 264,
+        "id": 291,
         "nodeType": "ImportDirective",
-        "scope": 388,
-        "sourceUnit": 9758,
+        "scope": 415,
+        "sourceUnit": 9906,
         "src": "56:52:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -180,10 +180,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./facades/ERC20Like.sol",
-        "id": 265,
+        "id": 292,
         "nodeType": "ImportDirective",
-        "scope": 388,
-        "sourceUnit": 1506,
+        "scope": 415,
+        "sourceUnit": 1654,
         "src": "109:33:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -195,33 +195,33 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 266,
+              "id": 293,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 9757,
+              "referencedDeclaration": 9905,
               "src": "171:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$9757",
+                "typeIdentifier": "t_contract$_Ownable_$9905",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 267,
+            "id": 294,
             "nodeType": "InheritanceSpecifier",
             "src": "171:7:1"
           }
         ],
         "contractDependencies": [
-          9654,
-          9757
+          9802,
+          9905
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 387,
+        "id": 414,
         "linearizedBaseContracts": [
-          387,
-          9757,
-          9654
+          414,
+          9905,
+          9802
         ],
         "name": "FeeDistributor",
         "nodeType": "ContractDefinition",
@@ -229,27 +229,27 @@
           {
             "constant": false,
             "functionSelector": "731adf7d",
-            "id": 269,
+            "id": 296,
             "name": "hcore",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 387,
+            "scope": 414,
             "src": "186:22:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+              "typeIdentifier": "t_contract$_ERC20Like_$1653",
               "typeString": "contract ERC20Like"
             },
             "typeName": {
               "contractScope": null,
-              "id": 268,
+              "id": 295,
               "name": "ERC20Like",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1505,
+              "referencedDeclaration": 1653,
               "src": "186:9:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                "typeIdentifier": "t_contract$_ERC20Like_$1653",
                 "typeString": "contract ERC20Like"
               }
             },
@@ -258,15 +258,15 @@
           },
           {
             "canonicalName": "FeeDistributor.feeRecipient",
-            "id": 276,
+            "id": 303,
             "members": [
               {
                 "constant": false,
-                "id": 271,
+                "id": 298,
                 "name": "liquidVault",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 276,
+                "scope": 303,
                 "src": "249:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -275,7 +275,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 270,
+                  "id": 297,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "249:7:1",
@@ -290,11 +290,11 @@
               },
               {
                 "constant": false,
-                "id": 273,
+                "id": 300,
                 "name": "dev",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 276,
+                "scope": 303,
                 "src": "278:11:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -303,7 +303,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 272,
+                  "id": 299,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "278:7:1",
@@ -318,11 +318,11 @@
               },
               {
                 "constant": false,
-                "id": 275,
+                "id": 302,
                 "name": "liquidVaultShare",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 276,
+                "scope": 303,
                 "src": "299:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -331,7 +331,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 274,
+                  "id": 301,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
                   "src": "299:4:1",
@@ -346,34 +346,34 @@
             ],
             "name": "feeRecipient",
             "nodeType": "StructDefinition",
-            "scope": 387,
+            "scope": 414,
             "src": "219:139:1",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "0e57d4ce",
-            "id": 278,
+            "id": 305,
             "name": "recipients",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 387,
+            "scope": 414,
             "src": "364:30:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+              "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
               "typeString": "struct FeeDistributor.feeRecipient"
             },
             "typeName": {
               "contractScope": null,
-              "id": 277,
+              "id": 304,
               "name": "feeRecipient",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 276,
+              "referencedDeclaration": 303,
               "src": "364:12:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_feeRecipient_$276_storage_ptr",
+                "typeIdentifier": "t_struct$_feeRecipient_$303_storage_ptr",
                 "typeString": "struct FeeDistributor.feeRecipient"
               }
             },
@@ -383,11 +383,11 @@
           {
             "constant": false,
             "functionSelector": "158ef93e",
-            "id": 280,
+            "id": 307,
             "name": "initialized",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 387,
+            "scope": 414,
             "src": "401:23:1",
             "stateVariable": true,
             "storageLocation": "default",
@@ -396,7 +396,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 279,
+              "id": 306,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "401:4:1",
@@ -410,7 +410,7 @@
           },
           {
             "body": {
-              "id": 288,
+              "id": 315,
               "nodeType": "Block",
               "src": "447:113:1",
               "statements": [
@@ -420,11 +420,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 283,
+                        "id": 310,
                         "name": "initialized",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 280,
+                        "referencedDeclaration": 307,
                         "src": "465:11:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -434,7 +434,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a20466565732063616e6e6f7420626520646973747269627574656420756e74696c204469737472696275746f72207365656465642e",
-                        "id": 284,
+                        "id": 311,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -461,7 +461,7 @@
                           "typeString": "literal_string \"HARDCORE: Fees cannot be distributed until Distributor seeded.\""
                         }
                       ],
-                      "id": 282,
+                      "id": 309,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -475,7 +475,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 285,
+                    "id": 312,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -490,24 +490,24 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 286,
+                  "id": 313,
                   "nodeType": "ExpressionStatement",
                   "src": "457:85:1"
                 },
                 {
-                  "id": 287,
+                  "id": 314,
                   "nodeType": "PlaceholderStatement",
                   "src": "552:1:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 289,
+            "id": 316,
             "name": "seeded",
             "nodeType": "ModifierDefinition",
             "overrides": null,
             "parameters": {
-              "id": 281,
+              "id": 308,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "447:0:1"
@@ -518,7 +518,7 @@
           },
           {
             "body": {
-              "id": 337,
+              "id": 364,
               "nodeType": "Block",
               "src": "671:324:1",
               "statements": [
@@ -532,18 +532,18 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 305,
+                        "id": 332,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 303,
+                          "id": 330,
                           "name": "liquidVaultShare",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 297,
+                          "referencedDeclaration": 324,
                           "src": "689:16:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -555,7 +555,7 @@
                         "rightExpression": {
                           "argumentTypes": null,
                           "hexValue": "313030",
-                          "id": 304,
+                          "id": 331,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -579,7 +579,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a206c69717569645661756c74207368617265206d757374206265206578707265737365642061732070657263656e74616765206265747765656e203020616e6420313030",
-                        "id": 306,
+                        "id": 333,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -606,7 +606,7 @@
                           "typeString": "literal_string \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\""
                         }
                       ],
-                      "id": 302,
+                      "id": 329,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -620,7 +620,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 307,
+                    "id": 334,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -635,28 +635,28 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 308,
+                  "id": 335,
                   "nodeType": "ExpressionStatement",
                   "src": "681:111:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 313,
+                    "id": 340,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 309,
+                      "id": 336,
                       "name": "hcore",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 269,
+                      "referencedDeclaration": 296,
                       "src": "802:5:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeIdentifier": "t_contract$_ERC20Like_$1653",
                         "typeString": "contract ERC20Like"
                       }
                     },
@@ -667,11 +667,11 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 311,
+                          "id": 338,
                           "name": "hardCore",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 291,
+                          "referencedDeclaration": 318,
                           "src": "820:8:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -686,18 +686,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 310,
+                        "id": 337,
                         "name": "ERC20Like",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1505,
+                        "referencedDeclaration": 1653,
                         "src": "810:9:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_ERC20Like_$1505_$",
+                          "typeIdentifier": "t_type$_t_contract$_ERC20Like_$1653_$",
                           "typeString": "type(contract ERC20Like)"
                         }
                       },
-                      "id": 312,
+                      "id": 339,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -708,24 +708,24 @@
                       "src": "810:19:1",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeIdentifier": "t_contract$_ERC20Like_$1653",
                         "typeString": "contract ERC20Like"
                       }
                     },
                     "src": "802:27:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                      "typeIdentifier": "t_contract$_ERC20Like_$1653",
                       "typeString": "contract ERC20Like"
                     }
                   },
-                  "id": 314,
+                  "id": 341,
                   "nodeType": "ExpressionStatement",
                   "src": "802:27:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 319,
+                    "id": 346,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -734,25 +734,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 315,
+                        "id": 342,
                         "name": "recipients",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 278,
+                        "referencedDeclaration": 305,
                         "src": "839:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                           "typeString": "struct FeeDistributor.feeRecipient storage ref"
                         }
                       },
-                      "id": 317,
+                      "id": 344,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "liquidVault",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 271,
+                      "referencedDeclaration": 298,
                       "src": "839:22:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -763,11 +763,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 318,
+                      "id": 345,
                       "name": "liquidVault",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 293,
+                      "referencedDeclaration": 320,
                       "src": "864:11:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -780,14 +780,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 320,
+                  "id": 347,
                   "nodeType": "ExpressionStatement",
                   "src": "839:36:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 325,
+                    "id": 352,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -796,25 +796,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 321,
+                        "id": 348,
                         "name": "recipients",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 278,
+                        "referencedDeclaration": 305,
                         "src": "885:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                           "typeString": "struct FeeDistributor.feeRecipient storage ref"
                         }
                       },
-                      "id": 323,
+                      "id": 350,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "dev",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 273,
+                      "referencedDeclaration": 300,
                       "src": "885:14:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -825,11 +825,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 324,
+                      "id": 351,
                       "name": "dev",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 295,
+                      "referencedDeclaration": 322,
                       "src": "902:3:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -842,14 +842,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 326,
+                  "id": 353,
                   "nodeType": "ExpressionStatement",
                   "src": "885:20:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 331,
+                    "id": 358,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -858,25 +858,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 327,
+                        "id": 354,
                         "name": "recipients",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 278,
+                        "referencedDeclaration": 305,
                         "src": "915:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                           "typeString": "struct FeeDistributor.feeRecipient storage ref"
                         }
                       },
-                      "id": 329,
+                      "id": 356,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "liquidVaultShare",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 275,
+                      "referencedDeclaration": 302,
                       "src": "915:27:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -887,11 +887,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 330,
+                      "id": 357,
                       "name": "liquidVaultShare",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 297,
+                      "referencedDeclaration": 324,
                       "src": "944:16:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -904,25 +904,25 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 332,
+                  "id": 359,
                   "nodeType": "ExpressionStatement",
                   "src": "915:45:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 335,
+                    "id": 362,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 333,
+                      "id": 360,
                       "name": "initialized",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 280,
+                      "referencedDeclaration": 307,
                       "src": "970:11:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -934,7 +934,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 334,
+                      "id": 361,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -955,7 +955,7 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 336,
+                  "id": 363,
                   "nodeType": "ExpressionStatement",
                   "src": "970:18:1"
                 }
@@ -963,20 +963,20 @@
             },
             "documentation": null,
             "functionSelector": "3438298e",
-            "id": 338,
+            "id": 365,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 300,
+                "id": 327,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 299,
+                  "id": 326,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 9708,
+                  "referencedDeclaration": 9856,
                   "src": "662:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -991,16 +991,16 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 298,
+              "id": 325,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 291,
+                  "id": 318,
                   "name": "hardCore",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "580:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1009,7 +1009,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 290,
+                    "id": 317,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "580:7:1",
@@ -1024,11 +1024,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 293,
+                  "id": 320,
                   "name": "liquidVault",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "598:19:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1037,7 +1037,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 292,
+                    "id": 319,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "598:7:1",
@@ -1052,11 +1052,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 295,
+                  "id": 322,
                   "name": "dev",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "619:11:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1065,7 +1065,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 294,
+                    "id": 321,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "619:7:1",
@@ -1080,11 +1080,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 297,
+                  "id": 324,
                   "name": "liquidVaultShare",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "632:21:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1093,7 +1093,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 296,
+                    "id": 323,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "632:4:1",
@@ -1109,12 +1109,12 @@
               "src": "579:75:1"
             },
             "returnParameters": {
-              "id": 301,
+              "id": 328,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "671:0:1"
             },
-            "scope": 387,
+            "scope": 414,
             "src": "566:429:1",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -1122,22 +1122,22 @@
           },
           {
             "body": {
-              "id": 385,
+              "id": 412,
               "nodeType": "Block",
               "src": "1041:404:1",
               "statements": [
                 {
                   "assignments": [
-                    344
+                    371
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 344,
+                      "id": 371,
                       "name": "balance",
                       "nodeType": "VariableDeclaration",
                       "overrides": null,
-                      "scope": 385,
+                      "scope": 412,
                       "src": "1051:12:1",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -1146,7 +1146,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 343,
+                        "id": 370,
                         "name": "uint",
                         "nodeType": "ElementaryTypeName",
                         "src": "1051:4:1",
@@ -1159,7 +1159,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 352,
+                  "id": 379,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
@@ -1168,14 +1168,14 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 349,
+                            "id": 376,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": -28,
                             "src": "1090:4:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeIdentifier": "t_contract$_FeeDistributor_$414",
                               "typeString": "contract FeeDistributor"
                             }
                           }
@@ -1183,11 +1183,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeIdentifier": "t_contract$_FeeDistributor_$414",
                               "typeString": "contract FeeDistributor"
                             }
                           ],
-                          "id": 348,
+                          "id": 375,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1199,7 +1199,7 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 347,
+                            "id": 374,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "1082:7:1",
@@ -1209,7 +1209,7 @@
                             }
                           }
                         },
-                        "id": 350,
+                        "id": 377,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1234,32 +1234,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 345,
+                        "id": 372,
                         "name": "hcore",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 269,
+                        "referencedDeclaration": 296,
                         "src": "1066:5:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                          "typeIdentifier": "t_contract$_ERC20Like_$1653",
                           "typeString": "contract ERC20Like"
                         }
                       },
-                      "id": 346,
+                      "id": 373,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "balanceOf",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1451,
+                      "referencedDeclaration": 1599,
                       "src": "1066:15:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
                         "typeString": "function (address) view external returns (uint256)"
                       }
                     },
-                    "id": 351,
+                    "id": 378,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1279,16 +1279,16 @@
                 },
                 {
                   "assignments": [
-                    354
+                    381
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 354,
+                      "id": 381,
                       "name": "liquidShare",
                       "nodeType": "VariableDeclaration",
                       "overrides": null,
-                      "scope": 385,
+                      "scope": 412,
                       "src": "1106:16:1",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -1297,7 +1297,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 353,
+                        "id": 380,
                         "name": "uint",
                         "nodeType": "ElementaryTypeName",
                         "src": "1106:4:1",
@@ -1310,14 +1310,14 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 362,
+                  "id": 389,
                   "initialValue": {
                     "argumentTypes": null,
                     "commonType": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 361,
+                    "id": 388,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1331,7 +1331,7 @@
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           },
-                          "id": 358,
+                          "id": 385,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1340,25 +1340,25 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 355,
+                              "id": 382,
                               "name": "recipients",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 278,
+                              "referencedDeclaration": 305,
                               "src": "1126:10:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                                 "typeString": "struct FeeDistributor.feeRecipient storage ref"
                               }
                             },
-                            "id": 356,
+                            "id": 383,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "liquidVaultShare",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 275,
+                            "referencedDeclaration": 302,
                             "src": "1126:27:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -1369,11 +1369,11 @@
                           "operator": "*",
                           "rightExpression": {
                             "argumentTypes": null,
-                            "id": 357,
+                            "id": 384,
                             "name": "balance",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 344,
+                            "referencedDeclaration": 371,
                             "src": "1154:7:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -1387,7 +1387,7 @@
                           }
                         }
                       ],
-                      "id": 359,
+                      "id": 386,
                       "isConstant": false,
                       "isInlineArray": false,
                       "isLValue": false,
@@ -1405,7 +1405,7 @@
                     "rightExpression": {
                       "argumentTypes": null,
                       "hexValue": "313030",
-                      "id": 360,
+                      "id": 387,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -1440,25 +1440,25 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 366,
+                              "id": 393,
                               "name": "recipients",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 278,
+                              "referencedDeclaration": 305,
                               "src": "1253:10:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                                 "typeString": "struct FeeDistributor.feeRecipient storage ref"
                               }
                             },
-                            "id": 367,
+                            "id": 394,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "liquidVault",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 271,
+                            "referencedDeclaration": 298,
                             "src": "1253:22:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1467,11 +1467,11 @@
                           },
                           {
                             "argumentTypes": null,
-                            "id": 368,
+                            "id": 395,
                             "name": "liquidShare",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 354,
+                            "referencedDeclaration": 381,
                             "src": "1276:11:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -1492,32 +1492,32 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 364,
+                            "id": 391,
                             "name": "hcore",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 269,
+                            "referencedDeclaration": 296,
                             "src": "1238:5:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeIdentifier": "t_contract$_ERC20Like_$1653",
                               "typeString": "contract ERC20Like"
                             }
                           },
-                          "id": 365,
+                          "id": 392,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "transfer",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1460,
+                          "referencedDeclaration": 1608,
                           "src": "1238:14:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (address,uint256) external returns (bool)"
                           }
                         },
-                        "id": 369,
+                        "id": 396,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1535,7 +1535,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a207472616e7366657220746f206c69717569645661756c74206661696c6564",
-                        "id": 370,
+                        "id": 397,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1562,7 +1562,7 @@
                           "typeString": "literal_string \"HARDCORE: transfer to liquidVault failed\""
                         }
                       ],
-                      "id": 363,
+                      "id": 390,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -1576,7 +1576,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 371,
+                    "id": 398,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1591,7 +1591,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 372,
+                  "id": 399,
                   "nodeType": "ExpressionStatement",
                   "src": "1230:102:1"
                 },
@@ -1606,25 +1606,25 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 376,
+                              "id": 403,
                               "name": "recipients",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 278,
+                              "referencedDeclaration": 305,
                               "src": "1365:10:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                                 "typeString": "struct FeeDistributor.feeRecipient storage ref"
                               }
                             },
-                            "id": 377,
+                            "id": 404,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "dev",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 273,
+                            "referencedDeclaration": 300,
                             "src": "1365:14:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -1637,18 +1637,18 @@
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
                             },
-                            "id": 380,
+                            "id": 407,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "leftExpression": {
                               "argumentTypes": null,
-                              "id": 378,
+                              "id": 405,
                               "name": "balance",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 344,
+                              "referencedDeclaration": 371,
                               "src": "1380:7:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -1659,11 +1659,11 @@
                             "operator": "-",
                             "rightExpression": {
                               "argumentTypes": null,
-                              "id": 379,
+                              "id": 406,
                               "name": "liquidShare",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 354,
+                              "referencedDeclaration": 381,
                               "src": "1390:11:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -1690,32 +1690,32 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 374,
+                            "id": 401,
                             "name": "hcore",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 269,
+                            "referencedDeclaration": 296,
                             "src": "1350:5:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeIdentifier": "t_contract$_ERC20Like_$1653",
                               "typeString": "contract ERC20Like"
                             }
                           },
-                          "id": 375,
+                          "id": 402,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "transfer",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1460,
+                          "referencedDeclaration": 1608,
                           "src": "1350:14:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (address,uint256) external returns (bool)"
                           }
                         },
-                        "id": 381,
+                        "id": 408,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1733,7 +1733,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a207472616e7366657220746f20646576206661696c6564",
-                        "id": 382,
+                        "id": 409,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -1760,7 +1760,7 @@
                           "typeString": "literal_string \"HARDCORE: transfer to dev failed\""
                         }
                       ],
-                      "id": 373,
+                      "id": 400,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -1774,7 +1774,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 383,
+                    "id": 410,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1789,7 +1789,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 384,
+                  "id": 411,
                   "nodeType": "ExpressionStatement",
                   "src": "1342:96:1"
                 }
@@ -1797,20 +1797,20 @@
             },
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 386,
+            "id": 413,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 341,
+                "id": 368,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 340,
+                  "id": 367,
                   "name": "seeded",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 289,
+                  "referencedDeclaration": 316,
                   "src": "1034:6:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1825,25 +1825,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 339,
+              "id": 366,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1024:2:1"
             },
             "returnParameters": {
-              "id": 342,
+              "id": 369,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1041:0:1"
             },
-            "scope": 387,
+            "scope": 414,
             "src": "1001:444:1",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 388,
+        "scope": 415,
         "src": "144:1303:1"
       }
     ],
@@ -1853,14 +1853,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/FeeDistributor.sol",
     "exportedSymbols": {
       "FeeDistributor": [
-        387
+        414
       ]
     },
-    "id": 388,
+    "id": 415,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 263,
+        "id": 290,
         "literals": [
           "solidity",
           "^",
@@ -1873,10 +1873,10 @@
       {
         "absolutePath": "@openzeppelin/contracts/access/Ownable.sol",
         "file": "@openzeppelin/contracts/access/Ownable.sol",
-        "id": 264,
+        "id": 291,
         "nodeType": "ImportDirective",
-        "scope": 388,
-        "sourceUnit": 9758,
+        "scope": 415,
+        "sourceUnit": 9906,
         "src": "56:52:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1884,10 +1884,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./facades/ERC20Like.sol",
-        "id": 265,
+        "id": 292,
         "nodeType": "ImportDirective",
-        "scope": 388,
-        "sourceUnit": 1506,
+        "scope": 415,
+        "sourceUnit": 1654,
         "src": "109:33:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1899,33 +1899,33 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 266,
+              "id": 293,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 9757,
+              "referencedDeclaration": 9905,
               "src": "171:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$9757",
+                "typeIdentifier": "t_contract$_Ownable_$9905",
                 "typeString": "contract Ownable"
               }
             },
-            "id": 267,
+            "id": 294,
             "nodeType": "InheritanceSpecifier",
             "src": "171:7:1"
           }
         ],
         "contractDependencies": [
-          9654,
-          9757
+          9802,
+          9905
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 387,
+        "id": 414,
         "linearizedBaseContracts": [
-          387,
-          9757,
-          9654
+          414,
+          9905,
+          9802
         ],
         "name": "FeeDistributor",
         "nodeType": "ContractDefinition",
@@ -1933,27 +1933,27 @@
           {
             "constant": false,
             "functionSelector": "731adf7d",
-            "id": 269,
+            "id": 296,
             "name": "hcore",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 387,
+            "scope": 414,
             "src": "186:22:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+              "typeIdentifier": "t_contract$_ERC20Like_$1653",
               "typeString": "contract ERC20Like"
             },
             "typeName": {
               "contractScope": null,
-              "id": 268,
+              "id": 295,
               "name": "ERC20Like",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1505,
+              "referencedDeclaration": 1653,
               "src": "186:9:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                "typeIdentifier": "t_contract$_ERC20Like_$1653",
                 "typeString": "contract ERC20Like"
               }
             },
@@ -1962,15 +1962,15 @@
           },
           {
             "canonicalName": "FeeDistributor.feeRecipient",
-            "id": 276,
+            "id": 303,
             "members": [
               {
                 "constant": false,
-                "id": 271,
+                "id": 298,
                 "name": "liquidVault",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 276,
+                "scope": 303,
                 "src": "249:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1979,7 +1979,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 270,
+                  "id": 297,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "249:7:1",
@@ -1994,11 +1994,11 @@
               },
               {
                 "constant": false,
-                "id": 273,
+                "id": 300,
                 "name": "dev",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 276,
+                "scope": 303,
                 "src": "278:11:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -2007,7 +2007,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 272,
+                  "id": 299,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "278:7:1",
@@ -2022,11 +2022,11 @@
               },
               {
                 "constant": false,
-                "id": 275,
+                "id": 302,
                 "name": "liquidVaultShare",
                 "nodeType": "VariableDeclaration",
                 "overrides": null,
-                "scope": 276,
+                "scope": 303,
                 "src": "299:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -2035,7 +2035,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 274,
+                  "id": 301,
                   "name": "uint",
                   "nodeType": "ElementaryTypeName",
                   "src": "299:4:1",
@@ -2050,34 +2050,34 @@
             ],
             "name": "feeRecipient",
             "nodeType": "StructDefinition",
-            "scope": 387,
+            "scope": 414,
             "src": "219:139:1",
             "visibility": "public"
           },
           {
             "constant": false,
             "functionSelector": "0e57d4ce",
-            "id": 278,
+            "id": 305,
             "name": "recipients",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 387,
+            "scope": 414,
             "src": "364:30:1",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+              "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
               "typeString": "struct FeeDistributor.feeRecipient"
             },
             "typeName": {
               "contractScope": null,
-              "id": 277,
+              "id": 304,
               "name": "feeRecipient",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 276,
+              "referencedDeclaration": 303,
               "src": "364:12:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_struct$_feeRecipient_$276_storage_ptr",
+                "typeIdentifier": "t_struct$_feeRecipient_$303_storage_ptr",
                 "typeString": "struct FeeDistributor.feeRecipient"
               }
             },
@@ -2087,11 +2087,11 @@
           {
             "constant": false,
             "functionSelector": "158ef93e",
-            "id": 280,
+            "id": 307,
             "name": "initialized",
             "nodeType": "VariableDeclaration",
             "overrides": null,
-            "scope": 387,
+            "scope": 414,
             "src": "401:23:1",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2100,7 +2100,7 @@
               "typeString": "bool"
             },
             "typeName": {
-              "id": 279,
+              "id": 306,
               "name": "bool",
               "nodeType": "ElementaryTypeName",
               "src": "401:4:1",
@@ -2114,7 +2114,7 @@
           },
           {
             "body": {
-              "id": 288,
+              "id": 315,
               "nodeType": "Block",
               "src": "447:113:1",
               "statements": [
@@ -2124,11 +2124,11 @@
                     "arguments": [
                       {
                         "argumentTypes": null,
-                        "id": 283,
+                        "id": 310,
                         "name": "initialized",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 280,
+                        "referencedDeclaration": 307,
                         "src": "465:11:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -2138,7 +2138,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a20466565732063616e6e6f7420626520646973747269627574656420756e74696c204469737472696275746f72207365656465642e",
-                        "id": 284,
+                        "id": 311,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2165,7 +2165,7 @@
                           "typeString": "literal_string \"HARDCORE: Fees cannot be distributed until Distributor seeded.\""
                         }
                       ],
-                      "id": 282,
+                      "id": 309,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -2179,7 +2179,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 285,
+                    "id": 312,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2194,24 +2194,24 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 286,
+                  "id": 313,
                   "nodeType": "ExpressionStatement",
                   "src": "457:85:1"
                 },
                 {
-                  "id": 287,
+                  "id": 314,
                   "nodeType": "PlaceholderStatement",
                   "src": "552:1:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 289,
+            "id": 316,
             "name": "seeded",
             "nodeType": "ModifierDefinition",
             "overrides": null,
             "parameters": {
-              "id": 281,
+              "id": 308,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "447:0:1"
@@ -2222,7 +2222,7 @@
           },
           {
             "body": {
-              "id": 337,
+              "id": 364,
               "nodeType": "Block",
               "src": "671:324:1",
               "statements": [
@@ -2236,18 +2236,18 @@
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
                         },
-                        "id": 305,
+                        "id": 332,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
                         "lValueRequested": false,
                         "leftExpression": {
                           "argumentTypes": null,
-                          "id": 303,
+                          "id": 330,
                           "name": "liquidVaultShare",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 297,
+                          "referencedDeclaration": 324,
                           "src": "689:16:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -2259,7 +2259,7 @@
                         "rightExpression": {
                           "argumentTypes": null,
                           "hexValue": "313030",
-                          "id": 304,
+                          "id": 331,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2283,7 +2283,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a206c69717569645661756c74207368617265206d757374206265206578707265737365642061732070657263656e74616765206265747765656e203020616e6420313030",
-                        "id": 306,
+                        "id": 333,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -2310,7 +2310,7 @@
                           "typeString": "literal_string \"HARDCORE: liquidVault share must be expressed as percentage between 0 and 100\""
                         }
                       ],
-                      "id": 302,
+                      "id": 329,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -2324,7 +2324,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 307,
+                    "id": 334,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2339,28 +2339,28 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 308,
+                  "id": 335,
                   "nodeType": "ExpressionStatement",
                   "src": "681:111:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 313,
+                    "id": 340,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 309,
+                      "id": 336,
                       "name": "hcore",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 269,
+                      "referencedDeclaration": 296,
                       "src": "802:5:1",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeIdentifier": "t_contract$_ERC20Like_$1653",
                         "typeString": "contract ERC20Like"
                       }
                     },
@@ -2371,11 +2371,11 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 311,
+                          "id": 338,
                           "name": "hardCore",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 291,
+                          "referencedDeclaration": 318,
                           "src": "820:8:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
@@ -2390,18 +2390,18 @@
                             "typeString": "address"
                           }
                         ],
-                        "id": 310,
+                        "id": 337,
                         "name": "ERC20Like",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 1505,
+                        "referencedDeclaration": 1653,
                         "src": "810:9:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_contract$_ERC20Like_$1505_$",
+                          "typeIdentifier": "t_type$_t_contract$_ERC20Like_$1653_$",
                           "typeString": "type(contract ERC20Like)"
                         }
                       },
-                      "id": 312,
+                      "id": 339,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2412,24 +2412,24 @@
                       "src": "810:19:1",
                       "tryCall": false,
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                        "typeIdentifier": "t_contract$_ERC20Like_$1653",
                         "typeString": "contract ERC20Like"
                       }
                     },
                     "src": "802:27:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                      "typeIdentifier": "t_contract$_ERC20Like_$1653",
                       "typeString": "contract ERC20Like"
                     }
                   },
-                  "id": 314,
+                  "id": 341,
                   "nodeType": "ExpressionStatement",
                   "src": "802:27:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 319,
+                    "id": 346,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2438,25 +2438,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 315,
+                        "id": 342,
                         "name": "recipients",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 278,
+                        "referencedDeclaration": 305,
                         "src": "839:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                           "typeString": "struct FeeDistributor.feeRecipient storage ref"
                         }
                       },
-                      "id": 317,
+                      "id": 344,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "liquidVault",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 271,
+                      "referencedDeclaration": 298,
                       "src": "839:22:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2467,11 +2467,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 318,
+                      "id": 345,
                       "name": "liquidVault",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 293,
+                      "referencedDeclaration": 320,
                       "src": "864:11:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2484,14 +2484,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 320,
+                  "id": 347,
                   "nodeType": "ExpressionStatement",
                   "src": "839:36:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 325,
+                    "id": 352,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2500,25 +2500,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 321,
+                        "id": 348,
                         "name": "recipients",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 278,
+                        "referencedDeclaration": 305,
                         "src": "885:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                           "typeString": "struct FeeDistributor.feeRecipient storage ref"
                         }
                       },
-                      "id": 323,
+                      "id": 350,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "dev",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 273,
+                      "referencedDeclaration": 300,
                       "src": "885:14:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2529,11 +2529,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 324,
+                      "id": 351,
                       "name": "dev",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 295,
+                      "referencedDeclaration": 322,
                       "src": "902:3:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
@@ -2546,14 +2546,14 @@
                       "typeString": "address"
                     }
                   },
-                  "id": 326,
+                  "id": 353,
                   "nodeType": "ExpressionStatement",
                   "src": "885:20:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 331,
+                    "id": 358,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2562,25 +2562,25 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 327,
+                        "id": 354,
                         "name": "recipients",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 278,
+                        "referencedDeclaration": 305,
                         "src": "915:10:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                          "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                           "typeString": "struct FeeDistributor.feeRecipient storage ref"
                         }
                       },
-                      "id": 329,
+                      "id": 356,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
                       "memberName": "liquidVaultShare",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 275,
+                      "referencedDeclaration": 302,
                       "src": "915:27:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -2591,11 +2591,11 @@
                     "operator": "=",
                     "rightHandSide": {
                       "argumentTypes": null,
-                      "id": 330,
+                      "id": 357,
                       "name": "liquidVaultShare",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 297,
+                      "referencedDeclaration": 324,
                       "src": "944:16:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -2608,25 +2608,25 @@
                       "typeString": "uint256"
                     }
                   },
-                  "id": 332,
+                  "id": 359,
                   "nodeType": "ExpressionStatement",
                   "src": "915:45:1"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 335,
+                    "id": 362,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftHandSide": {
                       "argumentTypes": null,
-                      "id": 333,
+                      "id": 360,
                       "name": "initialized",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 280,
+                      "referencedDeclaration": 307,
                       "src": "970:11:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_bool",
@@ -2638,7 +2638,7 @@
                     "rightHandSide": {
                       "argumentTypes": null,
                       "hexValue": "74727565",
-                      "id": 334,
+                      "id": 361,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -2659,7 +2659,7 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 336,
+                  "id": 363,
                   "nodeType": "ExpressionStatement",
                   "src": "970:18:1"
                 }
@@ -2667,20 +2667,20 @@
             },
             "documentation": null,
             "functionSelector": "3438298e",
-            "id": 338,
+            "id": 365,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 300,
+                "id": 327,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 299,
+                  "id": 326,
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 9708,
+                  "referencedDeclaration": 9856,
                   "src": "662:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -2695,16 +2695,16 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 298,
+              "id": 325,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 291,
+                  "id": 318,
                   "name": "hardCore",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "580:16:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2713,7 +2713,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 290,
+                    "id": 317,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "580:7:1",
@@ -2728,11 +2728,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 293,
+                  "id": 320,
                   "name": "liquidVault",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "598:19:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2741,7 +2741,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 292,
+                    "id": 319,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "598:7:1",
@@ -2756,11 +2756,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 295,
+                  "id": 322,
                   "name": "dev",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "619:11:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2769,7 +2769,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 294,
+                    "id": 321,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "619:7:1",
@@ -2784,11 +2784,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 297,
+                  "id": 324,
                   "name": "liquidVaultShare",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 338,
+                  "scope": 365,
                   "src": "632:21:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2797,7 +2797,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 296,
+                    "id": 323,
                     "name": "uint",
                     "nodeType": "ElementaryTypeName",
                     "src": "632:4:1",
@@ -2813,12 +2813,12 @@
               "src": "579:75:1"
             },
             "returnParameters": {
-              "id": 301,
+              "id": 328,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "671:0:1"
             },
-            "scope": 387,
+            "scope": 414,
             "src": "566:429:1",
             "stateMutability": "nonpayable",
             "virtual": false,
@@ -2826,22 +2826,22 @@
           },
           {
             "body": {
-              "id": 385,
+              "id": 412,
               "nodeType": "Block",
               "src": "1041:404:1",
               "statements": [
                 {
                   "assignments": [
-                    344
+                    371
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 344,
+                      "id": 371,
                       "name": "balance",
                       "nodeType": "VariableDeclaration",
                       "overrides": null,
-                      "scope": 385,
+                      "scope": 412,
                       "src": "1051:12:1",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -2850,7 +2850,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 343,
+                        "id": 370,
                         "name": "uint",
                         "nodeType": "ElementaryTypeName",
                         "src": "1051:4:1",
@@ -2863,7 +2863,7 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 352,
+                  "id": 379,
                   "initialValue": {
                     "argumentTypes": null,
                     "arguments": [
@@ -2872,14 +2872,14 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 349,
+                            "id": 376,
                             "name": "this",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
                             "referencedDeclaration": -28,
                             "src": "1090:4:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeIdentifier": "t_contract$_FeeDistributor_$414",
                               "typeString": "contract FeeDistributor"
                             }
                           }
@@ -2887,11 +2887,11 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_contract$_FeeDistributor_$387",
+                              "typeIdentifier": "t_contract$_FeeDistributor_$414",
                               "typeString": "contract FeeDistributor"
                             }
                           ],
-                          "id": 348,
+                          "id": 375,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2903,7 +2903,7 @@
                             "typeString": "type(address)"
                           },
                           "typeName": {
-                            "id": 347,
+                            "id": 374,
                             "name": "address",
                             "nodeType": "ElementaryTypeName",
                             "src": "1082:7:1",
@@ -2913,7 +2913,7 @@
                             }
                           }
                         },
-                        "id": 350,
+                        "id": 377,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2938,32 +2938,32 @@
                       ],
                       "expression": {
                         "argumentTypes": null,
-                        "id": 345,
+                        "id": 372,
                         "name": "hcore",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 269,
+                        "referencedDeclaration": 296,
                         "src": "1066:5:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                          "typeIdentifier": "t_contract$_ERC20Like_$1653",
                           "typeString": "contract ERC20Like"
                         }
                       },
-                      "id": 346,
+                      "id": 373,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "memberName": "balanceOf",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 1451,
+                      "referencedDeclaration": 1599,
                       "src": "1066:15:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_external_view$_t_address_$returns$_t_uint256_$",
                         "typeString": "function (address) view external returns (uint256)"
                       }
                     },
-                    "id": 351,
+                    "id": 378,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2983,16 +2983,16 @@
                 },
                 {
                   "assignments": [
-                    354
+                    381
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 354,
+                      "id": 381,
                       "name": "liquidShare",
                       "nodeType": "VariableDeclaration",
                       "overrides": null,
-                      "scope": 385,
+                      "scope": 412,
                       "src": "1106:16:1",
                       "stateVariable": false,
                       "storageLocation": "default",
@@ -3001,7 +3001,7 @@
                         "typeString": "uint256"
                       },
                       "typeName": {
-                        "id": 353,
+                        "id": 380,
                         "name": "uint",
                         "nodeType": "ElementaryTypeName",
                         "src": "1106:4:1",
@@ -3014,14 +3014,14 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 362,
+                  "id": 389,
                   "initialValue": {
                     "argumentTypes": null,
                     "commonType": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 361,
+                    "id": 388,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3035,7 +3035,7 @@
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
                           },
-                          "id": 358,
+                          "id": 385,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -3044,25 +3044,25 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 355,
+                              "id": 382,
                               "name": "recipients",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 278,
+                              "referencedDeclaration": 305,
                               "src": "1126:10:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                                 "typeString": "struct FeeDistributor.feeRecipient storage ref"
                               }
                             },
-                            "id": 356,
+                            "id": 383,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "liquidVaultShare",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 275,
+                            "referencedDeclaration": 302,
                             "src": "1126:27:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -3073,11 +3073,11 @@
                           "operator": "*",
                           "rightExpression": {
                             "argumentTypes": null,
-                            "id": 357,
+                            "id": 384,
                             "name": "balance",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 344,
+                            "referencedDeclaration": 371,
                             "src": "1154:7:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -3091,7 +3091,7 @@
                           }
                         }
                       ],
-                      "id": 359,
+                      "id": 386,
                       "isConstant": false,
                       "isInlineArray": false,
                       "isLValue": false,
@@ -3109,7 +3109,7 @@
                     "rightExpression": {
                       "argumentTypes": null,
                       "hexValue": "313030",
-                      "id": 360,
+                      "id": 387,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -3144,25 +3144,25 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 366,
+                              "id": 393,
                               "name": "recipients",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 278,
+                              "referencedDeclaration": 305,
                               "src": "1253:10:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                                 "typeString": "struct FeeDistributor.feeRecipient storage ref"
                               }
                             },
-                            "id": 367,
+                            "id": 394,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "liquidVault",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 271,
+                            "referencedDeclaration": 298,
                             "src": "1253:22:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -3171,11 +3171,11 @@
                           },
                           {
                             "argumentTypes": null,
-                            "id": 368,
+                            "id": 395,
                             "name": "liquidShare",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 354,
+                            "referencedDeclaration": 381,
                             "src": "1276:11:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -3196,32 +3196,32 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 364,
+                            "id": 391,
                             "name": "hcore",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 269,
+                            "referencedDeclaration": 296,
                             "src": "1238:5:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeIdentifier": "t_contract$_ERC20Like_$1653",
                               "typeString": "contract ERC20Like"
                             }
                           },
-                          "id": 365,
+                          "id": 392,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "transfer",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1460,
+                          "referencedDeclaration": 1608,
                           "src": "1238:14:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (address,uint256) external returns (bool)"
                           }
                         },
-                        "id": 369,
+                        "id": 396,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3239,7 +3239,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a207472616e7366657220746f206c69717569645661756c74206661696c6564",
-                        "id": 370,
+                        "id": 397,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -3266,7 +3266,7 @@
                           "typeString": "literal_string \"HARDCORE: transfer to liquidVault failed\""
                         }
                       ],
-                      "id": 363,
+                      "id": 390,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -3280,7 +3280,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 371,
+                    "id": 398,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3295,7 +3295,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 372,
+                  "id": 399,
                   "nodeType": "ExpressionStatement",
                   "src": "1230:102:1"
                 },
@@ -3310,25 +3310,25 @@
                             "argumentTypes": null,
                             "expression": {
                               "argumentTypes": null,
-                              "id": 376,
+                              "id": 403,
                               "name": "recipients",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 278,
+                              "referencedDeclaration": 305,
                               "src": "1365:10:1",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_feeRecipient_$276_storage",
+                                "typeIdentifier": "t_struct$_feeRecipient_$303_storage",
                                 "typeString": "struct FeeDistributor.feeRecipient storage ref"
                               }
                             },
-                            "id": 377,
+                            "id": 404,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
                             "lValueRequested": false,
                             "memberName": "dev",
                             "nodeType": "MemberAccess",
-                            "referencedDeclaration": 273,
+                            "referencedDeclaration": 300,
                             "src": "1365:14:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
@@ -3341,18 +3341,18 @@
                               "typeIdentifier": "t_uint256",
                               "typeString": "uint256"
                             },
-                            "id": 380,
+                            "id": 407,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
                             "lValueRequested": false,
                             "leftExpression": {
                               "argumentTypes": null,
-                              "id": 378,
+                              "id": 405,
                               "name": "balance",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 344,
+                              "referencedDeclaration": 371,
                               "src": "1380:7:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -3363,11 +3363,11 @@
                             "operator": "-",
                             "rightExpression": {
                               "argumentTypes": null,
-                              "id": 379,
+                              "id": 406,
                               "name": "liquidShare",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 354,
+                              "referencedDeclaration": 381,
                               "src": "1390:11:1",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -3394,32 +3394,32 @@
                           ],
                           "expression": {
                             "argumentTypes": null,
-                            "id": 374,
+                            "id": 401,
                             "name": "hcore",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 269,
+                            "referencedDeclaration": 296,
                             "src": "1350:5:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_contract$_ERC20Like_$1505",
+                              "typeIdentifier": "t_contract$_ERC20Like_$1653",
                               "typeString": "contract ERC20Like"
                             }
                           },
-                          "id": 375,
+                          "id": 402,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "memberName": "transfer",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 1460,
+                          "referencedDeclaration": 1608,
                           "src": "1350:14:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_external_nonpayable$_t_address_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (address,uint256) external returns (bool)"
                           }
                         },
-                        "id": 381,
+                        "id": 408,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -3437,7 +3437,7 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "48415244434f52453a207472616e7366657220746f20646576206661696c6564",
-                        "id": 382,
+                        "id": 409,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
@@ -3464,7 +3464,7 @@
                           "typeString": "literal_string \"HARDCORE: transfer to dev failed\""
                         }
                       ],
-                      "id": 373,
+                      "id": 400,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -3478,7 +3478,7 @@
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 383,
+                    "id": 410,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -3493,7 +3493,7 @@
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 384,
+                  "id": 411,
                   "nodeType": "ExpressionStatement",
                   "src": "1342:96:1"
                 }
@@ -3501,20 +3501,20 @@
             },
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 386,
+            "id": 413,
             "implemented": true,
             "kind": "function",
             "modifiers": [
               {
                 "arguments": null,
-                "id": 341,
+                "id": 368,
                 "modifierName": {
                   "argumentTypes": null,
-                  "id": 340,
+                  "id": 367,
                   "name": "seeded",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 289,
+                  "referencedDeclaration": 316,
                   "src": "1034:6:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3529,25 +3529,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 339,
+              "id": 366,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1024:2:1"
             },
             "returnParameters": {
-              "id": 342,
+              "id": 369,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "1041:0:1"
             },
-            "scope": 387,
+            "scope": 414,
             "src": "1001:444:1",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "public"
           }
         ],
-        "scope": 388,
+        "scope": 415,
         "src": "144:1303:1"
       }
     ],
@@ -3559,7 +3559,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-18T19:18:25.726Z",
+  "updatedAt": "2020-10-18T22:58:38.694Z",
   "devdoc": {
     "methods": {
       "owner()": {

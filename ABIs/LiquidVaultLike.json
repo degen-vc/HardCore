@@ -27,14 +27,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
     "exportedSymbols": {
       "LiquidVaultLike": [
-        1553
+        1701
       ]
     },
-    "id": 1554,
+    "id": 1702,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1546,
+        "id": 1694,
         "literals": [
           "solidity",
           "^",
@@ -51,9 +51,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1553,
+        "id": 1701,
         "linearizedBaseContracts": [
-          1553
+          1701
         ],
         "name": "LiquidVaultLike",
         "nodeType": "ContractDefinition",
@@ -62,7 +62,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "74d6588b",
-            "id": 1549,
+            "id": 1697,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -70,18 +70,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1547,
+              "id": 1695,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "116:2:9"
             },
             "returnParameters": {
-              "id": 1548,
+              "id": 1696,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "133:0:9"
             },
-            "scope": 1553,
+            "scope": 1701,
             "src": "97:37:9",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -91,7 +91,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "de44391a",
-            "id": 1552,
+            "id": 1700,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -99,25 +99,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1550,
+              "id": 1698,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:9"
             },
             "returnParameters": {
-              "id": 1551,
+              "id": 1699,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "173:0:9"
             },
-            "scope": 1553,
+            "scope": 1701,
             "src": "139:35:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1554,
+        "scope": 1702,
         "src": "57:119:9"
       }
     ],
@@ -127,14 +127,14 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
     "exportedSymbols": {
       "LiquidVaultLike": [
-        1553
+        1701
       ]
     },
-    "id": 1554,
+    "id": 1702,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1546,
+        "id": 1694,
         "literals": [
           "solidity",
           "^",
@@ -151,9 +151,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1553,
+        "id": 1701,
         "linearizedBaseContracts": [
-          1553
+          1701
         ],
         "name": "LiquidVaultLike",
         "nodeType": "ContractDefinition",
@@ -162,7 +162,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "74d6588b",
-            "id": 1549,
+            "id": 1697,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -170,18 +170,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1547,
+              "id": 1695,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "116:2:9"
             },
             "returnParameters": {
-              "id": 1548,
+              "id": 1696,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "133:0:9"
             },
-            "scope": 1553,
+            "scope": 1701,
             "src": "97:37:9",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -191,7 +191,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "de44391a",
-            "id": 1552,
+            "id": 1700,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -199,25 +199,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1550,
+              "id": 1698,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:9"
             },
             "returnParameters": {
-              "id": 1551,
+              "id": 1699,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "173:0:9"
             },
-            "scope": 1553,
+            "scope": 1701,
             "src": "139:35:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1554,
+        "scope": 1702,
         "src": "57:119:9"
       }
     ],
@@ -229,7 +229,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-18T19:18:25.741Z",
+  "updatedAt": "2020-10-18T22:58:38.708Z",
   "devdoc": {
     "methods": {}
   },

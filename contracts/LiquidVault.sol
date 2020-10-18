@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.6.0;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/HardCoreLike.sol";
@@ -18,10 +19,12 @@ contract LiquidVault is Ownable {
         uint256 timeStamp
     );
 
+    event LPClaimed(address holder, uint256 amount, uint256 timestamp);
+
     struct LPbatch {
         address holder;
         uint256 amount;
-        uint256 timeStamp;
+        uint256 timestamp;
     }
 
     struct liquidVaultConfig {
@@ -66,10 +69,8 @@ contract LiquidVault is Ownable {
 
     //send eth to match with HCORE tokens in LiquidVault
     function purchaseLP() public payable lock {
-        //fetch HCore from feedistributor
         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP ");
-        //get HCORE swapped for msg.value ->HSWAP
         (address token0, ) = config.hardCore < config.weth
             ? (config.hardCore, config.weth)
             : (config.weth, config.hardCore);
@@ -109,7 +110,7 @@ contract LiquidVault is Ownable {
             LPbatch({
                 holder: msg.sender,
                 amount: liquidityCreated,
-                timeStamp: block.timestamp
+                timestamp: block.timestamp
             })
         );
 
@@ -123,9 +124,22 @@ contract LiquidVault is Ownable {
     }
 
     //pops latest LP if older than period
-    function claimLP() public {}
+    function claimLP() public returns (bool) {
+        uint256 length = LPstakes[msg.sender].length;
+        require(length > 0, "HARDCORE: No locked LP.");
+        LPbatch memory batch = LPstakes[msg.sender][length - 1];
+        require(block.timestamp - batch.timestamp > config.stakeDuration, "HARDCORE: LP still locked.");
+        LPstakes[msg.sender].pop();
+        emit LPClaimed(msg.sender, batch.amount, block.timestamp);
+        return config.tokenPair.transfer(batch.holder, batch.amount);
+    }
 
-    function transferClaim(address reipient, uint256 value) public {
-        //delegate call I guess
+    //allow user to immediately claim the LP from their transaction fee. Ether forwarded depends on user
+    function transferGrabLP(address recipient, uint256 value) public payable returns (bool){
+        (bool transferSuccess, ) = config.hardCore.delegatecall(abi.encodePacked(bytes4(keccak256("transfer(address,uint256)")),recipient,value));
+        require(transferSuccess, "HARDCORE: transferGrabLP failed on transfer");
+        (bool lpPurchaseSuccess,) = config.self.delegatecall(abi.encodePacked(bytes4(keccak256("purchaseLP()"))));
+        require(lpPurchaseSuccess, "HARDCORE: transferGrabLP failed on LP purchase" );
+        return true;
     }
 }

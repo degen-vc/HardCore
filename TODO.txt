@@ -1,2 +1,12 @@
-1. super claim transfer
-2. 30 days per tx, not per user
+testing:
+1. create mock Uniswap LP and mock Uniswap router
+2. transfer on paused fails
+3. transfers increase fees for distributor
+4. Transfers on whitelists and blacklists
+5. purchase LP with zero eth fails
+6. LP created is locked for x days
+7. In the absence of activity, LP claimed contains the original tokens.
+8. Claiming before duration up fails
+9. transferGrab
+
+Thoughts: allow infinit eth to be forwarded wich is just curtailed.
