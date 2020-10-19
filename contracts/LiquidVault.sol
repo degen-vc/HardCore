@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.0;
-import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.6.12;import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/HardCoreLike.sol";
 import "./facades/FeeDistributorLike.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";

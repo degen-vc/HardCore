@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.0;
-import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.6.12;import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/ERC20Like.sol";
 
 contract FeeDistributor is Ownable {

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.0;
-import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.6.12;import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; // for WETH
 import "@nomiclabs/buidler/console.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
+import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
@@ -12,12 +12,13 @@ contract FeeApprover is Ownable {
     function initialize(
         address _HCAddress,
         address _uniswapFactory,
-        address WETHAddress,
+        address _uniswapRouter,
         address _liquidVault
     ) public {
         hardcoreTokenAddress = _HCAddress;
+
         tokenUniswapPair = IUniswapV2Factory(_uniswapFactory).getPair(
-            WETHAddress,
+            IUniswapV2Router02(_uniswapRouter).WETH(),
             _HCAddress
         );
         feePercentX100 = 10;

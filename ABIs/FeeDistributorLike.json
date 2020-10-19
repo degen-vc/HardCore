@@ -9,33 +9,35 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":\"FeeDistributorLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":{\"keccak256\":\"0xd47c051efd1ad11edaad7b05c8f11c68c16efb35044cc33ec041310a13cd2a9e\",\"urls\":[\"bzz-raw://d1848d92cd785317b04a3a5681240463a3a41e0438e7e929811caba267fbc65a\",\"dweb:/ipfs/QmeX2efGsPppUpiMyw5gypiuHbZYJyESQ4iBJFBKMtULmb\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":\"FeeDistributorLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":{\"keccak256\":\"0x56eaa3515a87ee4e6ada617a92f3f1d317e3c7e8ac29852f971b48bac98ac0dc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://61250ca846daaed32a9f2824202455247804caaaa94c4ad36f5614331e5a036a\",\"dweb:/ipfs/QmbTqpWRLpQeFyCfkGsGoccDczgqYBu5PJBxhTouygwDyT\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
+  "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.0;\n\nabstract contract FeeDistributorLike {\n    function distributeFees() public virtual;\n}",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.12;\nabstract contract FeeDistributorLike {\n    function distributeFees() public virtual;\n}",
   "sourcePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
   "ast": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1675
+        1697
       ]
     },
-    "id": 1676,
+    "id": 1698,
+    "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1671,
+        "id": 1693,
         "literals": [
           "solidity",
           "^",
           "0.6",
-          ".0"
+          ".12"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:7"
+        "src": "32:24:7"
       },
       {
         "abstract": true,
@@ -44,9 +46,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1675,
+        "id": 1697,
         "linearizedBaseContracts": [
-          1675
+          1697
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -55,7 +57,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1674,
+            "id": 1696,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -63,25 +65,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1672,
+              "id": 1694,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1673,
+              "id": 1695,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:0:7"
             },
-            "scope": 1675,
+            "scope": 1697,
             "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1676,
+        "scope": 1698,
         "src": "57:86:7"
       }
     ],
@@ -91,22 +93,23 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1675
+        1697
       ]
     },
-    "id": 1676,
+    "id": 1698,
+    "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1671,
+        "id": 1693,
         "literals": [
           "solidity",
           "^",
           "0.6",
-          ".0"
+          ".12"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:7"
+        "src": "32:24:7"
       },
       {
         "abstract": true,
@@ -115,9 +118,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1675,
+        "id": 1697,
         "linearizedBaseContracts": [
-          1675
+          1697
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -126,7 +129,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1674,
+            "id": 1696,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -134,25 +137,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1672,
+              "id": 1694,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1673,
+              "id": 1695,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:0:7"
             },
-            "scope": 1675,
+            "scope": 1697,
             "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1676,
+        "scope": 1698,
         "src": "57:86:7"
       }
     ],
@@ -160,15 +163,19 @@
   },
   "compiler": {
     "name": "solc",
-    "version": "0.6.2+commit.bacdbe57.Emscripten.clang"
+    "version": "0.6.12+commit.27d51765.Emscripten.clang"
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-18T22:58:38.708Z",
+  "updatedAt": "2020-10-19T01:50:21.535Z",
   "devdoc": {
-    "methods": {}
+    "kind": "dev",
+    "methods": {},
+    "version": 1
   },
   "userdoc": {
-    "methods": {}
+    "kind": "user",
+    "methods": {},
+    "version": 1
   }
 }

@@ -9,4 +9,6 @@ testing:
 8. Claiming before duration up fails
 9. transferGrab
 
+Exit fee
+
 Thoughts: allow infinit eth to be forwarded wich is just curtailed.
