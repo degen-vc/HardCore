@@ -21,15 +21,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1839
+        1886
       ]
     },
-    "id": 1840,
+    "id": 1887,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1835,
+        "id": 1882,
         "literals": [
           "solidity",
           "^",
@@ -46,9 +46,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1839,
+        "id": 1886,
         "linearizedBaseContracts": [
-          1839
+          1886
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -57,7 +57,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1838,
+            "id": 1885,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -65,25 +65,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1836,
+              "id": 1883,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1837,
+              "id": 1884,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:0:7"
             },
-            "scope": 1839,
+            "scope": 1886,
             "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1840,
+        "scope": 1887,
         "src": "57:86:7"
       }
     ],
@@ -93,15 +93,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1839
+        1886
       ]
     },
-    "id": 1840,
+    "id": 1887,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1835,
+        "id": 1882,
         "literals": [
           "solidity",
           "^",
@@ -118,9 +118,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1839,
+        "id": 1886,
         "linearizedBaseContracts": [
-          1839
+          1886
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -129,7 +129,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1838,
+            "id": 1885,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -137,25 +137,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1836,
+              "id": 1883,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1837,
+              "id": 1884,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:0:7"
             },
-            "scope": 1839,
+            "scope": 1886,
             "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1840,
+        "scope": 1887,
         "src": "57:86:7"
       }
     ],
@@ -167,7 +167,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-21T04:51:44.384Z",
+  "updatedAt": "2020-10-21T06:42:50.525Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

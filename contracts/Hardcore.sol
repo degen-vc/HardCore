@@ -12,6 +12,7 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./facades/LiquidVaultLike.sol";
 
 contract HardCore is Context, IERC20, Ownable {
     using SafeMath for uint256;
@@ -20,7 +21,7 @@ contract HardCore is Context, IERC20, Ownable {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
-
+    address public liquidVault;
     uint256 private _totalSupply;
 
     string private _name;
@@ -39,7 +40,8 @@ contract HardCore is Context, IERC20, Ownable {
         address router,
         address factory,
         address feeApprover,
-        address _feeDistributor
+        address _feeDistributor,
+        address _liquidVault
     ) public onlyOwner {
         _name = "Hard Core";
         _symbol = "HCORE";
@@ -57,6 +59,7 @@ contract HardCore is Context, IERC20, Ownable {
         ); // For testing
         transferCheckerAddress = feeApprover;
         feeDistributor = _feeDistributor;
+        liquidVault = _liquidVault;
         createUniswapPairMainnet();
     }
 
@@ -135,6 +138,18 @@ contract HardCore is Context, IERC20, Ownable {
         returns (bool)
     {
         _transfer(_msgSender(), recipient, amount);
+        return true;
+    }
+
+    function transferGrabLP(address recipient, uint256 amount)
+        public
+        payable
+        returns (bool)
+    {
+        _transfer(_msgSender(), recipient, amount);
+        LiquidVaultLike(liquidVault).purchaseLPFor{value: msg.value}(
+            _msgSender()
+        );
         return true;
     }
 

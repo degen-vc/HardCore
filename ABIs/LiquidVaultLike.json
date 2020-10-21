@@ -14,29 +14,42 @@
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "beneficiary",
+          "type": "address"
+        }
+      ],
+      "name": "purchaseLPFor",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"claimLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"purchaseLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":\"LiquidVaultLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":{\"keccak256\":\"0x1511fba5cad0aa6566c68f8dc0a0828983ef860ca54075591e042d74333c96c3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b90ef7514060fe28997217276da979b2901b479e50e0a70191294ffb5e7a5d5e\",\"dweb:/ipfs/QmURzoWSNzE4CEkEXJKgmUPbMZMS933mgcDEMyXBmj79Ea\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"claimLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"purchaseLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"beneficiary\",\"type\":\"address\"}],\"name\":\"purchaseLPFor\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":\"LiquidVaultLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":{\"keccak256\":\"0x906f7f77df67b451fcd18b073ff29c7cdd8803ebb1b18ff5a224b8c6c16ccab2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://38324a24c3b851af7d350691344d6249ec633d68860da458e8ec0ce4e163b4b2\",\"dweb:/ipfs/QmVS6bCZ6z7uWNUHyAKJ3wMqc3Ee22dDpKyrw8mf7QctkP\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.12;\nabstract contract LiquidVaultLike {\n    function purchaseLP() public virtual;\n    function claimLP () public virtual;\n}",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.12;\nabstract contract LiquidVaultLike {\n    function purchaseLP() public virtual;\n    function claimLP () public virtual;\n    function purchaseLPFor(address beneficiary) public virtual payable;\n}",
   "sourcePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
   "ast": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
     "exportedSymbols": {
       "LiquidVaultLike": [
-        1865
+        1917
       ]
     },
-    "id": 1866,
+    "id": 1918,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1858,
+        "id": 1905,
         "literals": [
           "solidity",
           "^",
@@ -53,9 +66,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1865,
+        "id": 1917,
         "linearizedBaseContracts": [
-          1865
+          1917
         ],
         "name": "LiquidVaultLike",
         "nodeType": "ContractDefinition",
@@ -64,7 +77,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "74d6588b",
-            "id": 1861,
+            "id": 1908,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -72,18 +85,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1859,
+              "id": 1906,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "116:2:9"
             },
             "returnParameters": {
-              "id": 1860,
+              "id": 1907,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "133:0:9"
             },
-            "scope": 1865,
+            "scope": 1917,
             "src": "97:37:9",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -93,7 +106,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "de44391a",
-            "id": 1864,
+            "id": 1911,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -101,43 +114,102 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1862,
+              "id": 1909,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:9"
             },
             "returnParameters": {
-              "id": 1863,
+              "id": 1910,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "173:0:9"
             },
-            "scope": 1865,
+            "scope": 1917,
             "src": "139:35:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "bd901bdd",
+            "id": 1916,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "purchaseLPFor",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1914,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1913,
+                  "mutability": "mutable",
+                  "name": "beneficiary",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1916,
+                  "src": "202:19:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1912,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "202:7:9",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "201:21:9"
+            },
+            "returnParameters": {
+              "id": 1915,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "245:0:9"
+            },
+            "scope": 1917,
+            "src": "179:67:9",
+            "stateMutability": "payable",
+            "virtual": true,
+            "visibility": "public"
           }
         ],
-        "scope": 1866,
-        "src": "57:119:9"
+        "scope": 1918,
+        "src": "57:191:9"
       }
     ],
-    "src": "32:144:9"
+    "src": "32:216:9"
   },
   "legacyAST": {
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
     "exportedSymbols": {
       "LiquidVaultLike": [
-        1865
+        1917
       ]
     },
-    "id": 1866,
+    "id": 1918,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1858,
+        "id": 1905,
         "literals": [
           "solidity",
           "^",
@@ -154,9 +226,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1865,
+        "id": 1917,
         "linearizedBaseContracts": [
-          1865
+          1917
         ],
         "name": "LiquidVaultLike",
         "nodeType": "ContractDefinition",
@@ -165,7 +237,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "74d6588b",
-            "id": 1861,
+            "id": 1908,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -173,18 +245,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1859,
+              "id": 1906,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "116:2:9"
             },
             "returnParameters": {
-              "id": 1860,
+              "id": 1907,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "133:0:9"
             },
-            "scope": 1865,
+            "scope": 1917,
             "src": "97:37:9",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -194,7 +266,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "de44391a",
-            "id": 1864,
+            "id": 1911,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -202,29 +274,88 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1862,
+              "id": 1909,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:9"
             },
             "returnParameters": {
-              "id": 1863,
+              "id": 1910,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "173:0:9"
             },
-            "scope": 1865,
+            "scope": 1917,
             "src": "139:35:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
+          },
+          {
+            "body": null,
+            "documentation": null,
+            "functionSelector": "bd901bdd",
+            "id": 1916,
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "purchaseLPFor",
+            "nodeType": "FunctionDefinition",
+            "overrides": null,
+            "parameters": {
+              "id": 1914,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1913,
+                  "mutability": "mutable",
+                  "name": "beneficiary",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1916,
+                  "src": "202:19:9",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1912,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "202:7:9",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "201:21:9"
+            },
+            "returnParameters": {
+              "id": 1915,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "245:0:9"
+            },
+            "scope": 1917,
+            "src": "179:67:9",
+            "stateMutability": "payable",
+            "virtual": true,
+            "visibility": "public"
           }
         ],
-        "scope": 1866,
-        "src": "57:119:9"
+        "scope": 1918,
+        "src": "57:191:9"
       }
     ],
-    "src": "32:144:9"
+    "src": "32:216:9"
   },
   "compiler": {
     "name": "solc",
@@ -232,7 +363,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-21T04:51:44.386Z",
+  "updatedAt": "2020-10-21T06:42:50.526Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

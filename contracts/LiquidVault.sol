@@ -82,9 +82,8 @@ contract LiquidVault is Ownable {
         config.donationShare = donationShare;
     }
 
-    //send eth to match with HCORE tokens in LiquidVault
-    function purchaseLP() public payable lock {
-        config.feeDistributor.distributeFees();
+    function purchaseLPFor(address beneficiary) public payable lock {
+         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
         (address token0, ) = config.hardCore < config.weth
             ? (config.hardCore, config.weth)
@@ -124,21 +123,26 @@ contract LiquidVault is Ownable {
         );
         uint256 liquidityCreated = config.tokenPair.mint(config.self);
 
-        LockedLP[msg.sender].push(
+        LockedLP[beneficiary].push(
             LPbatch({
-                holder: msg.sender,
+                holder: beneficiary,
                 amount: liquidityCreated,
                 timestamp: block.timestamp
             })
         );
 
         emit LPQueued(
-            msg.sender,
+            beneficiary,
             liquidityCreated,
             msg.value,
             hardCoreRequired,
             block.timestamp
         );
+    }
+
+    //send eth to match with HCORE tokens in LiquidVault
+    function purchaseLP() public payable {
+       this.purchaseLPFor{value:msg.value}(msg.sender);
     }
 
     //pops latest LP if older than period
@@ -167,12 +171,10 @@ contract LiquidVault is Ownable {
         returns (bool)
     {
         (bool transferSuccess, ) = config.hardCore.delegatecall(
-            abi.encodePacked(
-                bytes4(keccak256("transfer(address,uint256)")),
-                recipient,
-                value
-            )
+            abi.encodeWithSignature("transfer(address,uint256)", recipient, value)
         );
+        //call(abi.encodeWithSignature("transfer(address,uint256)", recipient, value))
+
         require(transferSuccess, "HARDCORE: transferGrabLP failed on transfer");
         (bool lpPurchaseSuccess, ) = config.self.delegatecall(
             abi.encodePacked(bytes4(keccak256("purchaseLP()")))
