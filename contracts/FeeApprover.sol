@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.6.12;
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; // for WETH
 import "@nomiclabs/buidler/console.sol";
@@ -32,7 +33,7 @@ contract FeeApprover is Ownable {
     IUniswapV2Factory public uniswapFactory;
     address hardcoreTokenAddress;
     address liquidVault;
-    uint8 public feePercentX100; // max 255 = 25.5% artificial clamp
+    uint8 public feePercentX100;
     uint256 public lastTotalSupplyOfLPTokens;
     bool paused;
     mapping(address => uint256) public discountFrom;
@@ -45,6 +46,10 @@ contract FeeApprover is Ownable {
     }
 
     function setFeeMultiplier(uint8 _feeMultiplier) public onlyOwner {
+        require(
+            _feeMultiplier <= 100,
+            "HARDCORE: percentage expressed as number between 0 and 100"
+        );
         feePercentX100 = _feeMultiplier;
     }
 
@@ -52,6 +57,10 @@ contract FeeApprover is Ownable {
         public
         onlyOwner
     {
+        require(
+            feeAmount <= 100,
+            "HARDCORE: percentage expressed as number between 0 and 100"
+        );
         feeBlackList[_address] = feeAmount;
     }
 
@@ -82,7 +91,7 @@ contract FeeApprover is Ownable {
             discount <= 1000,
             "HARDCORE: discount expressed as percentage between 0 and 1000"
         );
-        discountTo[_address] = discount;
+        discountFrom[_address] = discount;
     }
 
     function calculateAmountsAfterFee(
@@ -103,8 +112,8 @@ contract FeeApprover is Ownable {
             fee = feeBlackList[sender].mul(amount).div(100);
         } else {
             fee = amount.mul(feePercentX100).div(100);
-            uint256 totalDiscount = discountFrom[sender].mul(amount).div(1000) +
-                discountTo[recipient].mul(amount).div(1000);
+            uint256 totalDiscount = discountFrom[sender].mul(fee).div(1000) +
+                discountTo[recipient].mul(fee).div(1000);
             fee = totalDiscount > fee ? 0 : fee - totalDiscount;
         }
 

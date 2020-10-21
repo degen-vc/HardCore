@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.6.12;
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/HardCoreLike.sol";
 import "./facades/FeeDistributorLike.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
@@ -18,7 +19,12 @@ contract LiquidVault is Ownable {
         uint256 timeStamp
     );
 
-    event LPClaimed(address holder, uint256 amount, uint256 timestamp);
+    event LPClaimed(
+        address holder,
+        uint256 amount,
+        uint256 timestamp,
+        uint256 exitfee
+    );
 
     struct LPbatch {
         address holder;
@@ -34,6 +40,8 @@ contract LiquidVault is Ownable {
         uint256 stakeDuration;
         address self;
         address weth;
+        address donation;
+        uint256 donationShare; //0-100
     }
 
     bool private locked;
@@ -51,8 +59,14 @@ contract LiquidVault is Ownable {
     function seed(
         uint256 duration,
         address hcore,
-        address feeDistributor
+        address feeDistributor,
+        address donation,
+        uint256 donationShare
     ) public {
+        require(
+            donationShare <= 100,
+            "HardCore: donation share % between 0 and 100"
+        );
         config.stakeDuration = duration * 1 days;
         config.hardCore = hcore;
         config.uniswapRouter = IUniswapV2Router02(
@@ -64,6 +78,8 @@ contract LiquidVault is Ownable {
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
         config.self = address(this);
+        config.donation = donation;
+        config.donationShare = donationShare;
     }
 
     //send eth to match with HCORE tokens in LiquidVault
@@ -127,18 +143,38 @@ contract LiquidVault is Ownable {
         uint256 length = LPstakes[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
         LPbatch memory batch = LPstakes[msg.sender][length - 1];
-        require(block.timestamp - batch.timestamp > config.stakeDuration, "HARDCORE: LP still locked.");
+        require(
+            block.timestamp - batch.timestamp > config.stakeDuration,
+            "HARDCORE: LP still locked."
+        );
         LPstakes[msg.sender].pop();
-        emit LPClaimed(msg.sender, batch.amount, block.timestamp);
-        return config.tokenPair.transfer(batch.holder, batch.amount);
+        uint256 donation = (config.donationShare * batch.amount) / 100;
+        emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
+        require(config.tokenPair.transfer(config.donation, donation),"HardCore: donation transfer failed in LP claim.");
+        return config.tokenPair.transfer(batch.holder, batch.amount - donation);
     }
 
     //allow user to immediately claim the LP from their transaction fee. Ether forwarded depends on user
-    function transferGrabLP(address recipient, uint256 value) public payable returns (bool){
-        (bool transferSuccess, ) = config.hardCore.delegatecall(abi.encodePacked(bytes4(keccak256("transfer(address,uint256)")),recipient,value));
+    function transferGrabLP(address recipient, uint256 value)
+        public
+        payable
+        returns (bool)
+    {
+        (bool transferSuccess, ) = config.hardCore.delegatecall(
+            abi.encodePacked(
+                bytes4(keccak256("transfer(address,uint256)")),
+                recipient,
+                value
+            )
+        );
         require(transferSuccess, "HARDCORE: transferGrabLP failed on transfer");
-        (bool lpPurchaseSuccess,) = config.self.delegatecall(abi.encodePacked(bytes4(keccak256("purchaseLP()"))));
-        require(lpPurchaseSuccess, "HARDCORE: transferGrabLP failed on LP purchase" );
+        (bool lpPurchaseSuccess, ) = config.self.delegatecall(
+            abi.encodePacked(bytes4(keccak256("purchaseLP()")))
+        );
+        require(
+            lpPurchaseSuccess,
+            "HARDCORE: transferGrabLP failed on LP purchase"
+        );
         return true;
     }
 }

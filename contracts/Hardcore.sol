@@ -8,8 +8,8 @@ import "@openzeppelin/contracts/utils/Address.sol";
 import "./facades/FeeApproverLike.sol";
 import "@nomiclabs/buidler/console.sol";
 
-import '@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol';
-import '@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol';
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -26,8 +26,7 @@ contract HardCore is Context, IERC20, Ownable {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
-    uint256 public constant initialSupply = 10000e18; // to change
-
+    uint256 public constant initialSupply = 30000e18; // TODO: change
 
     /**
      * @dev Returns the name of the token.
@@ -36,13 +35,28 @@ contract HardCore is Context, IERC20, Ownable {
         return _name;
     }
 
-    function initialSetup(address router, address factory) public onlyOwner {
+    function initialSetup(
+        address router,
+        address factory,
+        address feeApprover,
+        address _feeDistributor
+    ) public onlyOwner {
         _name = "Hard Core";
         _symbol = "HCORE";
         _decimals = 18;
-        _mint(address(this), initialSupply);
-        uniswapFactory = IUniswapV2Factory(factory != address(0) ? factory : 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f); // For testing
-        uniswapRouter = IUniswapV2Router02(router != address(0) ? router : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D); // For testing
+        _mint(msg.sender, initialSupply);
+        uniswapFactory = IUniswapV2Factory(
+            factory != address(0)
+                ? factory
+                : 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f
+        ); // For testing
+        uniswapRouter = IUniswapV2Router02(
+            router != address(0)
+                ? router
+                : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D
+        ); // For testing
+        transferCheckerAddress = feeApprover;
+        feeDistributor = _feeDistributor;
         createUniswapPairMainnet();
     }
 
@@ -102,9 +116,8 @@ contract HardCore is Context, IERC20, Ownable {
         return tokenUniswapPair;
     }
 
-
-    function burn (uint value) public {
-        _burn(msg.sender,value);
+    function burn(uint256 value) public {
+        _burn(msg.sender, value);
     }
 
     /**
@@ -248,15 +261,11 @@ contract HardCore is Context, IERC20, Ownable {
 
     address public transferCheckerAddress;
 
-    function setFeeDistributor(address _feeDistributor)
-        public
-        onlyOwner
-    {
+    function setFeeDistributor(address _feeDistributor) public onlyOwner {
         feeDistributor = _feeDistributor;
     }
 
     address public feeDistributor;
-
 
     /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.
@@ -279,27 +288,45 @@ contract HardCore is Context, IERC20, Ownable {
     ) internal virtual {
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
-        
+
         _beforeTokenTransfer(sender, recipient, amount);
 
         _balances[sender] = _balances[sender].sub(
             amount,
             "ERC20: transfer amount exceeds balance"
         );
-        
-        (uint256 transferToAmount, uint256 transferToFeeDistributorAmount) = FeeApproverLike(transferCheckerAddress).calculateAmountsAfterFee(sender, recipient, amount);
-        console.log("Sender is :" , sender, "Recipent is :", recipient);
+
+        (
+            uint256 transferToAmount,
+            uint256 transferToFeeDistributorAmount
+        ) = FeeApproverLike(transferCheckerAddress).calculateAmountsAfterFee(
+            sender,
+            recipient,
+            amount
+        );
+        console.log("Sender is :", sender, "Recipent is :", recipient);
         console.log("amount is ", amount);
 
         // Addressing a broken checker contract
-        require(transferToAmount.add(transferToFeeDistributorAmount) == amount, "HARDCORE: invariant violation on fee calculation.");
+        require(
+            transferToAmount.add(transferToFeeDistributorAmount) == amount,
+            "HARDCORE: invariant violation on fee calculation."
+        );
 
         _balances[recipient] = _balances[recipient].add(transferToAmount);
         emit Transfer(sender, recipient, transferToAmount);
 
-        if(transferToFeeDistributorAmount > 0 && feeDistributor != address(0)){
-            _balances[feeDistributor] = _balances[feeDistributor].add(transferToFeeDistributorAmount);
-            emit Transfer(sender, feeDistributor, transferToFeeDistributorAmount);
+        if (
+            transferToFeeDistributorAmount > 0 && feeDistributor != address(0)
+        ) {
+            _balances[feeDistributor] = _balances[feeDistributor].add(
+                transferToFeeDistributorAmount
+            );
+            emit Transfer(
+                sender,
+                feeDistributor,
+                transferToFeeDistributorAmount
+            );
         }
     }
 

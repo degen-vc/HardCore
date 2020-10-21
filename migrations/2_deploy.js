@@ -36,10 +36,10 @@ module.exports = async function (deployer, network, accounts) {
         await deployer.deploy(UniswapRouter, uniswapfactoryInstance.address, wethInstance.address)
         uniswapRouterInstance = await UniswapRouter.deployed()
 
-        await hardCoreInstance.initialSetup(uniswapRouterInstance.address, uniswapfactoryInstance.address);
+        await hardCoreInstance.initialSetup(uniswapRouterInstance.address, uniswapfactoryInstance.address, feeApproverInstance.address, feeDistributorInstance.address);
     }
     else {
-        await hardCoreInstance.initialSetup('0x0', '0x0');
+        await hardCoreInstance.initialSetup('0x0', '0x0', feeApproverInstance.address, feeDistributorInstance.address);
     }
 
     const factoryAddress = await hardCoreInstance.uniswapFactory.call()
@@ -47,5 +47,5 @@ module.exports = async function (deployer, network, accounts) {
 
     await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, accounts[1], 40)
     await feeApproverInstance.initialize(hardCoreInstance.address, factoryAddress, routerAddress, liquidVaultInstance.address)
-    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address)
+    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], 10)
 }
