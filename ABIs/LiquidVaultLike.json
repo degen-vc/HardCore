@@ -16,7 +16,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"claimLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"purchaseLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":\"LiquidVaultLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":{\"keccak256\":\"0x1511fba5cad0aa6566c68f8dc0a0828983ef860ca54075591e042d74333c96c3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b90ef7514060fe28997217276da979b2901b479e50e0a70191294ffb5e7a5d5e\",\"dweb:/ipfs/QmURzoWSNzE4CEkEXJKgmUPbMZMS933mgcDEMyXBmj79Ea\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"claimLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"purchaseLP\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":\"LiquidVaultLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol\":{\"keccak256\":\"0x1511fba5cad0aa6566c68f8dc0a0828983ef860ca54075591e042d74333c96c3\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b90ef7514060fe28997217276da979b2901b479e50e0a70191294ffb5e7a5d5e\",\"dweb:/ipfs/QmURzoWSNzE4CEkEXJKgmUPbMZMS933mgcDEMyXBmj79Ea\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -28,15 +28,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
     "exportedSymbols": {
       "LiquidVaultLike": [
-        1723
+        1865
       ]
     },
-    "id": 1724,
+    "id": 1866,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1716,
+        "id": 1858,
         "literals": [
           "solidity",
           "^",
@@ -53,9 +53,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1723,
+        "id": 1865,
         "linearizedBaseContracts": [
-          1723
+          1865
         ],
         "name": "LiquidVaultLike",
         "nodeType": "ContractDefinition",
@@ -64,7 +64,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "74d6588b",
-            "id": 1719,
+            "id": 1861,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -72,18 +72,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1717,
+              "id": 1859,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "116:2:9"
             },
             "returnParameters": {
-              "id": 1718,
+              "id": 1860,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "133:0:9"
             },
-            "scope": 1723,
+            "scope": 1865,
             "src": "97:37:9",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -93,7 +93,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "de44391a",
-            "id": 1722,
+            "id": 1864,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -101,25 +101,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1720,
+              "id": 1862,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:9"
             },
             "returnParameters": {
-              "id": 1721,
+              "id": 1863,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "173:0:9"
             },
-            "scope": 1723,
+            "scope": 1865,
             "src": "139:35:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1724,
+        "scope": 1866,
         "src": "57:119:9"
       }
     ],
@@ -129,15 +129,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/LiquidVaultLike.sol",
     "exportedSymbols": {
       "LiquidVaultLike": [
-        1723
+        1865
       ]
     },
-    "id": 1724,
+    "id": 1866,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1716,
+        "id": 1858,
         "literals": [
           "solidity",
           "^",
@@ -154,9 +154,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1723,
+        "id": 1865,
         "linearizedBaseContracts": [
-          1723
+          1865
         ],
         "name": "LiquidVaultLike",
         "nodeType": "ContractDefinition",
@@ -165,7 +165,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "74d6588b",
-            "id": 1719,
+            "id": 1861,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -173,18 +173,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1717,
+              "id": 1859,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "116:2:9"
             },
             "returnParameters": {
-              "id": 1718,
+              "id": 1860,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "133:0:9"
             },
-            "scope": 1723,
+            "scope": 1865,
             "src": "97:37:9",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -194,7 +194,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "de44391a",
-            "id": 1722,
+            "id": 1864,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -202,25 +202,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1720,
+              "id": 1862,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "156:2:9"
             },
             "returnParameters": {
-              "id": 1721,
+              "id": 1863,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "173:0:9"
             },
-            "scope": 1723,
+            "scope": 1865,
             "src": "139:35:9",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1724,
+        "scope": 1866,
         "src": "57:119:9"
       }
     ],
@@ -232,7 +232,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-19T01:50:21.535Z",
+  "updatedAt": "2020-10-21T04:51:44.386Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

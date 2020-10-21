@@ -36,7 +36,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"calculateAmountsAfterFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"transferToAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"transferToFeeDistributorAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol\":\"FeeApproverLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol\":{\"keccak256\":\"0x88974a3f3611a1d213a5807e82a2f281beb53c796d6cecd19cd4291a4892a28e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://13167bdf7fd7fe698bcbd60c249c83983d5806aeda7aa7ab46ccd2093b5abf74\",\"dweb:/ipfs/QmcK7Dh9nTuisGsJ1gjUjsHmH6ZHcMYkEzYoTLxSz3igD7\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"calculateAmountsAfterFee\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"transferToAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"transferToFeeDistributorAmount\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol\":\"FeeApproverLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol\":{\"keccak256\":\"0x88974a3f3611a1d213a5807e82a2f281beb53c796d6cecd19cd4291a4892a28e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://13167bdf7fd7fe698bcbd60c249c83983d5806aeda7aa7ab46ccd2093b5abf74\",\"dweb:/ipfs/QmcK7Dh9nTuisGsJ1gjUjsHmH6ZHcMYkEzYoTLxSz3igD7\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -48,15 +48,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol",
     "exportedSymbols": {
       "FeeApproverLike": [
-        1691
+        1833
       ]
     },
-    "id": 1692,
+    "id": 1834,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1677,
+        "id": 1819,
         "literals": [
           "solidity",
           "^",
@@ -73,9 +73,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1691,
+        "id": 1833,
         "linearizedBaseContracts": [
-          1691
+          1833
         ],
         "name": "FeeApproverLike",
         "nodeType": "ContractDefinition",
@@ -84,7 +84,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "301a5801",
-            "id": 1690,
+            "id": 1832,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -92,17 +92,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1684,
+              "id": 1826,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1679,
+                  "id": 1821,
                   "mutability": "mutable",
                   "name": "sender",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "149:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -111,7 +111,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1678,
+                    "id": 1820,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "149:7:6",
@@ -126,12 +126,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 1681,
+                  "id": 1823,
                   "mutability": "mutable",
                   "name": "recipient",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "174:17:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -140,7 +140,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1680,
+                    "id": 1822,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "174:7:6",
@@ -155,12 +155,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 1683,
+                  "id": 1825,
                   "mutability": "mutable",
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "201:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -169,7 +169,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1682,
+                    "id": 1824,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "201:7:6",
@@ -185,17 +185,17 @@
               "src": "131:94:6"
             },
             "returnParameters": {
-              "id": 1689,
+              "id": 1831,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1686,
+                  "id": 1828,
                   "mutability": "mutable",
                   "name": "transferToAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "250:24:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -204,7 +204,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1685,
+                    "id": 1827,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "250:7:6",
@@ -218,12 +218,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 1688,
+                  "id": 1830,
                   "mutability": "mutable",
                   "name": "transferToFeeDistributorAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "276:38:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -232,7 +232,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1687,
+                    "id": 1829,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "276:7:6",
@@ -247,14 +247,14 @@
               ],
               "src": "249:66:6"
             },
-            "scope": 1691,
+            "scope": 1833,
             "src": "98:219:6",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1692,
+        "scope": 1834,
         "src": "57:262:6"
       }
     ],
@@ -264,15 +264,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeApproverLike.sol",
     "exportedSymbols": {
       "FeeApproverLike": [
-        1691
+        1833
       ]
     },
-    "id": 1692,
+    "id": 1834,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1677,
+        "id": 1819,
         "literals": [
           "solidity",
           "^",
@@ -289,9 +289,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1691,
+        "id": 1833,
         "linearizedBaseContracts": [
-          1691
+          1833
         ],
         "name": "FeeApproverLike",
         "nodeType": "ContractDefinition",
@@ -300,7 +300,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "301a5801",
-            "id": 1690,
+            "id": 1832,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -308,17 +308,17 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1684,
+              "id": 1826,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1679,
+                  "id": 1821,
                   "mutability": "mutable",
                   "name": "sender",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "149:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -327,7 +327,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1678,
+                    "id": 1820,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "149:7:6",
@@ -342,12 +342,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 1681,
+                  "id": 1823,
                   "mutability": "mutable",
                   "name": "recipient",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "174:17:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -356,7 +356,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1680,
+                    "id": 1822,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "174:7:6",
@@ -371,12 +371,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 1683,
+                  "id": 1825,
                   "mutability": "mutable",
                   "name": "amount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "201:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -385,7 +385,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1682,
+                    "id": 1824,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "201:7:6",
@@ -401,17 +401,17 @@
               "src": "131:94:6"
             },
             "returnParameters": {
-              "id": 1689,
+              "id": 1831,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1686,
+                  "id": 1828,
                   "mutability": "mutable",
                   "name": "transferToAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "250:24:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -420,7 +420,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1685,
+                    "id": 1827,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "250:7:6",
@@ -434,12 +434,12 @@
                 },
                 {
                   "constant": false,
-                  "id": 1688,
+                  "id": 1830,
                   "mutability": "mutable",
                   "name": "transferToFeeDistributorAmount",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1690,
+                  "scope": 1832,
                   "src": "276:38:6",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -448,7 +448,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1687,
+                    "id": 1829,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "276:7:6",
@@ -463,14 +463,14 @@
               ],
               "src": "249:66:6"
             },
-            "scope": 1691,
+            "scope": 1833,
             "src": "98:219:6",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1692,
+        "scope": 1834,
         "src": "57:262:6"
       }
     ],
@@ -482,7 +482,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-19T01:50:21.535Z",
+  "updatedAt": "2020-10-21T04:51:44.384Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

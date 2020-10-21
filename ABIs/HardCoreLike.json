@@ -200,7 +200,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenUniswapPair\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"uniswapRouter\",\"outputs\":[{\"internalType\":\"contract IUniswapV2Router02\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol\":\"HardCoreLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol\":{\"keccak256\":\"0xb3c70f48a07b1483caada8a465b3eeb66d14655b23f263832f1e19e8f3fd24a2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1387727a9e916753289814d0c5e7b5aac8b14818d9f067b8379d8dff82a2b61f\",\"dweb:/ipfs/QmeM6VjTJoq27HajYcjkgeuodASgMPm2kUSFWEWXRVYk3s\"]},\"/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol\":{\"keccak256\":\"0x070cfaeb99a404a64432c9bdbc7b88f7d979c8b9bbe0b292a385238855b10871\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2a8c75ea75e3727e5ff04c29c7999f657fd0b332993c61787811f87994103597\",\"dweb:/ipfs/QmYWQJwBmkphz7QiF5U2sWdAr9prMNe8MnL6Cef86ivYgp\"]},\"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol\":{\"keccak256\":\"0x8a3c5c449d4b7cd76513ed6995f4b86e4a86f222c770f8442f5fc128ce29b4d2\",\"urls\":[\"bzz-raw://1df63ca373dafae3bd0ee7fe70f890a1dc7c45ed869c01de68413e0e97ff9deb\",\"dweb:/ipfs/QmefJgEYGUL8KX7kQKYTrDweF8GB7yjy3nw5Bmqzryg7PG\"]},\"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol\":{\"keccak256\":\"0x744e30c133bd0f7ca9e7163433cf6d72f45c6bb1508c2c9c02f1a6db796ae59d\",\"urls\":[\"bzz-raw://9bf2f4454ad63d4cff03a0630e787d9e8a9deed80aec89682cd8ad6379d9ef8c\",\"dweb:/ipfs/Qme51hQNR2wpax7ooUadhtqLtXm8ffeVVYyubLkTT4wMCG\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"spender\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"decimals\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tokenUniswapPair\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"recipient\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"uniswapRouter\",\"outputs\":[{\"internalType\":\"contract IUniswapV2Router02\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol\":\"HardCoreLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol\":{\"keccak256\":\"0xb3c70f48a07b1483caada8a465b3eeb66d14655b23f263832f1e19e8f3fd24a2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1387727a9e916753289814d0c5e7b5aac8b14818d9f067b8379d8dff82a2b61f\",\"dweb:/ipfs/QmeM6VjTJoq27HajYcjkgeuodASgMPm2kUSFWEWXRVYk3s\"]},\"/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol\":{\"keccak256\":\"0x070cfaeb99a404a64432c9bdbc7b88f7d979c8b9bbe0b292a385238855b10871\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2a8c75ea75e3727e5ff04c29c7999f657fd0b332993c61787811f87994103597\",\"dweb:/ipfs/QmYWQJwBmkphz7QiF5U2sWdAr9prMNe8MnL6Cef86ivYgp\"]},\"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router01.sol\":{\"keccak256\":\"0x8a3c5c449d4b7cd76513ed6995f4b86e4a86f222c770f8442f5fc128ce29b4d2\",\"urls\":[\"bzz-raw://1df63ca373dafae3bd0ee7fe70f890a1dc7c45ed869c01de68413e0e97ff9deb\",\"dweb:/ipfs/QmefJgEYGUL8KX7kQKYTrDweF8GB7yjy3nw5Bmqzryg7PG\"]},\"@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol\":{\"keccak256\":\"0x744e30c133bd0f7ca9e7163433cf6d72f45c6bb1508c2c9c02f1a6db796ae59d\",\"urls\":[\"bzz-raw://9bf2f4454ad63d4cff03a0630e787d9e8a9deed80aec89682cd8ad6379d9ef8c\",\"dweb:/ipfs/Qme51hQNR2wpax7ooUadhtqLtXm8ffeVVYyubLkTT4wMCG\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -212,15 +212,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol",
     "exportedSymbols": {
       "HardCoreLike": [
-        1714
+        1856
       ]
     },
-    "id": 1715,
+    "id": 1857,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1699,
+        "id": 1841,
         "literals": [
           "solidity",
           "^",
@@ -233,10 +233,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./ERC20Like.sol",
-        "id": 1700,
+        "id": 1842,
         "nodeType": "ImportDirective",
-        "scope": 1715,
-        "sourceUnit": 1676,
+        "scope": 1857,
+        "sourceUnit": 1818,
         "src": "56:25:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -244,10 +244,10 @@
       {
         "absolutePath": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
         "file": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
-        "id": 1701,
+        "id": 1843,
         "nodeType": "ImportDirective",
-        "scope": 1715,
-        "sourceUnit": 17424,
+        "scope": 1857,
+        "sourceUnit": 15616,
         "src": "82:75:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -259,31 +259,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1702,
+              "id": 1844,
               "name": "ERC20Like",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1675,
+              "referencedDeclaration": 1817,
               "src": "193:9:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Like_$1675",
+                "typeIdentifier": "t_contract$_ERC20Like_$1817",
                 "typeString": "contract ERC20Like"
               }
             },
-            "id": 1703,
+            "id": 1845,
             "nodeType": "InheritanceSpecifier",
             "src": "193:9:8"
           }
         ],
         "contractDependencies": [
-          1675
+          1817
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1714,
+        "id": 1856,
         "linearizedBaseContracts": [
-          1714,
-          1675
+          1856,
+          1817
         ],
         "name": "HardCoreLike",
         "nodeType": "ContractDefinition",
@@ -292,7 +292,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "735de9f7",
-            "id": 1708,
+            "id": 1850,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -300,39 +300,39 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1704,
+              "id": 1846,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "231:2:8"
             },
             "returnParameters": {
-              "id": 1707,
+              "id": 1849,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1706,
+                  "id": 1848,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1708,
+                  "scope": 1850,
                   "src": "258:18:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$17423",
+                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$15615",
                     "typeString": "contract IUniswapV2Router02"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1705,
+                    "id": 1847,
                     "name": "IUniswapV2Router02",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 17423,
+                    "referencedDeclaration": 15615,
                     "src": "258:18:8",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$17423",
+                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$15615",
                       "typeString": "contract IUniswapV2Router02"
                     }
                   },
@@ -342,7 +342,7 @@
               ],
               "src": "257:20:8"
             },
-            "scope": 1714,
+            "scope": 1856,
             "src": "209:69:8",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -352,7 +352,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "4d332457",
-            "id": 1713,
+            "id": 1855,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -360,23 +360,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1709,
+              "id": 1851,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "308:2:8"
             },
             "returnParameters": {
-              "id": 1712,
+              "id": 1854,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1711,
+                  "id": 1853,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1713,
+                  "scope": 1855,
                   "src": "335:7:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -385,7 +385,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1710,
+                    "id": 1852,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "335:7:8",
@@ -401,14 +401,14 @@
               ],
               "src": "334:9:8"
             },
-            "scope": 1714,
+            "scope": 1856,
             "src": "283:61:8",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1715,
+        "scope": 1857,
         "src": "159:189:8"
       }
     ],
@@ -418,15 +418,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/HardCoreLike.sol",
     "exportedSymbols": {
       "HardCoreLike": [
-        1714
+        1856
       ]
     },
-    "id": 1715,
+    "id": 1857,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1699,
+        "id": 1841,
         "literals": [
           "solidity",
           "^",
@@ -439,10 +439,10 @@
       {
         "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/ERC20Like.sol",
         "file": "./ERC20Like.sol",
-        "id": 1700,
+        "id": 1842,
         "nodeType": "ImportDirective",
-        "scope": 1715,
-        "sourceUnit": 1676,
+        "scope": 1857,
+        "sourceUnit": 1818,
         "src": "56:25:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -450,10 +450,10 @@
       {
         "absolutePath": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
         "file": "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol",
-        "id": 1701,
+        "id": 1843,
         "nodeType": "ImportDirective",
-        "scope": 1715,
-        "sourceUnit": 17424,
+        "scope": 1857,
+        "sourceUnit": 15616,
         "src": "82:75:8",
         "symbolAliases": [],
         "unitAlias": ""
@@ -465,31 +465,31 @@
             "arguments": null,
             "baseName": {
               "contractScope": null,
-              "id": 1702,
+              "id": 1844,
               "name": "ERC20Like",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1675,
+              "referencedDeclaration": 1817,
               "src": "193:9:8",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_ERC20Like_$1675",
+                "typeIdentifier": "t_contract$_ERC20Like_$1817",
                 "typeString": "contract ERC20Like"
               }
             },
-            "id": 1703,
+            "id": 1845,
             "nodeType": "InheritanceSpecifier",
             "src": "193:9:8"
           }
         ],
         "contractDependencies": [
-          1675
+          1817
         ],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1714,
+        "id": 1856,
         "linearizedBaseContracts": [
-          1714,
-          1675
+          1856,
+          1817
         ],
         "name": "HardCoreLike",
         "nodeType": "ContractDefinition",
@@ -498,7 +498,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "735de9f7",
-            "id": 1708,
+            "id": 1850,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -506,39 +506,39 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1704,
+              "id": 1846,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "231:2:8"
             },
             "returnParameters": {
-              "id": 1707,
+              "id": 1849,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1706,
+                  "id": 1848,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1708,
+                  "scope": 1850,
                   "src": "258:18:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$17423",
+                    "typeIdentifier": "t_contract$_IUniswapV2Router02_$15615",
                     "typeString": "contract IUniswapV2Router02"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 1705,
+                    "id": 1847,
                     "name": "IUniswapV2Router02",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 17423,
+                    "referencedDeclaration": 15615,
                     "src": "258:18:8",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$17423",
+                      "typeIdentifier": "t_contract$_IUniswapV2Router02_$15615",
                       "typeString": "contract IUniswapV2Router02"
                     }
                   },
@@ -548,7 +548,7 @@
               ],
               "src": "257:20:8"
             },
-            "scope": 1714,
+            "scope": 1856,
             "src": "209:69:8",
             "stateMutability": "nonpayable",
             "virtual": true,
@@ -558,7 +558,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "4d332457",
-            "id": 1713,
+            "id": 1855,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -566,23 +566,23 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1709,
+              "id": 1851,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "308:2:8"
             },
             "returnParameters": {
-              "id": 1712,
+              "id": 1854,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1711,
+                  "id": 1853,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 1713,
+                  "scope": 1855,
                   "src": "335:7:8",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -591,7 +591,7 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1710,
+                    "id": 1852,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
                     "src": "335:7:8",
@@ -607,14 +607,14 @@
               ],
               "src": "334:9:8"
             },
-            "scope": 1714,
+            "scope": 1856,
             "src": "283:61:8",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1715,
+        "scope": 1857,
         "src": "159:189:8"
       }
     ],
@@ -626,7 +626,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-19T01:50:21.535Z",
+  "updatedAt": "2020-10-21T04:51:44.385Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

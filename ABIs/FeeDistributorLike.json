@@ -9,7 +9,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":\"FeeDistributorLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":{\"keccak256\":\"0x56eaa3515a87ee4e6ada617a92f3f1d317e3c7e8ac29852f971b48bac98ac0dc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://61250ca846daaed32a9f2824202455247804caaaa94c4ad36f5614331e5a036a\",\"dweb:/ipfs/QmbTqpWRLpQeFyCfkGsGoccDczgqYBu5PJBxhTouygwDyT\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"distributeFees\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":\"FeeDistributorLike\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":1},\"remappings\":[]},\"sources\":{\"/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol\":{\"keccak256\":\"0x56eaa3515a87ee4e6ada617a92f3f1d317e3c7e8ac29852f971b48bac98ac0dc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://61250ca846daaed32a9f2824202455247804caaaa94c4ad36f5614331e5a036a\",\"dweb:/ipfs/QmbTqpWRLpQeFyCfkGsGoccDczgqYBu5PJBxhTouygwDyT\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -21,15 +21,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1697
+        1839
       ]
     },
-    "id": 1698,
+    "id": 1840,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1693,
+        "id": 1835,
         "literals": [
           "solidity",
           "^",
@@ -46,9 +46,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1697,
+        "id": 1839,
         "linearizedBaseContracts": [
-          1697
+          1839
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -57,7 +57,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1696,
+            "id": 1838,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -65,25 +65,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1694,
+              "id": 1836,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1695,
+              "id": 1837,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:0:7"
             },
-            "scope": 1697,
+            "scope": 1839,
             "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1698,
+        "scope": 1840,
         "src": "57:86:7"
       }
     ],
@@ -93,15 +93,15 @@
     "absolutePath": "/home/justin/freelancing/degen/hardcore/contracts/facades/FeeDistributorLike.sol",
     "exportedSymbols": {
       "FeeDistributorLike": [
-        1697
+        1839
       ]
     },
-    "id": 1698,
+    "id": 1840,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1693,
+        "id": 1835,
         "literals": [
           "solidity",
           "^",
@@ -118,9 +118,9 @@
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 1697,
+        "id": 1839,
         "linearizedBaseContracts": [
-          1697
+          1839
         ],
         "name": "FeeDistributorLike",
         "nodeType": "ContractDefinition",
@@ -129,7 +129,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "bb57ad20",
-            "id": 1696,
+            "id": 1838,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -137,25 +137,25 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 1694,
+              "id": 1836,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "123:2:7"
             },
             "returnParameters": {
-              "id": 1695,
+              "id": 1837,
               "nodeType": "ParameterList",
               "parameters": [],
               "src": "140:0:7"
             },
-            "scope": 1697,
+            "scope": 1839,
             "src": "100:41:7",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "public"
           }
         ],
-        "scope": 1698,
+        "scope": 1840,
         "src": "57:86:7"
       }
     ],
@@ -167,7 +167,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-19T01:50:21.535Z",
+  "updatedAt": "2020-10-21T04:51:44.384Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
