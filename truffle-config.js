@@ -24,6 +24,14 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
+const fs = require('fs')
+const mnemonicLocation = './temp/phrase.txt'
+
+const mnemonic = fs.existsSync(mnemonicLocation, 'utf8') ? fs.readFileSync(mnemonicLocation, 'utf8') : ''
+const ganachePhrase = "eight fun oak spot hip pencil matter domain bright fiscal nurse easy"
+
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -50,6 +58,18 @@ module.exports = {
       gasPrice: 1,
       gasLimit: '0x9999969101'
     },
+
+
+		'kovan': {
+			provider: () => new HDWalletProvider(ganachePhrase, `https://kovan.infura.io/v3/879bf8d4f8d74e809de3176af688d53a`),
+			network_id: '*',       // Kovan's id
+			gas: '12100000',
+      networkCheckTimeout: 100000,
+      gasLimit:'0x9999969101',
+			//   confirmations: 2,    // # of confs to wait between deployments. (default: 0)
+			//   timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
+			skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+		},
 
     // Another network with more advanced options...
     // advanced: {

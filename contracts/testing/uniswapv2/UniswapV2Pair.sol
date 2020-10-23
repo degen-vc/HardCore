@@ -7,10 +7,6 @@ import "./interfaces/IUniswapV2Factory.sol";
 import "./interfaces/IUniswapV2Callee.sol";
 import "@nomiclabs/buidler/console.sol";
 
-interface IMigrator {
-    // Return the desired amount of liquidity token that the migrator wants.
-    function desiredLiquidity() external view returns (uint256);
-}
 
 contract UniswapV2Pair is UniswapV2ERC20 {
     using SafeMathUniswap for uint256;

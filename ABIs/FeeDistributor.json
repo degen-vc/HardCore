@@ -174,7 +174,7 @@
         "id": 310,
         "nodeType": "ImportDirective",
         "scope": 434,
-        "sourceUnit": 13831,
+        "sourceUnit": 13825,
         "src": "56:52:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -200,10 +200,10 @@
               "id": 312,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 13830,
+              "referencedDeclaration": 13824,
               "src": "171:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$13830",
+                "typeIdentifier": "t_contract$_Ownable_$13824",
                 "typeString": "contract Ownable"
               }
             },
@@ -213,8 +213,8 @@
           }
         ],
         "contractDependencies": [
-          13721,
-          13830
+          13715,
+          13824
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -222,8 +222,8 @@
         "id": 433,
         "linearizedBaseContracts": [
           433,
-          13830,
-          13721
+          13824,
+          13715
         ],
         "name": "FeeDistributor",
         "nodeType": "ContractDefinition",
@@ -984,7 +984,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 13779,
+                  "referencedDeclaration": 13773,
                   "src": "662:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -1891,7 +1891,7 @@
         "id": 310,
         "nodeType": "ImportDirective",
         "scope": 434,
-        "sourceUnit": 13831,
+        "sourceUnit": 13825,
         "src": "56:52:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1917,10 +1917,10 @@
               "id": 312,
               "name": "Ownable",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 13830,
+              "referencedDeclaration": 13824,
               "src": "171:7:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_Ownable_$13830",
+                "typeIdentifier": "t_contract$_Ownable_$13824",
                 "typeString": "contract Ownable"
               }
             },
@@ -1930,8 +1930,8 @@
           }
         ],
         "contractDependencies": [
-          13721,
-          13830
+          13715,
+          13824
         ],
         "contractKind": "contract",
         "documentation": null,
@@ -1939,8 +1939,8 @@
         "id": 433,
         "linearizedBaseContracts": [
           433,
-          13830,
-          13721
+          13824,
+          13715
         ],
         "name": "FeeDistributor",
         "nodeType": "ContractDefinition",
@@ -2701,7 +2701,7 @@
                   "name": "onlyOwner",
                   "nodeType": "Identifier",
                   "overloadedDeclarations": [],
-                  "referencedDeclaration": 13779,
+                  "referencedDeclaration": 13773,
                   "src": "662:9:1",
                   "typeDescriptions": {
                     "typeIdentifier": "t_modifier$__$",
@@ -3586,7 +3586,7 @@
   },
   "networks": {},
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-10-21T17:37:00.802Z",
+  "updatedAt": "2020-10-23T18:30:41.094Z",
   "devdoc": {
     "kind": "dev",
     "methods": {
