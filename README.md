@@ -20,7 +20,7 @@ distributeFees() is a public function that splits and sends current Hcore balanc
 LiquidVault features:
 purchaseLP takes an eth value, looks at uniswap and estimates the required Hcore for the given eth. If it has enough Hcore, it creates an LP token and locks for user for a X days. X can be set at any time.
 
-PurchasLPFor allows anyone to lock LP in the name of a beneficiary who can claim it after X days. This method is used in Hcore.transferGrab but can be used in other applications if desired.
+PurchaseLPFor allows anyone to lock LP in the name of a beneficiary who can claim it after X days. This method is used in Hcore.transferGrab but can be used in other applications if desired.
 
 Claim will release the latest LP locked if it is due, otherwise fails.
 
