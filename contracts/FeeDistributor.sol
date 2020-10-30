@@ -10,7 +10,6 @@ contract FeeDistributor is Ownable {
     struct FeeRecipient {
         address liquidVault;
         address dev;
-        address nftFund;
         uint liquidVaultShare; //percentage between 0 and 100
     }
 
@@ -23,13 +22,12 @@ contract FeeDistributor is Ownable {
         _;
     }
 
-    function seed(address hardCore, address liquidVault, address dev, address nftFund, uint liquidVaultShare) public onlyOwner{
+    function seed(address hardCore, address liquidVault, address dev, uint liquidVaultShare) public onlyOwner{
         require(liquidVaultShare<=100, "HARDCORE: liquidVault share must be expressed as percentage between 0 and 100");
         hcore = ERC20Like(hardCore);
         recipients.liquidVault = liquidVault;
         recipients.dev = dev;
         recipients.liquidVaultShare= liquidVaultShare;
-        recipients.nftFund = nftFund;
         initialized = true;
     }
 
@@ -37,9 +35,7 @@ contract FeeDistributor is Ownable {
         uint balance = hcore.balanceOf(address(this));
         uint liquidShare = (recipients.liquidVaultShare*balance)/100; //overflow not possible because balance is capped low
         require(hcore.transfer(recipients.liquidVault,liquidShare),"HARDCORE: transfer to liquidVault failed");
-        require(hcore.transfer(recipients.dev,balance - liquidShare),"HARDCORE: transfer to dev failed");
-        uint _nftFundShare = 0; // share
-        INFTFund(address(recipients.nftFund)).deposit(address(0), _nftFundShare);
-        require(hcore.transfer(recipients.nftFund, _nftFundShare), "HARDCORE: transfer to nftFund failed");
+        INFTFund(recipients.dev).deposit(address(0), balance - liquidShare); // okay 
+        require(hcore.transfer(recipients.dev, balance - liquidShare),"HARDCORE: transfer to dev failed");
     }
 }
