@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "touch build/contracts/horse && rm build/contracts/* && truffle compile && cp build/contracts/* ABIs/",
-    "deploy:kovan": "npm run compile && truffle migrate --network kovan"
+    "deploy:kovan": "npm run compile && truffle migrate --network kovan",
+    "lint:sol": "solhint contracts/*.sol",
+    "prettier:sol": "./node_modules/.bin/prettier --write contracts/*.sol contracts/**/*.sol"
   },
   "author": "",
   "license": "ISC",
@@ -20,5 +22,9 @@
     "@uniswap/v2-core": "^1.0.1",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "save": "^2.4.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2",
+    "prettier-plugin-solidity": "^1.0.0-alpha.59"
   }
 }
