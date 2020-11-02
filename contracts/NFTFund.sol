@@ -117,10 +117,6 @@ contract NFTFund is INFTFund, Ownable {
         IERC20(_token).transfer(owner(), token.balanceOf(address(this)));
     }
 
-    function withdraw() external override onlyOwner {
-        payable(owner()).transfer(address(this).balance);
-    }
-
     modifier onlyDistributor() {
         require(msg.sender == distributor, "Withdraw locked");
         _;
