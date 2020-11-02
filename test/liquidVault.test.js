@@ -8,7 +8,7 @@ const hardcore = artifacts.require("HardCore")
 const distributor = artifacts.require("FeeDistributor")
 const feeApprover = artifacts.require("FeeApprover")
 const liquidVault = artifacts.require("LiquidVault")
-const uniswapPairABI = require('./ABIs/UniswapV2Pair.json').abi
+const uniswapPairABI = artifacts.require('UniswapV2Pair').abi
 
 let primary = ""
 contract('liquid vault', accounts => {
