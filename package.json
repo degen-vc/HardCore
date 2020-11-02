@@ -7,8 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "touch build/contracts/horse && rm build/contracts/* && truffle compile && cp build/contracts/* ABIs/",
+    "test": "truffle test",
+    "compile": "truffle compile",
     "deploy:kovan": "npm run compile && truffle migrate --network kovan",
     "lint:sol": "solhint contracts/*.sol",
     "prettier:sol": "./node_modules/.bin/prettier --write contracts/*.sol contracts/**/*.sol"
