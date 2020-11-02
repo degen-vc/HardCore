@@ -5,22 +5,12 @@ import "./INFTFund.sol";
 import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {
-    IUniswapV2Pair
-} from "./testing/uniswapv2/interfaces/IUniswapV2Pair.sol";
-import {
-    IUniswapV2Router01
-} from "./testing/uniswapv2/interfaces/IUniswapV2Router01.sol";
-import {
-    IUniswapV2Router02
-} from "./testing/uniswapv2/interfaces/IUniswapV2Router02.sol";
-import {
-    TransferHelper
-} from "./testing/uniswapv2/libraries/TransferHelper.sol";
+import { IUniswapV2Pair } from "./testing/uniswapv2/interfaces/IUniswapV2Pair.sol";
+import { IUniswapV2Router01 } from "./testing/uniswapv2/interfaces/IUniswapV2Router01.sol";
+import { IUniswapV2Router02 } from "./testing/uniswapv2/interfaces/IUniswapV2Router02.sol";
+import { TransferHelper } from "./testing/uniswapv2/libraries/TransferHelper.sol";
 import { UniswapV2Factory } from "./testing/uniswapv2/UniswapV2Factory.sol";
-import {
-    UniswapV2Library
-} from "./testing/uniswapv2/libraries/UniswapV2Library.sol";
+import { UniswapV2Library } from "./testing/uniswapv2/libraries/UniswapV2Library.sol";
 
 /*
  * Contract Simple sell of token
@@ -48,21 +38,18 @@ contract NFTFund is INFTFund, Ownable {
         distributor = _distributor;
     }
 
-    function getReserves(address tokenA, address tokenB)
-        public
-        view
-        returns (uint256 reserve0, uint256 reserve1)
-    {
-        IUniswapV2Pair _pair = IUniswapV2Pair(
-            UniswapV2Library.pairFor(factory, tokenA, tokenB)
-        );
-        (reserve0, reserve1, ) = _pair.getReserves();
-        return (reserve0, reserve1);
+    modifier onlyDistributor() {
+        require(msg.sender == distributor, "Withdraw locked");
+        _;
     }
 
     // @dev deposit tokens to NFT fund (all erc20.approve before)
     function deposit(uint256 amount) external override onlyDistributor {
         totalRaised = totalRaised.add(amount);
+    }
+
+    function withdrawToken(address _token) external override onlyOwner {
+        IERC20(_token).transfer(owner(), token.balanceOf(address(this)));
     }
 
     function sellToken(uint256 amountIn) external override {
@@ -78,6 +65,18 @@ contract NFTFund is INFTFund, Ownable {
         uint256 amountIn = token.balanceOf(address(this));
 
         _sellToken(amountIn);
+    }
+
+    function getReserves(address tokenA, address tokenB)
+        public
+        view
+        returns (uint256 reserve0, uint256 reserve1)
+    {
+        IUniswapV2Pair _pair = IUniswapV2Pair(
+            UniswapV2Library.pairFor(factory, tokenA, tokenB)
+        );
+        (reserve0, reserve1, ) = _pair.getReserves();
+        return (reserve0, reserve1);
     }
 
     // @dev sell HCORE token for ETH on uniswap
@@ -111,14 +110,5 @@ contract NFTFund is INFTFund, Ownable {
         totalExchangedWETH = totalExchangedWETH.add(
             amounts[amounts.length - 1]
         );
-    }
-
-    function withdrawToken(address _token) external override onlyOwner {
-        IERC20(_token).transfer(owner(), token.balanceOf(address(this)));
-    }
-
-    modifier onlyDistributor() {
-        require(msg.sender == distributor, "Withdraw locked");
-        _;
     }
 }
