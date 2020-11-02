@@ -9,7 +9,8 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
 contract LiquidVault is Ownable {
     /*
-        A user can hold multiple locked LP batches. Each batch takes 30 days to incubate
+    * A user can hold multiple locked LP batches.
+    * Each batch takes 30 days to incubate
     */
     event LPQueued(
         address holder,
@@ -83,7 +84,7 @@ contract LiquidVault is Ownable {
     }
 
     function purchaseLPFor(address beneficiary) public payable lock {
-         config.feeDistributor.distributeFees();
+        config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
         (address token0, ) = config.hardCore < config.weth
             ? (config.hardCore, config.weth)
@@ -114,7 +115,7 @@ contract LiquidVault is Ownable {
             "HARDCORE: insufficient HardCore in LiquidVault"
         );
 
-        IWETH(config.weth).deposit{value: msg.value}();
+        IWETH(config.weth).deposit{ value: msg.value }();
         address tokenPairAddress = address(config.tokenPair);
         IWETH(config.weth).transfer(tokenPairAddress, msg.value);
         HardCoreLike(config.hardCore).transfer(
@@ -142,7 +143,7 @@ contract LiquidVault is Ownable {
 
     //send eth to match with HCORE tokens in LiquidVault
     function purchaseLP() public payable {
-       this.purchaseLPFor{value:msg.value}(msg.sender);
+        this.purchaseLPFor{ value: msg.value }(msg.sender);
     }
 
     //pops latest LP if older than period
@@ -164,16 +165,20 @@ contract LiquidVault is Ownable {
         return config.tokenPair.transfer(batch.holder, batch.amount - donation);
     }
 
-    //allow user to immediately claim the LP from their transaction fee. Ether forwarded depends on user
+    // Allow user to immediately claim the LP from their transaction fee.
+    // Ether forwarded depends on user.
     function transferGrabLP(address recipient, uint256 value)
         public
         payable
         returns (bool)
     {
         (bool transferSuccess, ) = config.hardCore.delegatecall(
-            abi.encodeWithSignature("transfer(address,uint256)", recipient, value)
+            abi.encodeWithSignature(
+                "transfer(address,uint256)",
+                recipient,
+                value
+            )
         );
-        //call(abi.encodeWithSignature("transfer(address,uint256)", recipient, value))
 
         require(transferSuccess, "HARDCORE: transferGrabLP failed on transfer");
         (bool lpPurchaseSuccess, ) = config.self.delegatecall(
