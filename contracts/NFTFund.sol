@@ -33,7 +33,7 @@ contract NFTFund is INFTFund, Ownable {
     IERC20 token;
     address distributor;
 
-    uint256 public totalRised;
+    uint256 public totalRaised;
     uint256 public totalExchangedWETH;
 
     constructor(
@@ -62,7 +62,7 @@ contract NFTFund is INFTFund, Ownable {
 
     // @dev deposit tokens to NFT fund (all erc20.approve before)
     function deposit(uint256 amount) external override onlyDistributor {
-        totalRised = totalRised.add(amount);
+        totalRaised = totalRaised.add(amount);
     }
 
     function sellToken(uint256 amountIn) external override onlyOwner {
