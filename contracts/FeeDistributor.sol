@@ -35,7 +35,7 @@ contract FeeDistributor is Ownable {
         uint balance = hcore.balanceOf(address(this));
         uint liquidShare = (recipients.liquidVaultShare*balance)/100; //overflow not possible because balance is capped low
         require(hcore.transfer(recipients.liquidVault,liquidShare),"HARDCORE: transfer to liquidVault failed");
-        INFTFund(recipients.dev).deposit(address(0), balance - liquidShare); // okay 
+        INFTFund(recipients.dev).deposit(balance - liquidShare);
         require(hcore.transfer(recipients.dev, balance - liquidShare),"HARDCORE: transfer to dev failed");
     }
 }

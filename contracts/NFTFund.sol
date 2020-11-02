@@ -2,6 +2,7 @@
 pragma solidity ^0.6.12;
 
 import "./INFTFund.sol";
+import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import { IUniswapV2Pair } from "./testing/uniswapv2/interfaces/IUniswapV2Pair.sol";
@@ -11,23 +12,24 @@ import { TransferHelper } from "./testing/uniswapv2/libraries/TransferHelper.sol
 import { UniswapV2Factory } from "./testing/uniswapv2/UniswapV2Factory.sol";
 import { UniswapV2Library } from "./testing/uniswapv2/libraries/UniswapV2Library.sol";
 
+/*
+* Contract Simple sell of token
+*/
 contract NFTFund is INFTFund, Ownable {
-    // @dev deposit tokens to NFT fund (all erc20.approve before)
+    using SafeMath for uint;
 
     address factory;
     address router;
     IERC20 token;
     address distributor;
 
-    uint delayTime = 5 days; // 5 days default
+    uint public totalRised;
+    uint public totalExchangedWETH;
 
-    mapping (address => uint) public balances;
-    mapping (address => uint) public delayed;
-
-    constructor(UniswapV2Factory uniFactory, address uniRouterV2, IERC20 itsHardFCore, address _distributor) public {
+    constructor(UniswapV2Factory uniFactory, address uniRouterV2, IERC20 _hardCoreToken, address _distributor) public {
         factory = address(UniswapV2Factory(uniFactory));
         router = uniRouterV2;
-        token = itsHardFCore;
+        token = _hardCoreToken;
         distributor = _distributor;
     }
 
@@ -37,19 +39,25 @@ contract NFTFund is INFTFund, Ownable {
         return (reserve0, reserve1);
     }
 
-    function deposit(address user, uint amount) external override onlyDistributor {
-        balances[user] = amount;
+    // @dev deposit tokens to NFT fund (all erc20.approve before)
+    function deposit(uint amount) external override onlyDistributor {
+        totalRised = totalRised.add(amount);
+    }
+
+    function sellToken(uint amountIn) external override onlyOwner {
+        require(amountIn <= token.balanceOf(address(this)) , "Not enough balance");
+
+        _sellToken(amountIn);
+    }
+
+    function sellToken() external override onlyOwner {
+        uint amountIn = token.balanceOf(address(this));
+
+        _sellToken(amountIn);
     }
 
     // @dev sell HCORE token for ETH on uniswap
-    function sellToken() external override {
-        uint amountIn;
-        if (msg.sender == owner()) {
-            amountIn = balances[address(0)] + balances[owner()];
-        } else {
-            amountIn = balances[msg.sender];
-        }
-
+    function _sellToken(uint amountIn) internal {
         address tokenIn = address(token);
         address tokenOut = IUniswapV2Router01(router).WETH();
 
@@ -67,29 +75,23 @@ contract NFTFund is INFTFund, Ownable {
             amountIn,
             amountOut,
             path,
-            msg.sender, // to this contract
+            address(this), // to this contract
             block.timestamp
         );
+
+        totalExchangedWETH = totalExchangedWETH.add(amounts[amounts.length - 1]);
     }
 
-    function setDelayTime(uint _seconds) external onlyOwner {
-        delayTime = _seconds;
+    function withdrawToken(address _token) external override onlyOwner {
+        IERC20(_token).transfer(owner(), token.balanceOf(address(this)));
     }
 
-    // TODO: add token withdraw
-
-    function withdraw() external override /*isDelayed*/ onlyOwner {
-        payable(msg.sender).transfer(address(this).balance);
+    function withdraw() external override onlyOwner {
+        payable(owner()).transfer(address(this).balance);
     }
 
     modifier onlyDistributor() {
-        require(msg.sender == distributor, "Withdraw locked.");
+        require(msg.sender == distributor, "Withdraw locked");
         _;
     }
-
-    modifier isDelayed() {
-        require(delayed[msg.sender] + delayTime < block.timestamp, "Withdraw locked.");
-        _;
-    }
-
 }
