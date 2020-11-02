@@ -65,7 +65,7 @@ contract NFTFund is INFTFund, Ownable {
         totalRaised = totalRaised.add(amount);
     }
 
-    function sellToken(uint256 amountIn) external override onlyOwner {
+    function sellToken(uint256 amountIn) external override {
         require(
             amountIn <= token.balanceOf(address(this)),
             "Not enough balance"
@@ -74,7 +74,7 @@ contract NFTFund is INFTFund, Ownable {
         _sellToken(amountIn);
     }
 
-    function sellToken() external override onlyOwner {
+    function sellToken() external override {
         uint256 amountIn = token.balanceOf(address(this));
 
         _sellToken(amountIn);
