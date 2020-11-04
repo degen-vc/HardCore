@@ -1,39 +1,59 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;import "@openzeppelin/contracts/access/Ownable.sol";
+pragma solidity ^0.6.12;
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/ERC20Like.sol";
+import "./INFTFund.sol";
 
 contract FeeDistributor is Ownable {
-
     ERC20Like public hcore;
-    
-    struct feeRecipient {
+
+    struct FeeRecipient {
         address liquidVault;
         address dev;
-        uint liquidVaultShare; //percentage between 0 and 100
+        uint256 liquidVaultShare; //percentage between 0 and 100
     }
 
-    feeRecipient public recipients;
+    FeeRecipient public recipients;
 
     bool public initialized;
 
     modifier seeded {
-        require(initialized,"HARDCORE: Fees cannot be distributed until Distributor seeded.");
+        require(
+            initialized,
+            "HARDCORE: Fees cannot be distributed until Distributor seeded."
+        );
         _;
     }
 
-    function seed(address hardCore, address liquidVault, address dev, uint liquidVaultShare) public onlyOwner{
-        require(liquidVaultShare<=100, "HARDCORE: liquidVault share must be expressed as percentage between 0 and 100");
+    function seed(
+        address hardCore,
+        address liquidVault,
+        address dev,
+        uint256 liquidVaultShare
+    ) public onlyOwner {
+        require(
+            liquidVaultShare <= 100,
+            "HARDCORE: liquidVault share must be between 0 and 100"
+        );
         hcore = ERC20Like(hardCore);
         recipients.liquidVault = liquidVault;
         recipients.dev = dev;
-        recipients.liquidVaultShare= liquidVaultShare;
+        recipients.liquidVaultShare = liquidVaultShare;
         initialized = true;
     }
 
     function distributeFees() public seeded {
-        uint balance = hcore.balanceOf(address(this));
-        uint liquidShare = (recipients.liquidVaultShare*balance)/100; //overflow not possible because balance is capped low
-        require(hcore.transfer(recipients.liquidVault,liquidShare),"HARDCORE: transfer to liquidVault failed");
-        require(hcore.transfer(recipients.dev,balance - liquidShare),"HARDCORE: transfer to dev failed");
+        uint256 balance = hcore.balanceOf(address(this));
+        //overflow not possible because balance is capped low
+        uint256 liquidShare = (recipients.liquidVaultShare * balance) / 100;
+        require(
+            hcore.transfer(recipients.liquidVault, liquidShare),
+            "HARDCORE: transfer to liquidVault failed"
+        );
+        INFTFund(recipients.dev).deposit(balance - liquidShare);
+        require(
+            hcore.transfer(recipients.dev, balance - liquidShare),
+            "HARDCORE: transfer to dev failed"
+        );
     }
 }

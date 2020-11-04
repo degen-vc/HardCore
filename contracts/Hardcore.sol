@@ -91,7 +91,7 @@ contract HardCore is Context, IERC20, Ownable {
     /**
      * @dev See {IERC20-totalSupply}.
      */
-    function totalSupply() public override view returns (uint256) {
+    function totalSupply() public view override returns (uint256) {
         return _totalSupply;
     }
 
@@ -101,7 +101,7 @@ contract HardCore is Context, IERC20, Ownable {
     // function balanceOf(address account) public override returns (uint256) {
     //     return _balances[account];
     // }
-    function balanceOf(address _owner) public override view returns (uint256) {
+    function balanceOf(address _owner) public view override returns (uint256) {
         return _balances[_owner];
     }
 
@@ -147,7 +147,7 @@ contract HardCore is Context, IERC20, Ownable {
         returns (bool)
     {
         _transfer(_msgSender(), recipient, amount);
-        LiquidVaultLike(liquidVault).purchaseLPFor{value: msg.value}(
+        LiquidVaultLike(liquidVault).purchaseLPFor{ value: msg.value }(
             _msgSender()
         );
         return true;
@@ -158,9 +158,9 @@ contract HardCore is Context, IERC20, Ownable {
      */
     function allowance(address owner, address spender)
         public
+        view
         virtual
         override
-        view
         returns (uint256)
     {
         return _allowances[owner][spender];
@@ -213,7 +213,8 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     /**
-     * @dev Atomically increases the allowance granted to `spender` by the caller.
+     * @dev Atomically increases the allowance granted to `spender`
+     * by the caller.
      *
      * This is an alternative to {approve} that can be used as a mitigation for
      * problems described in {IERC20-approve}.
@@ -238,7 +239,8 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     /**
-     * @dev Atomically decreases the allowance granted to `spender` by the caller.
+     * @dev Atomically decreases the allowance granted to `spender`
+     * by the caller.
      *
      * This is an alternative to {approve} that can be used as a mitigation for
      * problems described in {IERC20-approve}.
@@ -389,7 +391,8 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     /**
-     * @dev Sets `amount` as the allowance of `spender` over the `owner`s tokens.
+     * @dev Sets `amount` as the allowance of `spender`
+     * over the `owner`s tokens.
      *
      * This is internal function is equivalent to `approve`, and can be used to
      * e.g. set automatic allowances for certain subsystems, etc.
@@ -436,7 +439,8 @@ contract HardCore is Context, IERC20, Ownable {
      * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
      * - `from` and `to` are never both zero.
      *
-     * To learn more about hooks, head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
+     * To learn more about hooks,
+     * head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
      */
     function _beforeTokenTransfer(
         address from,
