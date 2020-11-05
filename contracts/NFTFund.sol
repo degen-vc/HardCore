@@ -53,10 +53,6 @@ contract NFTFund is INFTFund, Ownable {
         emit Deposited(msg.sender, amount);
     }
 
-    function withdrawToken(address _token) external override onlyOwner {
-        IERC20(_token).transfer(owner(), token.balanceOf(address(this)));
-    }
-
     function sellToken(uint256 amountIn) external override {
         require(
             amountIn <= token.balanceOf(address(this)),
@@ -136,10 +132,5 @@ contract NFTFund is INFTFund, Ownable {
 
         IERC20(_token).transfer(_to, _amount);
         emit Withdrawn(_token, _to, _amount);
-    }
-
-    modifier onlyDistributor() {
-        require(msg.sender == distributor, "NFTFund: Only distributor");
-        _;
     }
 }
