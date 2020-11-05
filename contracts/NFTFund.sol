@@ -130,7 +130,7 @@ contract NFTFund is INFTFund, Ownable {
     }
 
     modifier onlyDistributor() {
-        require(msg.sender == distributor, "Withdraw locked");
+        require(msg.sender == distributor, "NFTFund: Only distributor");
         _;
     }
 }
