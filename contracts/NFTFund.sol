@@ -18,6 +18,10 @@ import { UniswapV2Library } from "./testing/uniswapv2/libraries/UniswapV2Library
 contract NFTFund is INFTFund, Ownable {
     using SafeMath for uint256;
 
+    event Deposited(address from, uint256 amount);
+    event Trade(uint256 tokens, uint256 toWETH);
+    event Withdrawn(address token, address to, uint256 amount);
+
     address factory;
     address router;
     IERC20 token;
@@ -46,6 +50,7 @@ contract NFTFund is INFTFund, Ownable {
     // @dev deposit tokens to NFT fund (all erc20.approve before)
     function deposit(uint256 amount) external override onlyDistributor {
         totalRaised = totalRaised.add(amount);
+        emit Deposited(msg.sender, amount);
     }
 
     function withdrawToken(address _token) external override onlyOwner {
@@ -110,5 +115,31 @@ contract NFTFund is INFTFund, Ownable {
         totalExchangedWETH = totalExchangedWETH.add(
             amounts[amounts.length - 1]
         );
+
+        emit Trade(amounts[0], amounts[amounts.length - 1]);
+    }
+
+    function withdrawToken(address _token, address _to, uint _amount)
+        external
+        onlyOwner
+    {
+        _withdrawToken(_token, _to, _amount);
+    }
+
+    function withdrawToken(address _token) external override onlyOwner {
+        uint amount = token.balanceOf(address(this));
+        _withdrawToken(_token, owner(), amount);
+    }
+
+    function _withdrawToken(address _token, address _to, uint256 _amount) internal {
+        require(_amount > 0, "Contract is empty");
+
+        IERC20(_token).transfer(_to, _amount);
+        emit Withdrawn(_token, _to, _amount);
+    }
+
+    modifier onlyDistributor() {
+        require(msg.sender == distributor, "NFTFund: Only distributor");
+        _;
     }
 }
