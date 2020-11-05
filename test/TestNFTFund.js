@@ -154,7 +154,7 @@ contract('NFTFund', ([ALICE, BOB, DISTRIBUTOR, UNISWAP, HACKER, UNTRUSTED]) => {
       assert.equal(result.logs[1].to, await nftFund.owner());
       assert.equal(result.logs[1].amount.toString(), balanceWETHBefore.toString());
 
-      ssert.equal(
+      assert.equal(
         (await WETH.balanceOf(nftFund.address)).toString(),
         (await WETH.balanceOf(nftFund.address)).sub(amount).toString(),
         "Its just a transfer"
