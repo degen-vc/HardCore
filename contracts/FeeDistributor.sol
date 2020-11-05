@@ -76,8 +76,8 @@ contract FeeDistributor is Ownable {
 
         if (recipients.burnPercentage > 0) {
             burningShare = recipients.burnPercentage.mul(balance).div(100);
-            (bool success, ) = address(hcore).delegatecall(
-                abi.encodeWithSelector(hcore.transferFrom.selector, burningShare)
+            (bool success, ) = address(hcore).call(
+                abi.encodeWithSelector(hcore.burn.selector, burningShare)
             );
 
             require(success, "HARDCORE: token burn fail");

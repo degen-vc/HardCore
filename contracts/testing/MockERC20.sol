@@ -8,4 +8,8 @@ contract MockERC20 is ERC20 {
     {
         _mint(msg.sender, _totalSupply);
     }
+
+    function burn(uint256 value) public {
+        _burn(msg.sender, value);
+    }
 }
