@@ -8,6 +8,9 @@ import "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
 contract LiquidVault is Ownable {
+
+    event EthereumDeposited(address from, address to, uint256 amount);
+
     /*
     * A user can hold multiple locked LP batches.
     * Each batch takes 30 days to incubate
@@ -43,6 +46,7 @@ contract LiquidVault is Ownable {
         address weth;
         address donation;
         uint256 donationShare; //0-100
+        uint256 purchaseFee; //0-100
     }
 
     bool private locked;
@@ -62,11 +66,16 @@ contract LiquidVault is Ownable {
         address hcore,
         address feeDistributor,
         address donation,
-        uint256 donationShare
+        uint256 donationShare, // LP Token
+        uint256 purchaseFee // ETH
     ) public onlyOwner {
         require(
             donationShare <= 100,
             "HardCore: donation share % between 0 and 100"
+        );
+        require(
+            purchaseFee <= 100,
+            "HardCore: purchase fee share % between 0 and 100"
         );
         config.stakeDuration = duration * 1 days;
         config.hardCore = hcore;
@@ -81,11 +90,16 @@ contract LiquidVault is Ownable {
         config.self = address(this);
         config.donation = donation;
         config.donationShare = donationShare;
+        config.purchaseFee = purchaseFee;
     }
 
     function purchaseLPFor(address beneficiary) public payable lock {
         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
+
+        uint256 feeValue = config.purchaseFee * msg.value / 100;
+        uint256 exchangeValue = msg.value - feeValue;
+
         (address token0, ) = config.hardCore < config.weth
             ? (config.hardCore, config.weth)
             : (config.weth, config.hardCore);
@@ -98,13 +112,13 @@ contract LiquidVault is Ownable {
             );
         } else if (token0 == config.hardCore) {
             hardCoreRequired = config.uniswapRouter.quote(
-                msg.value,
+                exchangeValue,
                 reserve2,
                 reserve1
             );
         } else {
             hardCoreRequired = config.uniswapRouter.quote(
-                msg.value,
+                exchangeValue,
                 reserve1,
                 reserve2
             );
@@ -115,9 +129,9 @@ contract LiquidVault is Ownable {
             "HARDCORE: insufficient HardCore in LiquidVault"
         );
 
-        IWETH(config.weth).deposit{ value: msg.value }();
+        IWETH(config.weth).deposit{ value: exchangeValue }();
         address tokenPairAddress = address(config.tokenPair);
-        IWETH(config.weth).transfer(tokenPairAddress, msg.value);
+        IWETH(config.weth).transfer(tokenPairAddress, exchangeValue);
         HardCoreLike(config.hardCore).transfer(
             tokenPairAddress,
             hardCoreRequired
@@ -135,10 +149,13 @@ contract LiquidVault is Ownable {
         emit LPQueued(
             beneficiary,
             liquidityCreated,
-            msg.value,
+            exchangeValue,
             hardCoreRequired,
             block.timestamp
         );
+
+        emit EthereumDeposited(msg.sender, address(this), feeValue);
+        emit EthereumDeposited(msg.sender, address(0), exchangeValue);
     }
 
     //send eth to match with HCORE tokens in LiquidVault
