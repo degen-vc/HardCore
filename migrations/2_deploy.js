@@ -56,7 +56,10 @@ module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(NFTFund, factoryAddress, routerAddress, hardCoreInstance.address, feeApproverInstance.address)
 
     await pausePromise('seed feedistributor')
-    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, 40)
+
+    const liquidVault = 40
+    const burnPercent = 10
+    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, liquidVault, burnPercent)
     await pausePromise('seed fee approver')
     await feeApproverInstance.initialize(hardCoreInstance.address, factoryAddress, routerAddress, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
