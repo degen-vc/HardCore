@@ -3,7 +3,6 @@ pragma solidity ^0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./facades/ERC20Like.sol";
-import "./INFTFund.sol";
 
 contract FeeDistributor is Ownable {
     using SafeMath for uint;
@@ -87,7 +86,5 @@ contract FeeDistributor is Ownable {
             hcore.transfer(recipients.dev, balance.sub(liquidShare).sub(burningShare)),
             "HARDCORE: transfer to dev failed"
         );
-
-        INFTFund(recipients.dev).deposit(balance.sub(liquidShare).sub(burningShare));
     }
 }
