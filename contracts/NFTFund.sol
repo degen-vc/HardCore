@@ -8,20 +8,21 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "./testing/uniswapv2/libraries/UniswapV2Library.sol";
+import "./testing/uniswapv2/libraries/TransferHelper.sol";
 
 contract NFTFund is Ownable {
     using SafeMath for uint256;
 
-    event TokensForEthSwapped(uint256 tokenAmount, uint256 weiAmount, address indexed from);
+    event TokensForEthSwapped(uint256 tokenAmount, uint256 weiBalanceAfterSwap, address indexed from);
     event TokenWithdrawn(uint256 tokenAmount, address indexed token, address indexed to);
     event EthWithdrawn(uint256 weiAmount, address indexed to);
 
     IUniswapV2Factory public uniswapFactory;
+    IUniswapV2Router02 public router;
+
     IERC20 public token;
 
-    address public router;
-
-    constructor(IUniswapV2Factory _factory, address _router,  IERC20 _token) public {
+    constructor(IUniswapV2Factory _factory, IUniswapV2Router02 _router,  IERC20 _token) public {
         require(
             address(_factory) != address(0) && 
             address(_router) != address(0) && 
@@ -33,9 +34,23 @@ contract NFTFund is Ownable {
         router = _router;
     }
 
-    // function swapTokensForETH() external virtual;
+    function getTokenBalance() public view returns (uint256) {
+        return IERC20(token).balanceOf(address(this));
+    }
 
-    // function swapTokensForETH(uint256 amount) external virtual;
+    function swapTokensForETH() external {
+        uint amountToSwap = getTokenBalance();
+        _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
+    }
+
+    function swapTokensForETH(uint256 amountToSwap) external {
+        require(
+            amountToSwap <= getTokenBalance(),
+            "NFTFund: token amount exeeds balance"
+        );
+
+        _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
+    }
 
     function withdrawETH() external onlyOwner {
         uint256 weiAmount = address(this).balance;
@@ -47,7 +62,7 @@ contract NFTFund is Ownable {
     }
 
     function withdrawTokens() external onlyOwner {
-        uint256 tokenAmount = IERC20(token).balanceOf(address(this));
+        uint256 tokenAmount = getTokenBalance();
         _withdrawTokens(tokenAmount, address(token), msg.sender);
     }
 
@@ -55,10 +70,31 @@ contract NFTFund is Ownable {
         _withdrawTokens(tokenAmount, address(token), msg.sender);
     }
 
+    function _swapTokensForETH(address _token, uint _amountIn, uint _amountOutMin, uint _deadline)
+        internal
+    {
+        address[] memory path = new address[](2);
+        path[0] = address(token);
+        path[1] = router.WETH();
+
+        TransferHelper.safeApprove(address(token), address(router), _amountIn);
+        router.swapExactTokensForETHSupportingFeeOnTransferTokens(
+            _amountIn,
+            _amountOutMin,
+            path,
+            address(this),
+            _deadline
+        );
+
+        uint256 weiBalanceAfterSwap = address(this).balance;
+
+        emit TokensForEthSwapped(_amountIn, weiBalanceAfterSwap, msg.sender);
+    }
+
     function _withdrawTokens(uint256 _tokenAmount, address _token, address _to) internal {
         require(_tokenAmount > 0, "NFTFund: HCORE amount should be > 0");
         require(
-            _tokenAmount <= IERC20(token).balanceOf(address(this)), 
+            _tokenAmount <= getTokenBalance(),
             "NFTFund: token amount exeeds balance"
         );
 
