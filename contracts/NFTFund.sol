@@ -34,6 +34,10 @@ contract NFTFund is Ownable {
         router = _router;
     }
 
+    receive() external payable {
+        assert(msg.sender == address(router));
+    }
+
     function getTokenBalance() public view returns (uint256) {
         return IERC20(token).balanceOf(address(this));
     }
@@ -76,7 +80,6 @@ contract NFTFund is Ownable {
         address[] memory path = new address[](2);
         path[0] = address(token);
         path[1] = router.WETH();
-
         TransferHelper.safeApprove(address(token), address(router), _amountIn);
         router.swapExactTokensForETHSupportingFeeOnTransferTokens(
             _amountIn,
@@ -85,7 +88,6 @@ contract NFTFund is Ownable {
             address(this),
             _deadline
         );
-
         uint256 weiBalanceAfterSwap = address(this).balance;
 
         emit TokensForEthSwapped(_amountIn, weiBalanceAfterSwap, msg.sender);
