@@ -26,12 +26,16 @@ contract NFTFund is Ownable {
             address(_factory) != address(0) && 
             address(_router) != address(0) && 
             address(_token) != address(0),
-            "NFTFund: factory, router and token are the zero addresses"
+            "NFTFund: factory, router and token are zero addresses"
         );
         uniswapFactory = _factory;
         token = _token;
         router = _router;
     }
+
+    // function swapTokensForETH() external virtual;
+
+    // function swapTokensForETH(uint256 amount) external virtual;
 
     function withdrawETH() external onlyOwner {
         uint256 weiAmount = address(this).balance;
@@ -53,6 +57,10 @@ contract NFTFund is Ownable {
 
     function _withdrawTokens(uint256 _tokenAmount, address _token, address _to) internal {
         require(_tokenAmount > 0, "NFTFund: HCORE amount should be > 0");
+        require(
+            _tokenAmount <= IERC20(token).balanceOf(address(this)), 
+            "NFTFund: token amount exeeds balance"
+        );
 
         IERC20(_token).transfer(_to, _tokenAmount);
         emit TokenWithdrawn(_tokenAmount, _token, _to);
@@ -60,6 +68,7 @@ contract NFTFund is Ownable {
 
     function _withdrawETH(uint256 _weiAmount, address payable _to) internal {
         require(_weiAmount > 0, "NFTFund: ETH amount should be > 0");
+        require(_weiAmount <= address(this).balance, "NFTFund: wei amount exeeds balance");
 
         _to.transfer(_weiAmount);
         emit EthWithdrawn(_weiAmount, _to);

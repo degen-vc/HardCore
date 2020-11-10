@@ -30,18 +30,63 @@ contract('NFTFund', accounts => {
     test('requires a non-null factory, router and token', async () => {
         await expectRevert(
             NFTFund.new(ZERO_ADDRESS, ZERO_ADDRESS, ZERO_ADDRESS, { from: owner }), 
-            'NFTFund: factory, router and token are the zero addresses'
+            'NFTFund: factory, router and token are zero addresses'
         )
     })
     
     test('sends HCORE to NFTFund via FeeDistributor', async () => {
         const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
-        await liquidVaultInstance.purchaseLP({ value: amount })
+        await liquidVaultInstance.purchaseLP({ value: '1000000000000000000' })
         const nftBalanceAfter = await hardcoreInstance.balanceOf(nftFundInstance.address)
-
         assert.isAbove(
             Number(nftBalanceAfter), Number(nftBalance), 
             'Wrong HCORE balance in NFTFund after the fee distribution'
         )
+    })
+
+    test('requires owner to withdraw HCORE', async () => {
+        await expectRevert(
+            nftFundInstance.methods['withdrawTokens()'] ({ from: seller }),
+            'Ownable: caller is not the owner'
+        )
+    })
+
+    test('requires owner to withdraw a certain amount of HCORE', async () => {
+        await expectRevert(
+            nftFundInstance.methods['withdrawTokens(uint256)'] (amount, { from: seller }),
+            'Ownable: caller is not the owner'
+        )
+    })
+
+    test('requires HCORE balance to be enough for withdraw', async () => {
+        const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
+        const withdrawAmount = (Number(nftBalance) * 2).toString()
+
+        await expectRevert(
+            nftFundInstance.methods['withdrawTokens(uint256)'] (withdrawAmount, { from: owner }),
+            'NFTFund: token amount exeeds balance'
+        )
+    })
+
+    test('withdraws all HCORE from NFTFund', async () => {
+        const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
+        const withdraw = await nftFundInstance.methods['withdrawTokens()'] ({ from: owner })
+        const nftBalanceAfter = await hardcoreInstance.balanceOf(nftFundInstance.address)
+
+        assert.equal(withdraw.receipt.from, owner.toLowerCase())
+        assert.equal(Number(nftBalanceAfter), 0)
+    })
+
+    test('withdraws certain HCORE amount from NFTFund', async () => {
+        await hardcoreInstance.transfer(distributorInstance.address, amount)
+        await liquidVaultInstance.purchaseLP({ value: amount })
+
+        const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
+        const withdrawAmount = (Number(nftBalance) / 2).toString()
+        const withdraw = await nftFundInstance.methods['withdrawTokens(uint256)'] (withdrawAmount, { from: owner })
+        const nftBalanceAfter = await hardcoreInstance.balanceOf(nftFundInstance.address)
+
+        assert.equal(withdraw.receipt.from, owner.toLowerCase())
+        assert.equal((Number(nftBalance) - Number(withdrawAmount)), Number(nftBalanceAfter))
     })
 })
