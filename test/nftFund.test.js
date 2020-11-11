@@ -58,9 +58,8 @@ contract('NFTFund', accounts => {
     
     test('sends HCORE to NFTFund via FeeDistributor', async () => {
         const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
-        await liquidVaultInstance.purchaseLP({ value: '1000000000000000000' })
+        await liquidVaultInstance.purchaseLP({ value:  web3.utils.toWei('1') })
         const nftBalanceAfter = await hardcoreInstance.balanceOf(nftFundInstance.address)
-        const ethPairBalance = await web3.eth.getBalance(liquidVaultInstance.address)
         
         assert.isAbove(
             Number(nftBalanceAfter), Number(nftBalance), 
@@ -68,27 +67,61 @@ contract('NFTFund', accounts => {
         )
     })
 
-
-    test('sells HCORE from NFTFund for ETH', async () => {
-        const ethAmount = web3.utils.toWei('10')
-        const hcoreAmount = web3.utils.toWei('100')
-        await hardcoreInstance.approve(router.address, hcoreAmount)
-        const deadline = new Date().getTime() + 3000
-        const liquidity = await router.addLiquidityETH(hardcoreInstance.address, hcoreAmount, '0', '0', owner, deadline, { value: ethAmount, from: owner })
-        const sell = await nftFundInstance.methods['swapTokensForETH()'] ({ from: seller})
-        const ethBalance = await web3.eth.getBalance(nftFundInstance.address)
+    test('requires liquidity for selling HCORE for ETH', async () => {
+        await expectRevert.unspecified(nftFundInstance.methods['swapTokensForETH()'] ({ from: seller }))
     })
 
-    test('requires owner to withdraw HCORE', async () => {
+    test('sells certain amount of HCORE for ETH', async () => {
+        const ethAmount = web3.utils.toWei('10')
+        const hcoreAmount = web3.utils.toWei('100')
+        const deadline = new Date().getTime() + 3000
+        
+        await hardcoreInstance.approve(router.address, hcoreAmount)
+        await router.addLiquidityETH(hardcoreInstance.address, hcoreAmount, '0', '0', owner, deadline, { 
+            value: ethAmount, from: owner 
+        })
+        const hcoreBalanceBefore = Number(await hardcoreInstance.balanceOf(nftFundInstance.address))
+        const sell = await nftFundInstance.methods['swapTokensForETH(uint256)'] ((hcoreBalanceBefore / 2).toString(), { 
+            from: seller
+        })
+        const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
+        const hcoreBalance = Number(await hardcoreInstance.balanceOf(nftFundInstance.address))
+
+        assert.isBelow(hcoreBalance, hcoreBalanceBefore, 'HCORE balance is more than expected')
+        assert.isAbove(ethBalance, 0, 'ETH balance should be non zero')
+    })
+
+
+    test('sells HCORE from NFTFund for ETH', async () => {
+        const ethBalanceBefore = Number(await web3.eth.getBalance(nftFundInstance.address))
+        const sell = await nftFundInstance.methods['swapTokensForETH()'] ({ from: seller})
+        const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
+        const hcoreBalance = Number(await hardcoreInstance.balanceOf(nftFundInstance.address))
+
+        assert.equal(hcoreBalance, 0)
+        assert.isAbove(ethBalance, ethBalanceBefore)
+    })
+
+    test('requires owner to withdraw HCORE and ETH', async () => {
         await expectRevert(
             nftFundInstance.methods['withdrawTokens()'] ({ from: seller }),
             'Ownable: caller is not the owner'
         )
+        await expectRevert(
+            nftFundInstance.methods['withdrawETH()'] ({ from: seller }),
+            'Ownable: caller is not the owner'
+        )
     })
 
-    test('requires owner to withdraw a certain amount of HCORE', async () => {
+    test('requires owner to withdraw a certain amount of HCORE and ETH', async () => {
+        const ethBalance = await web3.eth.getBalance(nftFundInstance.address)
+
         await expectRevert(
             nftFundInstance.methods['withdrawTokens(uint256)'] (amount, { from: seller }),
+            'Ownable: caller is not the owner'
+        )
+        await expectRevert(
+            nftFundInstance.methods['withdrawETH(uint256)'] (ethBalance, { from: seller }),
             'Ownable: caller is not the owner'
         )
     })
@@ -101,6 +134,16 @@ contract('NFTFund', accounts => {
         await expectRevert(
             nftFundInstance.methods['withdrawTokens(uint256)'] (withdrawAmount, { from: owner }),
             'NFTFund: token amount exeeds balance'
+        )
+    })
+
+    test('requires ETH balance to be enough for withdraw', async () => {
+        const ethBalance = await web3.eth.getBalance(nftFundInstance.address)
+        const withdrawAmount = (Number(ethBalance) * 2).toString()
+
+        await expectRevert(
+            nftFundInstance.methods['withdrawETH(uint256)'] (withdrawAmount, { from: owner }),
+            'NFTFund: wei amount exeeds balance'
         )
     })
 
@@ -125,5 +168,24 @@ contract('NFTFund', accounts => {
 
         assert.equal(withdraw.receipt.from, owner.toLowerCase())
         assert.equal((Number(nftBalance) - Number(withdrawAmount)), Number(nftBalanceAfter))
+    })
+
+    test('withdraws certain ETH amount from NFTFund', async () => {
+        const ethBalanceBefore = Number(await web3.eth.getBalance(nftFundInstance.address))
+        const withdrawAmount = Math.floor((Number(ethBalanceBefore) / 2)).toString()
+        const withdraw = await nftFundInstance.methods['withdrawETH(uint256)'] (withdrawAmount, { from: owner })
+        const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
+
+        assert.equal(withdraw.receipt.from, owner.toLowerCase())
+        assert.equal(ethBalanceBefore - withdrawAmount, ethBalance)
+    })
+
+    test('withdraws ETH amount from NFTFund', async () => {
+        const ethBalanceBefore = Number(await web3.eth.getBalance(nftFundInstance.address))
+        const withdraw = await nftFundInstance.methods['withdrawETH()'] ({ from: owner })
+        const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
+
+        assert.equal(withdraw.receipt.from, owner.toLowerCase())
+        assert.equal(ethBalance, 0)
     })
 })
