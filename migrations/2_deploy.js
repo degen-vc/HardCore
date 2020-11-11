@@ -30,7 +30,7 @@ module.exports = async function (deployer, network, accounts) {
 
 
     let uniswapfactoryInstance, uniswapRouterInstance
-    if (network === 'development' || network=== 'kovan') {
+    if (network === 'development') {
         await deployer.deploy(Uniswapfactory, accounts[0])
         uniswapfactoryInstance = await Uniswapfactory.deployed()
         await pausePromise('uniswap test factory')

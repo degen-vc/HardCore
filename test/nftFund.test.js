@@ -180,7 +180,7 @@ contract('NFTFund', accounts => {
         assert.equal(ethBalanceBefore - withdrawAmount, ethBalance)
     })
 
-    test('withdraws ETH amount from NFTFund', async () => {
+    test('withdraws all ETH from NFTFund', async () => {
         const ethBalanceBefore = Number(await web3.eth.getBalance(nftFundInstance.address))
         const withdraw = await nftFundInstance.methods['withdrawETH()'] ({ from: owner })
         const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
