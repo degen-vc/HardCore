@@ -55,6 +55,21 @@ contract('NFTFund', accounts => {
             'NFTFund: factory, router and token are zero addresses'
         )
     })
+
+    test('requires an owner to update factory, router and token addresses', async () => {
+        await expectRevert(
+            nftFundInstance.updateUniswapFactoryAddress(factoryInstance.address, { from: seller }),
+            'Ownable: caller is not the owner'
+        )
+        await expectRevert(
+            nftFundInstance.updateUniswapRouterAddress(router.address, { from: seller }),
+            'Ownable: caller is not the owner'
+        )
+        await expectRevert(
+            nftFundInstance.updateTokenAddress(hardcoreInstance.address, { from: seller }),
+            'Ownable: caller is not the owner'
+        )
+    })
     
     test('sends HCORE to NFTFund via FeeDistributor', async () => {
         const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
@@ -133,7 +148,7 @@ contract('NFTFund', accounts => {
 
         await expectRevert(
             nftFundInstance.methods['withdrawTokens(uint256)'] (withdrawAmount, { from: owner }),
-            'NFTFund: token amount exeeds balance'
+            'NFTFund: token amount exceeds balance'
         )
     })
 
@@ -143,7 +158,7 @@ contract('NFTFund', accounts => {
 
         await expectRevert(
             nftFundInstance.methods['withdrawETH(uint256)'] (withdrawAmount, { from: owner }),
-            'NFTFund: wei amount exeeds balance'
+            'NFTFund: wei amount exceeds balance'
         )
     })
 

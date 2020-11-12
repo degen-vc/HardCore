@@ -4,7 +4,6 @@ pragma solidity ^0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "./testing/uniswapv2/libraries/UniswapV2Library.sol";
@@ -34,12 +33,28 @@ contract NFTFund is Ownable {
         router = _router;
     }
 
-    receive() external payable {
-        assert(msg.sender == address(router));
-    }
+    receive() external payable {}
 
     function getTokenBalance() public view returns (uint256) {
         return IERC20(token).balanceOf(address(this));
+    }
+
+    function updateUniswapFactoryAddress(address _factory) external onlyOwner {
+        require(_factory != address(0), "NFTFund: factory is a zero address");
+
+        uniswapFactory = IUniswapV2Factory(_factory);
+    }
+
+    function updateUniswapRouterAddress(address _router) external onlyOwner {
+        require(_router != address(0), "NFTFund: router is a zero address");
+
+        router = IUniswapV2Router02(_router);
+    }
+
+    function updateTokenAddress(address _token) external onlyOwner {
+        require(_token != address(0), "NFTFund: token is a zero address");
+
+        token = IERC20(_token);
     }
 
     function swapTokensForETH() external {
@@ -50,7 +65,7 @@ contract NFTFund is Ownable {
     function swapTokensForETH(uint256 amountToSwap) external {
         require(
             amountToSwap <= getTokenBalance(),
-            "NFTFund: token amount exeeds balance"
+            "NFTFund: token amount exceeds balance"
         );
 
         _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
@@ -97,7 +112,7 @@ contract NFTFund is Ownable {
         require(_tokenAmount > 0, "NFTFund: HCORE amount should be > 0");
         require(
             _tokenAmount <= getTokenBalance(),
-            "NFTFund: token amount exeeds balance"
+            "NFTFund: token amount exceeds balance"
         );
 
         IERC20(_token).transfer(_to, _tokenAmount);
@@ -106,7 +121,7 @@ contract NFTFund is Ownable {
 
     function _withdrawETH(uint256 _weiAmount, address payable _to) internal {
         require(_weiAmount > 0, "NFTFund: ETH amount should be > 0");
-        require(_weiAmount <= address(this).balance, "NFTFund: wei amount exeeds balance");
+        require(_weiAmount <= address(this).balance, "NFTFund: wei amount exceeds balance");
 
         _to.transfer(_weiAmount);
         emit EthWithdrawn(_weiAmount, _to);
