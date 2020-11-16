@@ -1,136 +1,129 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.12;
 
-import "./INFTFund.sol";
-import { SafeMath } from "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import { IUniswapV2Pair } from "./testing/uniswapv2/interfaces/IUniswapV2Pair.sol";
-import { IUniswapV2Router01 } from "./testing/uniswapv2/interfaces/IUniswapV2Router01.sol";
-import { IUniswapV2Router02 } from "./testing/uniswapv2/interfaces/IUniswapV2Router02.sol";
-import { TransferHelper } from "./testing/uniswapv2/libraries/TransferHelper.sol";
-import { UniswapV2Factory } from "./testing/uniswapv2/UniswapV2Factory.sol";
-import { UniswapV2Library } from "./testing/uniswapv2/libraries/UniswapV2Library.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
+import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
+import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
+import "./testing/uniswapv2/libraries/UniswapV2Library.sol";
+import "./testing/uniswapv2/libraries/TransferHelper.sol";
 
-/*
- * Contract Simple sell of token
- */
-contract NFTFund is INFTFund, Ownable {
+contract NFTFund is Ownable {
     using SafeMath for uint256;
 
-    event Deposited(address from, uint256 amount);
-    event Trade(uint256 tokens, uint256 toWETH);
-    event Withdrawn(address token, address to, uint256 amount);
+    event TokensForEthSwapped(uint256 tokenAmount, uint256 weiBalanceAfterSwap, address indexed from);
+    event TokenWithdrawn(uint256 tokenAmount, address indexed token, address indexed to);
+    event EthWithdrawn(uint256 weiAmount, address indexed to);
 
-    address factory;
-    address router;
-    IERC20 token;
-    address distributor;
+    IUniswapV2Factory public uniswapFactory;
+    IUniswapV2Router02 public router;
 
-    uint256 public totalRaised;
-    uint256 public totalExchangedWETH;
+    IERC20 public token;
 
-    constructor(
-        UniswapV2Factory uniFactory,
-        address uniRouterV2,
-        IERC20 _hardCoreToken,
-        address _distributor
-    ) public {
-        factory = address(UniswapV2Factory(uniFactory));
-        router = uniRouterV2;
-        token = _hardCoreToken;
-        distributor = _distributor;
-    }
-
-    modifier onlyDistributor() {
-        require(msg.sender == distributor, "Withdraw locked");
-        _;
-    }
-
-    // @dev deposit tokens to NFT fund (all erc20.approve before)
-    function deposit(uint256 amount) external override onlyDistributor {
-        totalRaised = totalRaised.add(amount);
-        emit Deposited(msg.sender, amount);
-    }
-
-    function sellToken(uint256 amountIn) external override {
+    constructor(IUniswapV2Factory _factory, IUniswapV2Router02 _router,  IERC20 _token) public {
         require(
-            amountIn <= token.balanceOf(address(this)),
-            "Not enough balance"
+            address(_factory) != address(0) && 
+            address(_router) != address(0) && 
+            address(_token) != address(0),
+            "NFTFund: factory, router and token are zero addresses"
+        );
+        uniswapFactory = _factory;
+        token = _token;
+        router = _router;
+    }
+
+    receive() external payable {}
+
+    function getTokenBalance() public view returns (uint256) {
+        return IERC20(token).balanceOf(address(this));
+    }
+
+    function updateUniswapFactoryAddress(address _factory) external onlyOwner {
+        require(_factory != address(0), "NFTFund: factory is a zero address");
+
+        uniswapFactory = IUniswapV2Factory(_factory);
+    }
+
+    function updateUniswapRouterAddress(address _router) external onlyOwner {
+        require(_router != address(0), "NFTFund: router is a zero address");
+
+        router = IUniswapV2Router02(_router);
+    }
+
+    function updateTokenAddress(address _token) external onlyOwner {
+        require(_token != address(0), "NFTFund: token is a zero address");
+
+        token = IERC20(_token);
+    }
+
+    function swapTokensForETH() external {
+        uint amountToSwap = getTokenBalance();
+        _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
+    }
+
+    function swapTokensForETH(uint256 amountToSwap) external {
+        require(
+            amountToSwap <= getTokenBalance(),
+            "NFTFund: token amount exceeds balance"
         );
 
-        _sellToken(amountIn);
+        _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
     }
 
-    function sellToken() external override {
-        uint256 amountIn = token.balanceOf(address(this));
-
-        _sellToken(amountIn);
+    function withdrawETH() external onlyOwner {
+        uint256 weiAmount = address(this).balance;
+        _withdrawETH(weiAmount, msg.sender);
     }
 
-    function getReserves(address tokenA, address tokenB)
-        public
-        view
-        returns (uint256 reserve0, uint256 reserve1)
+    function withdrawETH(uint256 weiAmount) external onlyOwner {
+        _withdrawETH(weiAmount, msg.sender);
+    }
+
+    function withdrawTokens() external onlyOwner {
+        uint256 tokenAmount = getTokenBalance();
+        _withdrawTokens(tokenAmount, address(token), msg.sender);
+    }
+
+    function withdrawTokens(uint256 tokenAmount) external onlyOwner {
+        _withdrawTokens(tokenAmount, address(token), msg.sender);
+    }
+
+    function _swapTokensForETH(address _token, uint _amountIn, uint _amountOutMin, uint _deadline)
+        internal
     {
-        IUniswapV2Pair _pair = IUniswapV2Pair(
-            UniswapV2Library.pairFor(factory, tokenA, tokenB)
-        );
-        (reserve0, reserve1, ) = _pair.getReserves();
-        return (reserve0, reserve1);
-    }
-
-    // @dev sell HCORE token for ETH on uniswap
-    function _sellToken(uint256 amountIn) internal {
-        address tokenIn = address(token);
-        address tokenOut = IUniswapV2Router01(router).WETH();
-
-        (uint256 reserveA, uint256 reserveB) = getReserves(tokenIn, tokenOut);
-
-        uint256 amountOut = IUniswapV2Router02(router).getAmountOut(
-            amountIn,
-            reserveA,
-            reserveB
-        );
-
-        TransferHelper.safeApprove(tokenIn, address(router), amountIn);
-
         address[] memory path = new address[](2);
-        path[0] = tokenIn;
-        path[1] = tokenOut;
-
-        uint256[] memory amounts = IUniswapV2Router01(router)
-            .swapExactTokensForTokens(
-            amountIn,
-            amountOut,
+        path[0] = address(_token);
+        path[1] = router.WETH();
+        TransferHelper.safeApprove(address(_token), address(router), _amountIn);
+        router.swapExactTokensForETHSupportingFeeOnTransferTokens(
+            _amountIn,
+            _amountOutMin,
             path,
-            address(this), // to this contract
-            block.timestamp
+            address(this),
+            _deadline
+        );
+        uint256 weiBalanceAfterSwap = address(this).balance;
+
+        emit TokensForEthSwapped(_amountIn, weiBalanceAfterSwap, msg.sender);
+    }
+
+    function _withdrawTokens(uint256 _tokenAmount, address _token, address _to) internal {
+        require(_tokenAmount > 0, "NFTFund: HCORE amount should be > 0");
+        require(
+            _tokenAmount <= getTokenBalance(),
+            "NFTFund: token amount exceeds balance"
         );
 
-        totalExchangedWETH = totalExchangedWETH.add(
-            amounts[amounts.length - 1]
-        );
-
-        emit Trade(amounts[0], amounts[amounts.length - 1]);
+        IERC20(_token).transfer(_to, _tokenAmount);
+        emit TokenWithdrawn(_tokenAmount, _token, _to);
     }
 
-    function withdrawToken(address _token, address _to, uint _amount)
-        external
-        onlyOwner
-    {
-        _withdrawToken(_token, _to, _amount);
-    }
+    function _withdrawETH(uint256 _weiAmount, address payable _to) internal {
+        require(_weiAmount > 0, "NFTFund: ETH amount should be > 0");
+        require(_weiAmount <= address(this).balance, "NFTFund: wei amount exceeds balance");
 
-    function withdrawToken(address _token) external override onlyOwner {
-        uint amount = token.balanceOf(address(this));
-        _withdrawToken(_token, owner(), amount);
-    }
-
-    function _withdrawToken(address _token, address _to, uint256 _amount) internal {
-        require(_amount > 0, "Contract is empty");
-
-        IERC20(_token).transfer(_to, _amount);
-        emit Withdrawn(_token, _to, _amount);
+        _to.transfer(_weiAmount);
+        emit EthWithdrawn(_weiAmount, _to);
     }
 }

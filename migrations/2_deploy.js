@@ -30,7 +30,7 @@ module.exports = async function (deployer, network, accounts) {
 
 
     let uniswapfactoryInstance, uniswapRouterInstance
-    if (network === 'development' || network=== 'kovan') {
+    if (network === 'development') {
         await deployer.deploy(Uniswapfactory, accounts[0])
         uniswapfactoryInstance = await Uniswapfactory.deployed()
         await pausePromise('uniswap test factory')
@@ -53,17 +53,14 @@ module.exports = async function (deployer, network, accounts) {
     const factoryAddress = await hardCoreInstance.uniswapFactory.call()
     const routerAddress = await hardCoreInstance.uniswapRouter.call()
 
-    await deployer.deploy(NFTFund, factoryAddress, routerAddress, hardCoreInstance.address, feeApproverInstance.address)
+    await deployer.deploy(NFTFund, factoryAddress, routerAddress, hardCoreInstance.address)
 
     await pausePromise('seed feedistributor')
-
-    const liquidVault = 40
-    const burnPercent = 10
-    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, liquidVault, burnPercent)
+    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, 40, 1)
     await pausePromise('seed fee approver')
     await feeApproverInstance.initialize(hardCoreInstance.address, factoryAddress, routerAddress, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], 10)
+    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], 10, 1)
 }
 
 function pausePromise(message, durationInSeconds = 2) {
