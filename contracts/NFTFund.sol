@@ -93,9 +93,9 @@ contract NFTFund is Ownable {
         internal
     {
         address[] memory path = new address[](2);
-        path[0] = address(token);
+        path[0] = address(_token);
         path[1] = router.WETH();
-        TransferHelper.safeApprove(address(token), address(router), _amountIn);
+        TransferHelper.safeApprove(address(_token), address(router), _amountIn);
         router.swapExactTokensForETHSupportingFeeOnTransferTokens(
             _amountIn,
             _amountOutMin,

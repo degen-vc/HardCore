@@ -5,12 +5,9 @@ const async = require('./helpers/async.js')
 const test = async.test
 const setup = async.setup
 
-const Distributor = artifacts.require("FeeDistributor")
 const FeeApprover = artifacts.require("FeeApprover")
-const LiquidVault = artifacts.require("LiquidVault")
 const Hardcore = artifacts.require('Hardcore')
 const NFTFund = artifacts.require('NFTFund')
-const uniswapPair = artifacts.require('UniswapV2Pair')
 const WETHUniswap = artifacts.require('WETH')
 
 const UniswapV2FactoryBytecode = require('@uniswap/v2-core/build/UniswapV2Factory.json')
@@ -18,17 +15,16 @@ const UniswapV2Router02Bytecode = require('@uniswap/v2-periphery/build/UniswapV2
 const TruffleContract = require('@truffle/contract')
 
 contract('NFTFund', accounts => {
-    const [ owner, seller ] = accounts
+    const [ owner, seller, liquidVault, distributor ] = accounts
     const amount = '100000000000000000'
-    let hardcoreInstance, liquidVaultInstance, feeAproverInstance, distributorInstance, 
+    let hardcoreInstance, feeApproverInstance, 
         nftFundInstance, router, wethInstance, factoryInstance
+    let uniswapPairAddress
 
     setup(async () => {
-        hardcoreInstance = await Hardcore.deployed()
-        liquidVaultInstance = await LiquidVault.deployed()
-        feeAproverInstance = await FeeApprover.deployed()
-        distributorInstance = await Distributor.deployed()
-        wethInstance = await WETHUniswap.deployed()
+        hardcoreInstance = await Hardcore.new()
+        feeApproverInstance = await FeeApprover.new()
+        wethInstance = await WETHUniswap.new('Wrapped Ether', 'WETH')
 
         const UniswapV2Factory = TruffleContract(UniswapV2FactoryBytecode);
         const UniswapV2Router02 = TruffleContract(UniswapV2Router02Bytecode);
@@ -39,14 +35,15 @@ contract('NFTFund', accounts => {
             from: owner,
         });
 
+        await hardcoreInstance.initialSetup(router.address, factoryInstance.address, feeApproverInstance.address, distributor, liquidVault)
+
         nftFundInstance = await NFTFund.new(factoryInstance.address, router.address, hardcoreInstance.address)
 
-        await distributorInstance.seed(hardcoreInstance.address, liquidVaultInstance.address, nftFundInstance.address, 40, 1)
-        await feeAproverInstance.initialize(hardcoreInstance.address, factoryInstance.address, router.address, liquidVaultInstance.address)
-        await liquidVaultInstance.seed(2, hardcoreInstance.address, distributorInstance.address, accounts[3], 10, 1)
+        await feeApproverInstance.initialize(hardcoreInstance.address, factoryInstance.address, router.address, liquidVault)
 
-        await feeAproverInstance.unPause()
-        await hardcoreInstance.transfer(distributorInstance.address, amount)
+        await feeApproverInstance.unPause()
+
+        uniswapPairAddress = await hardcoreInstance.tokenUniswapPair.call()
     })
 
     test('requires a non-null factory, router and token', async () => {
@@ -70,20 +67,14 @@ contract('NFTFund', accounts => {
             'Ownable: caller is not the owner'
         )
     })
-    
-    test('sends HCORE to NFTFund via FeeDistributor', async () => {
-        const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
-        await liquidVaultInstance.purchaseLP({ value:  web3.utils.toWei('1') })
-        const nftBalanceAfter = await hardcoreInstance.balanceOf(nftFundInstance.address)
-        
-        assert.isAbove(
-            Number(nftBalanceAfter), Number(nftBalance), 
-            'Wrong HCORE balance in NFTFund after the fee distribution'
-        )
-    })
 
     test('requires liquidity for selling HCORE for ETH', async () => {
-        await expectRevert.unspecified(nftFundInstance.methods['swapTokensForETH()'] ({ from: seller }))
+        await hardcoreInstance.transfer(nftFundInstance.address, web3.utils.toWei('10'))
+
+        await expectRevert(
+            nftFundInstance.methods['swapTokensForETH()'] ({ from: seller }),
+            'UniswapV2Library: INSUFFICIENT_LIQUIDITY'
+        )
     })
 
     test('sells certain amount of HCORE for ETH', async () => {
@@ -95,26 +86,44 @@ contract('NFTFund', accounts => {
         await router.addLiquidityETH(hardcoreInstance.address, hcoreAmount, '0', '0', owner, deadline, { 
             value: ethAmount, from: owner 
         })
+        await hardcoreInstance.transfer(nftFundInstance.address, web3.utils.toWei('20'))
+        
+        const pairBefore = Number(await hardcoreInstance.balanceOf(uniswapPairAddress))
         const hcoreBalanceBefore = Number(await hardcoreInstance.balanceOf(nftFundInstance.address))
-        const sell = await nftFundInstance.methods['swapTokensForETH(uint256)'] ((hcoreBalanceBefore / 2).toString(), { 
+        const amountToCalculate = (hcoreBalanceBefore / 2).toString()
+        const feeAmount = await feeApproverInstance.calculateAmountsAfterFee(nftFundInstance.address, uniswapPairAddress, amountToCalculate)
+        
+        await nftFundInstance.methods['swapTokensForETH(uint256)'] (amountToCalculate, { 
             from: seller
         })
+
         const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
         const hcoreBalance = Number(await hardcoreInstance.balanceOf(nftFundInstance.address))
+        const pairBalance = Number(await hardcoreInstance.balanceOf(uniswapPairAddress))
 
         assert.isBelow(hcoreBalance, hcoreBalanceBefore, 'HCORE balance is more than expected')
         assert.isAbove(ethBalance, 0, 'ETH balance should be non zero')
+        assert.equal(Number(feeAmount[1]), 0)
+        assert.equal(Number(feeAmount[0]), pairBalance - pairBefore)
     })
 
 
     test('sells HCORE from NFTFund for ETH', async () => {
+        const pairBefore = await hardcoreInstance.balanceOf(uniswapPairAddress)
         const ethBalanceBefore = Number(await web3.eth.getBalance(nftFundInstance.address))
-        const sell = await nftFundInstance.methods['swapTokensForETH()'] ({ from: seller})
+        const amountToCalculate = await hardcoreInstance.balanceOf(nftFundInstance.address)
+        const feeAmount = await feeApproverInstance.calculateAmountsAfterFee(nftFundInstance.address, uniswapPairAddress, amountToCalculate)
+        
+        await nftFundInstance.methods['swapTokensForETH()'] ({ from: seller})
+        
         const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))
         const hcoreBalance = Number(await hardcoreInstance.balanceOf(nftFundInstance.address))
+        const pairBalance = Number(await hardcoreInstance.balanceOf(uniswapPairAddress))
 
         assert.equal(hcoreBalance, 0)
         assert.isAbove(ethBalance, ethBalanceBefore)
+        assert.equal(Number(feeAmount[1]), 0)
+        assert.equal(Number(feeAmount[0]), pairBalance - pairBefore)
     })
 
     test('requires owner to withdraw HCORE and ETH', async () => {
@@ -142,7 +151,8 @@ contract('NFTFund', accounts => {
     })
 
     test('requires HCORE balance to be enough for withdraw', async () => {
-        await liquidVaultInstance.purchaseLP({ value: amount })
+        await hardcoreInstance.transfer(nftFundInstance.address, web3.utils.toWei('20'))
+
         const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
         const withdrawAmount = (Number(nftBalance) * 2).toString()
 
@@ -163,7 +173,8 @@ contract('NFTFund', accounts => {
     })
 
     test('withdraws all HCORE from NFTFund', async () => {
-        await liquidVaultInstance.purchaseLP({ value: amount })
+        await hardcoreInstance.transfer(nftFundInstance.address, web3.utils.toWei('20'))
+        
         const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
         const withdraw = await nftFundInstance.methods['withdrawTokens()'] ({ from: owner })
         const nftBalanceAfter = await hardcoreInstance.balanceOf(nftFundInstance.address)
@@ -173,8 +184,7 @@ contract('NFTFund', accounts => {
     })
 
     test('withdraws certain HCORE amount from NFTFund', async () => {
-        await hardcoreInstance.transfer(distributorInstance.address, amount)
-        await liquidVaultInstance.purchaseLP({ value: amount })
+        await hardcoreInstance.transfer(nftFundInstance.address, web3.utils.toWei('20'))
 
         const nftBalance = await hardcoreInstance.balanceOf(nftFundInstance.address)
         const withdrawAmount = (Number(nftBalance) / 2).toString()
