@@ -60,7 +60,7 @@ module.exports = async function (deployer, network, accounts) {
     await pausePromise('seed fee approver')
     await feeApproverInstance.initialize(hardCoreInstance.address, factoryAddress, routerAddress, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], 10, 1)
+    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], accounts[1], 10, 1)
 }
 
 function pausePromise(message, durationInSeconds = 2) {

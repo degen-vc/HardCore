@@ -44,6 +44,7 @@ contract LiquidVault is Ownable {
         address self;
         address weth;
         address donation;
+        address payable ethReceiver;
         uint32 stakeDuration;
         uint8 donationShare; //0-100
         uint8 purchaseFee; //0-100
@@ -66,6 +67,7 @@ contract LiquidVault is Ownable {
         address hcore,
         address feeDistributor,
         address donation,
+        address payable ethReceiver,
         uint8 donationShare, // LP Token
         uint8 purchaseFee // ETH
     ) public onlyOwner {
@@ -89,6 +91,7 @@ contract LiquidVault is Ownable {
         config.weth = config.uniswapRouter.WETH();
         config.self = address(this);
         config.donation = donation;
+        config.ethReceiver = ethReceiver;
         config.donationShare = donationShare;
         config.purchaseFee = purchaseFee;
     }
@@ -136,6 +139,7 @@ contract LiquidVault is Ownable {
             tokenPairAddress,
             hardCoreRequired
         );
+        config.ethReceiver.transfer(feeValue);
         uint256 liquidityCreated = config.tokenPair.mint(config.self);
 
         LockedLP[beneficiary].push(
