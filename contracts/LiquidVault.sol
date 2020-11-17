@@ -41,12 +41,12 @@ contract LiquidVault is Ownable {
         IUniswapV2Router02 uniswapRouter;
         IUniswapV2Pair tokenPair;
         FeeDistributorLike feeDistributor;
-        uint256 stakeDuration;
         address self;
         address weth;
         address donation;
-        uint256 donationShare; //0-100
-        uint256 purchaseFee; //0-100
+        uint32 stakeDuration;
+        uint8 donationShare; //0-100
+        uint8 purchaseFee; //0-100
     }
 
     bool private locked;
@@ -62,12 +62,12 @@ contract LiquidVault is Ownable {
     mapping(address => LPbatch[]) public LockedLP;
 
     function seed(
-        uint256 duration,
+        uint32 duration,
         address hcore,
         address feeDistributor,
         address donation,
-        uint256 donationShare, // LP Token
-        uint256 purchaseFee // ETH
+        uint8 donationShare, // LP Token
+        uint8 purchaseFee // ETH
     ) public onlyOwner {
         require(
             donationShare <= 100,

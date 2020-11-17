@@ -36,14 +36,6 @@ contract FeeDistributor is Ownable {
         uint256 burnPercentage
     ) public onlyOwner {
         require(
-            liquidVaultShare <= 100,
-            "HARDCORE: liquidVault share must be between 0 and 100"
-        );
-        require(
-            burnPercentage <= 100,
-            "HARDCORE: burnPercentage share must be between 0 and 100"
-        );
-        require(
             liquidVaultShare.add(burnPercentage) <= 100,
             "HARDCORE: liquidVault + burnPercentage incorrect sets"
         );
@@ -75,11 +67,7 @@ contract FeeDistributor is Ownable {
 
         if (recipients.burnPercentage > 0) {
             burningShare = recipients.burnPercentage.mul(balance).div(100);
-            (bool success, ) = address(hcore).call(
-                abi.encodeWithSelector(hcore.burn.selector, burningShare)
-            );
-
-            require(success, "HARDCORE: token burn fail");
+            hcore.burn(burningShare);
         }
 
         require(

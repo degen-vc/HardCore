@@ -15,7 +15,7 @@ contract FeeApprover is Ownable {
         address _uniswapFactory,
         address _uniswapRouter,
         address _liquidVault
-    ) public {
+    ) public onlyOwner {
         hardcoreTokenAddress = _HCAddress;
 
         tokenUniswapPair = IUniswapV2Factory(_uniswapFactory).getPair(
@@ -30,11 +30,9 @@ contract FeeApprover is Ownable {
     }
 
     address tokenUniswapPair;
-    IUniswapV2Factory public uniswapFactory;
     address hardcoreTokenAddress;
     address liquidVault;
     uint8 public feePercentX100;
-    uint256 public lastTotalSupplyOfLPTokens;
     bool paused;
     mapping(address => uint256) public discountFrom;
     mapping(address => uint256) public discountTo;

@@ -54,16 +54,15 @@ contract('FeeDistributor', ([ALICE, BOB, UNISWAP, HACKER]) => {
       uniFactory.address,
       uniRouterV2.address,
       hardCoreToken.address,
-      feeDistributor.address,
       {from: ALICE}
     );
 
     this.snapshotId = await takeSnapshot();
   });
 
-  // afterEach('revert', async () => {
-  //   await revertToSnapshot(this.snapshotId);
-  // });
+  afterEach('revert', async () => {
+    await revertToSnapshot(this.snapshotId);
+  });
 
   describe('All', () => {
     afterEach('revert', async () => {

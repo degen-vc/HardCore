@@ -9,6 +9,7 @@
   "scripts": {
     "test": "truffle test",
     "compile": "truffle compile",
+    "ganache": "ganache-cli",
     "deploy:kovan": "npm run compile && truffle migrate --network kovan",
     "lint:sol": "solhint contracts/*.sol",
     "prettier:sol": "./node_modules/.bin/prettier --write contracts/*.sol contracts/**/*.sol"
@@ -29,6 +30,8 @@
     "dotenv": "^8.2.0",
     "ganache-time-traveler": "^1.0.15",
     "prettier": "^2.1.2",
-    "prettier-plugin-solidity": "^1.0.0-alpha.59"
+    "prettier-plugin-solidity": "^1.0.0-alpha.59",
+    "truffle": "5.1.53",
+    "ganache-cli": "6.12.1"
   }
 }
