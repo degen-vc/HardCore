@@ -29,12 +29,19 @@ contract('liquid vault', accounts => {
         await expectThrow(liquidVaultInstance.purchaseLP({ value: '0' }), 'HARDCORE: eth required to mint Hardcore LP')
     })
 
-    test('sending eth on purchase increases queue size by 1', async () => {
+    test("setParameters from non-owner fails", async () => {
+        await expectThrow(liquidVaultInstance.setParameters(2, 10, 5, { from: accounts[3] }), 'Ownable: caller is not the owner')
+    })
 
+    test('sending eth on purchase increases queue size by 1', async () => {
         const lengthBefore = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
-        await liquidVaultInstance.purchaseLP({ value: '100000000000' })
+        const purchase = await liquidVaultInstance.purchaseLP({ value: '100000000000' })
+        const feeAmount = purchase.receipt.logs[1].args[3].toString()
+        const ethForPurchase = purchase.receipt.logs[1].args[2].toString()
         const lengthAfter = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
 
+        assert.equal(feeAmount, '10000000000')
+        assert.equal(ethForPurchase, '90000000000')
         assert.equal(lengthAfter - lengthBefore, 1)
 
         const lp = await liquidVaultInstance.getLockedLP.call(accounts[0], lengthAfter - 1)
@@ -52,7 +59,7 @@ contract('liquid vault', accounts => {
         assert.equal(lengthAfterSecondPurchase - lengthAfter, 1)
 
         const lp2 = await liquidVaultInstance.getLockedLP.call(accounts[0], lengthAfterSecondPurchase - 1)
-
+        
         const sender2 = lp2[0].toString()
         const amount2 = lp2[1].toNumber()
         const timestamp2 = lp2[2].toNumber()
@@ -76,21 +83,22 @@ contract('liquid vault', accounts => {
         assert.equal(lpBalaceBefore, 0)
 
         const donationLPBeforeFirst = parseInt((await lpTokenInstance.methods.balanceOf(accounts[3]).call({ from: primary })).toString())
-
-        await liquidVaultInstance.claimLP()
+        const claim = await liquidVaultInstance.claimLP()
+        const claimedAmount = Number(claim.receipt.logs[0].args[1])
+        const exitFee = Number(claim.receipt.logs[0].args[3])
 
         const donationLPAfterFirst = parseInt((await lpTokenInstance.methods.balanceOf(accounts[3]).call({ from: primary })).toString())
-
         const lengthAfterClaim = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
         assert.equal(lengthAfterClaim, lengthAfterSecondPurchase - 1)
         const lpBalaceAfterClaim = parseInt((await lpTokenInstance.methods.balanceOf(accounts[0]).call({ from: primary })).toString())
+        
+        assert.equal(lpBalaceAfterClaim, claimedAmount - exitFee)
+        assert.equal(donationLPAfterFirst - donationLPBeforeFirst, exitFee)
 
-        assert.equal(lpBalaceAfterClaim, amount2 * 0.9) //donation tax
 
-        assert.equal(donationLPAfterFirst - donationLPBeforeFirst, amount2 * 0.1)
-
-
-        await liquidVaultInstance.claimLP()
+        const claim2 = await liquidVaultInstance.claimLP()
+        const claimedAmount2 = Number(claim2.receipt.logs[0].args[1])
+        const exitFee2 = Number(claim2.receipt.logs[0].args[3])
 
         const donationLPAfterSecond = parseInt((await lpTokenInstance.methods.balanceOf(accounts[3]).call({ from: primary })).toString())
 
@@ -98,9 +106,8 @@ contract('liquid vault', accounts => {
         assert.equal(lengthAfterSecondClaim, lengthAfterClaim - 1)
         const lpBalaceAfterSecondClaim = parseInt((await lpTokenInstance.methods.balanceOf(accounts[0]).call({ from: primary })).toString())
 
-        assert.equal(lpBalaceAfterSecondClaim, lpBalaceAfterClaim + (amount * 0.9)) //donation tax
-
-        assert.equal(donationLPAfterSecond - donationLPAfterFirst, amount * 0.1)
+        assert.equal(lpBalaceAfterSecondClaim, lpBalaceAfterClaim + (claimedAmount2 - exitFee2))
+        assert.equal(donationLPAfterSecond - donationLPAfterFirst, exitFee2)
 
     })
 

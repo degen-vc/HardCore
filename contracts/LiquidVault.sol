@@ -9,7 +9,12 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
 contract LiquidVault is Ownable {
 
-    event EthereumDeposited(address from, address to, uint256 amount);
+    event EthereumDeposited(
+        address from, 
+        address to, 
+        uint256 amount, 
+        uint256 percentageAmount
+    );
 
     /*
     * A user can hold multiple locked LP batches.
@@ -96,6 +101,24 @@ contract LiquidVault is Ownable {
         config.purchaseFee = purchaseFee;
     }
 
+    function setParameters(uint32 duration, uint8 donationShare, uint8 purchaseFee)
+        public
+        onlyOwner
+    {
+        require(
+            donationShare <= 100,
+            "HardCore: donation share % between 0 and 100"
+        );
+        require(
+            purchaseFee <= 100,
+            "HardCore: purchase fee share % between 0 and 100"
+        );
+
+        config.stakeDuration = duration * 1 days;
+        config.donationShare = donationShare;
+        config.purchaseFee = purchaseFee;
+    }
+
     function purchaseLPFor(address beneficiary) public payable lock {
         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
@@ -158,8 +181,7 @@ contract LiquidVault is Ownable {
             block.timestamp
         );
 
-        emit EthereumDeposited(msg.sender, address(this), feeValue);
-        emit EthereumDeposited(msg.sender, address(0), exchangeValue);
+        emit EthereumDeposited(msg.sender, config.ethReceiver, exchangeValue, feeValue);
     }
 
     //send eth to match with HCORE tokens in LiquidVault
