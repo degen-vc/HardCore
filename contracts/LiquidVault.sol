@@ -9,7 +9,12 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 
 contract LiquidVault is Ownable {
 
-    event EthereumDeposited(address from, address to, uint256 amount);
+    event EthereumDeposited(
+        address from, 
+        address to, 
+        uint256 amount, 
+        uint256 percentageAmount
+    );
 
     /*
     * A user can hold multiple locked LP batches.
@@ -44,6 +49,7 @@ contract LiquidVault is Ownable {
         address self;
         address weth;
         address donation;
+        address payable ethReceiver;
         uint32 stakeDuration;
         uint8 donationShare; //0-100
         uint8 purchaseFee; //0-100
@@ -66,18 +72,10 @@ contract LiquidVault is Ownable {
         address hcore,
         address feeDistributor,
         address donation,
+        address payable ethReceiver,
         uint8 donationShare, // LP Token
         uint8 purchaseFee // ETH
     ) public onlyOwner {
-        require(
-            donationShare <= 100,
-            "HardCore: donation share % between 0 and 100"
-        );
-        require(
-            purchaseFee <= 100,
-            "HardCore: purchase fee share % between 0 and 100"
-        );
-        config.stakeDuration = duration * 1 days;
         config.hardCore = hcore;
         config.uniswapRouter = IUniswapV2Router02(
             HardCoreLike(hcore).uniswapRouter()
@@ -88,7 +86,37 @@ contract LiquidVault is Ownable {
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
         config.self = address(this);
+        setFeeAddresses(donation, ethReceiver);
+        setParameters(duration, donationShare, purchaseFee);
+    }
+
+    function setFeeAddresses(address donation, address payable ethReceiver)
+        public
+        onlyOwner
+    {
+        require(
+            donation != address(0) && ethReceiver != address(0),
+            "LiquidVault: donation and eth receiver are zero addresses"
+        );
+
         config.donation = donation;
+        config.ethReceiver = ethReceiver;
+    }
+
+    function setParameters(uint32 duration, uint8 donationShare, uint8 purchaseFee)
+        public
+        onlyOwner
+    {
+        require(
+            donationShare <= 100,
+            "HardCore: donation share % between 0 and 100"
+        );
+        require(
+            purchaseFee <= 100,
+            "HardCore: purchase fee share % between 0 and 100"
+        );
+
+        config.stakeDuration = duration * 1 days;
         config.donationShare = donationShare;
         config.purchaseFee = purchaseFee;
     }
@@ -136,6 +164,7 @@ contract LiquidVault is Ownable {
             tokenPairAddress,
             hardCoreRequired
         );
+        config.ethReceiver.transfer(feeValue);
         uint256 liquidityCreated = config.tokenPair.mint(config.self);
 
         LockedLP[beneficiary].push(
@@ -154,8 +183,7 @@ contract LiquidVault is Ownable {
             block.timestamp
         );
 
-        emit EthereumDeposited(msg.sender, address(this), feeValue);
-        emit EthereumDeposited(msg.sender, address(0), exchangeValue);
+        emit EthereumDeposited(msg.sender, config.ethReceiver, exchangeValue, feeValue);
     }
 
     //send eth to match with HCORE tokens in LiquidVault
