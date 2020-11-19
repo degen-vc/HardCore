@@ -76,15 +76,6 @@ contract LiquidVault is Ownable {
         uint8 donationShare, // LP Token
         uint8 purchaseFee // ETH
     ) public onlyOwner {
-        require(
-            donationShare <= 100,
-            "HardCore: donation share % between 0 and 100"
-        );
-        require(
-            purchaseFee <= 100,
-            "HardCore: purchase fee share % between 0 and 100"
-        );
-        config.stakeDuration = duration * 1 days;
         config.hardCore = hcore;
         config.uniswapRouter = IUniswapV2Router02(
             HardCoreLike(hcore).uniswapRouter()
@@ -95,10 +86,21 @@ contract LiquidVault is Ownable {
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
         config.self = address(this);
+        setFeeAddresses(donation, ethReceiver);
+        setParameters(duration, donationShare, purchaseFee);
+    }
+
+    function setFeeAddresses(address donation, address payable ethReceiver)
+        public
+        onlyOwner
+    {
+        require(
+            donation != address(0) && ethReceiver != address(0),
+            "LiquidVault: donation and eth receiver are zero addresses"
+        );
+
         config.donation = donation;
         config.ethReceiver = ethReceiver;
-        config.donationShare = donationShare;
-        config.purchaseFee = purchaseFee;
     }
 
     function setParameters(uint32 duration, uint8 donationShare, uint8 purchaseFee)
