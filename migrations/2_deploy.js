@@ -4,7 +4,7 @@ const HardCore = artifacts.require('HardCore')
 const LiquidVault = artifacts.require('LiquidVault')
 const NFTFund = artifacts.require('NFTFund')
 
-const Uniswapfactory = artifacts.require('UniswapV2Factory.sol');
+const Uniswapfactory = artifacts.require('UniswapV2Factory.sol')
 const UniswapRouter = artifacts.require('UniswapV2Router02.sol')
 const WETH = artifacts.require('WETH')
 
@@ -27,7 +27,7 @@ module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(LiquidVault)
     const liquidVaultInstance = await LiquidVault.deployed()
     await pausePromise('liquidity vault')
-
+    
 
     let uniswapfactoryInstance, uniswapRouterInstance
     if (network === 'development') {
@@ -60,7 +60,7 @@ module.exports = async function (deployer, network, accounts) {
     await pausePromise('seed fee approver')
     await feeApproverInstance.initialize(hardCoreInstance.address, factoryAddress, routerAddress, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], accounts[1], 10, 10)
+    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 10, 10)
 }
 
 function pausePromise(message, durationInSeconds = 2) {
