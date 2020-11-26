@@ -48,7 +48,6 @@ contract LiquidVault is Ownable {
         FeeDistributorLike feeDistributor;
         address self;
         address weth;
-        address donation;
         address payable ethReceiver;
         uint32 stakeDuration;
         uint8 donationShare; //0-100
@@ -71,7 +70,6 @@ contract LiquidVault is Ownable {
         uint32 duration,
         address hcore,
         address feeDistributor,
-        address donation,
         address payable ethReceiver,
         uint8 donationShare, // LP Token
         uint8 purchaseFee // ETH
@@ -86,20 +84,19 @@ contract LiquidVault is Ownable {
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
         config.self = address(this);
-        setFeeAddresses(donation, ethReceiver);
+        setEthFeeAddress(ethReceiver);
         setParameters(duration, donationShare, purchaseFee);
     }
 
-    function setFeeAddresses(address donation, address payable ethReceiver)
+    function setEthFeeAddress(address payable ethReceiver)
         public
         onlyOwner
     {
         require(
-            donation != address(0) && ethReceiver != address(0),
-            "LiquidVault: donation and eth receiver are zero addresses"
+            ethReceiver != address(0),
+            "LiquidVault: eth receiver is zero address"
         );
 
-        config.donation = donation;
         config.ethReceiver = ethReceiver;
     }
 
@@ -204,7 +201,7 @@ contract LiquidVault is Ownable {
         uint256 donation = (config.donationShare * batch.amount) / 100;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
-            config.tokenPair.transfer(config.donation, donation),
+            config.tokenPair.transfer(address(0), donation),
             "HardCore: donation transfer failed in LP claim."
         );
         return config.tokenPair.transfer(batch.holder, batch.amount - donation);
