@@ -47,6 +47,12 @@ contract('liquid vault', accounts => {
         await liquidVaultInstance.setEthFeeAddress(accounts[1])
         const lengthBefore = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
         const ethReceiverBalanceBefore = await web3.eth.getBalance(accounts[1])
+
+        const liquidVaultHcoreBalance = await hardcoreInstance.balanceOf(liquidVaultInstance.address)
+        const { hardCoreRequired } = await liquidVaultInstance.calculateHardcoreRequired('100000000000')
+
+        assert.isAtLeast(Number(liquidVaultHcoreBalance), Number(hardCoreRequired))
+        
         const purchase = await liquidVaultInstance.purchaseLP({ value: '100000000000' })
         const ethReceiverBalanceAfter = await web3.eth.getBalance(accounts[1])
         const feeAmount = purchase.receipt.logs[1].args[3].toString()

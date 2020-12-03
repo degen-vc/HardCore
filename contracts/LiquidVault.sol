@@ -88,6 +88,39 @@ contract LiquidVault is Ownable {
         setParameters(duration, donationShare, purchaseFee);
     }
 
+    function calculateHardcoreRequired(uint256 value)
+        public
+        view
+        returns (uint256 feeValue, uint256 exchangeValue, uint256 hardCoreRequired)
+    {
+        feeValue = config.purchaseFee * value / 100;
+        exchangeValue = value - feeValue;
+
+        (address token0, ) = config.hardCore < config.weth
+            ? (config.hardCore, config.weth)
+            : (config.weth, config.hardCore);
+        (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
+        hardCoreRequired = 0;
+
+        if (config.tokenPair.totalSupply() == 0) {
+            hardCoreRequired = HardCoreLike(config.hardCore).balanceOf(
+                address(this)
+            );
+        } else if (token0 == config.hardCore) {
+            hardCoreRequired = config.uniswapRouter.quote(
+                exchangeValue,
+                reserve2,
+                reserve1
+            );
+        } else {
+            hardCoreRequired = config.uniswapRouter.quote(
+                exchangeValue,
+                reserve1,
+                reserve2
+            );
+        }
+    }
+
     function setEthFeeAddress(address payable ethReceiver)
         public
         onlyOwner
@@ -122,32 +155,8 @@ contract LiquidVault is Ownable {
         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
 
-        uint256 feeValue = config.purchaseFee * msg.value / 100;
-        uint256 exchangeValue = msg.value - feeValue;
+        (uint256 feeValue, uint256 exchangeValue, uint256 hardCoreRequired) = calculateHardcoreRequired(msg.value);
 
-        (address token0, ) = config.hardCore < config.weth
-            ? (config.hardCore, config.weth)
-            : (config.weth, config.hardCore);
-        (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
-        uint256 hardCoreRequired = 0;
-
-        if (config.tokenPair.totalSupply() == 0) {
-            hardCoreRequired = HardCoreLike(config.hardCore).balanceOf(
-                address(this)
-            );
-        } else if (token0 == config.hardCore) {
-            hardCoreRequired = config.uniswapRouter.quote(
-                exchangeValue,
-                reserve2,
-                reserve1
-            );
-        } else {
-            hardCoreRequired = config.uniswapRouter.quote(
-                exchangeValue,
-                reserve1,
-                reserve2
-            );
-        }
         uint256 balance = HardCoreLike(config.hardCore).balanceOf(config.self);
         require(
             balance >= hardCoreRequired,
@@ -205,32 +214,6 @@ contract LiquidVault is Ownable {
             "HardCore: donation transfer failed in LP claim."
         );
         return config.tokenPair.transfer(batch.holder, batch.amount - donation);
-    }
-
-    // Allow user to immediately claim the LP from their transaction fee.
-    // Ether forwarded depends on user.
-    function transferGrabLP(address recipient, uint256 value)
-        public
-        payable
-        returns (bool)
-    {
-        (bool transferSuccess, ) = config.hardCore.delegatecall(
-            abi.encodeWithSignature(
-                "transfer(address,uint256)",
-                recipient,
-                value
-            )
-        );
-
-        require(transferSuccess, "HARDCORE: transferGrabLP failed on transfer");
-        (bool lpPurchaseSuccess, ) = config.self.delegatecall(
-            abi.encodePacked(bytes4(keccak256("purchaseLP()")))
-        );
-        require(
-            lpPurchaseSuccess,
-            "HARDCORE: transferGrabLP failed on LP purchase"
-        );
-        return true;
     }
 
     function lockedLPLength(address holder) public view returns (uint256) {
