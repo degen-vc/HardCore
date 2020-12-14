@@ -164,28 +164,6 @@ contract LiquidVault is Ownable {
         return config.tokenPair.transfer(batch.holder, batch.amount - donation);
     }
 
-    //allow user to immediately claim the LP from their transaction fee. Ether forwarded depends on user
-    function transferGrabLP(address recipient, uint256 value)
-        public
-        payable
-        returns (bool)
-    {
-        (bool transferSuccess, ) = config.hardCore.delegatecall(
-            abi.encodeWithSignature("transfer(address,uint256)", recipient, value)
-        );
-        //call(abi.encodeWithSignature("transfer(address,uint256)", recipient, value))
-
-        require(transferSuccess, "HARDCORE: transferGrabLP failed on transfer");
-        (bool lpPurchaseSuccess, ) = config.self.delegatecall(
-            abi.encodePacked(bytes4(keccak256("purchaseLP()")))
-        );
-        require(
-            lpPurchaseSuccess,
-            "HARDCORE: transferGrabLP failed on LP purchase"
-        );
-        return true;
-    }
-
     function lockedLPLength(address holder) public view returns (uint256) {
         return LockedLP[holder].length;
     }
