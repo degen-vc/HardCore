@@ -62,7 +62,7 @@ contract LiquidVault is Ownable {
         address feeDistributor,
         address donation,
         uint256 donationShare
-    ) public {
+    ) public onlyOwner{
         require(
             donationShare <= 100,
             "HardCore: donation share % between 0 and 100"
