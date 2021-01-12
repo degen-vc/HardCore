@@ -55,6 +55,7 @@ contract LiquidVault is Ownable {
     liquidVaultConfig public config;
     //Front end can loop through this and inspect if enough time has passed
     mapping(address => LPbatch[]) public LockedLP;
+    mapping(address => uint256) public queueCounter;
 
     function seed(
         uint256 duration,
@@ -62,7 +63,7 @@ contract LiquidVault is Ownable {
         address feeDistributor,
         address donation,
         uint256 donationShare
-    ) public onlyOwner{
+    ) public onlyOwner {
         require(
             donationShare <= 100,
             "HardCore: donation share % between 0 and 100"
@@ -83,11 +84,12 @@ contract LiquidVault is Ownable {
     }
 
     function purchaseLPFor(address beneficiary) public payable lock {
-         config.feeDistributor.distributeFees();
+        config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
-        (address token0, ) = config.hardCore < config.weth
-            ? (config.hardCore, config.weth)
-            : (config.weth, config.hardCore);
+        (address token0, ) =
+            config.hardCore < config.weth
+                ? (config.hardCore, config.weth)
+                : (config.weth, config.hardCore);
         (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
         uint256 hardCoreRequired = 0;
 
@@ -142,19 +144,23 @@ contract LiquidVault is Ownable {
 
     //send eth to match with HCORE tokens in LiquidVault
     function purchaseLP() public payable {
-       this.purchaseLPFor{value:msg.value}(msg.sender);
+        this.purchaseLPFor{value: msg.value}(msg.sender);
     }
 
     //pops latest LP if older than period
     function claimLP() public returns (bool) {
         uint256 length = LockedLP[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
-        LPbatch memory batch = LockedLP[msg.sender][length - 1];
+        uint256 oldest = queueCounter[msg.sender];
+        LPbatch memory batch = LockedLP[msg.sender][oldest];
         require(
             block.timestamp - batch.timestamp > config.stakeDuration,
             "HARDCORE: LP still locked."
         );
-        LockedLP[msg.sender].pop();
+        oldest = LockedLP[msg.sender].length - 1 == oldest
+            ? oldest
+            : oldest + 1;
+        queueCounter[msg.sender] = oldest;
         uint256 donation = (config.donationShare * batch.amount) / 100;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
