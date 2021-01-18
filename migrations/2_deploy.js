@@ -2,8 +2,9 @@ const FeeApprover = artifacts.require('FeeApprover')
 const FeeDistributor = artifacts.require('FeeDistributor')
 const HardCore = artifacts.require('HardCore')
 const LiquidVault = artifacts.require('LiquidVault')
+const NFTFund = artifacts.require('NFTFund')
 
-const Uniswapfactory = artifacts.require('UniswapV2Factory.sol');
+const Uniswapfactory = artifacts.require('UniswapV2Factory.sol')
 const UniswapRouter = artifacts.require('UniswapV2Router02.sol')
 const WETH = artifacts.require('WETH')
 
@@ -26,10 +27,10 @@ module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(LiquidVault)
     const liquidVaultInstance = await LiquidVault.deployed()
     await pausePromise('liquidity vault')
-
+    
 
     let uniswapfactoryInstance, uniswapRouterInstance
-    if (network === 'development' || network=== 'kovan') {
+    if (network === 'development') {
         await deployer.deploy(Uniswapfactory, accounts[0])
         uniswapfactoryInstance = await Uniswapfactory.deployed()
         await pausePromise('uniswap test factory')
@@ -52,12 +53,14 @@ module.exports = async function (deployer, network, accounts) {
     const factoryAddress = await hardCoreInstance.uniswapFactory.call()
     const routerAddress = await hardCoreInstance.uniswapRouter.call()
 
+    await deployer.deploy(NFTFund, factoryAddress, routerAddress, hardCoreInstance.address)
+
     await pausePromise('seed feedistributor')
-    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, accounts[1], 40)
+    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, 40, 1)
     await pausePromise('seed fee approver')
     await feeApproverInstance.initialize(hardCoreInstance.address, factoryAddress, routerAddress, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, accounts[3], 10)
+    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 10, 10)
 }
 
 function pausePromise(message, durationInSeconds = 1) {
