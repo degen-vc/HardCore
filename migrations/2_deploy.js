@@ -63,7 +63,7 @@ module.exports = async function (deployer, network, accounts) {
     await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 10, 10)
 }
 
-function pausePromise(message, durationInSeconds = 2) {
+function pausePromise(message, durationInSeconds = 1) {
 	return new Promise(function (resolve, error) {
 		setTimeout(() => {
 			console.log(message)

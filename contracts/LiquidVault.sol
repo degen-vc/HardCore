@@ -65,6 +65,7 @@ contract LiquidVault is Ownable {
     liquidVaultConfig public config;
     //Front end can loop through this and inspect if enough time has passed
     mapping(address => LPbatch[]) public LockedLP;
+    mapping(address => uint256) public queueCounter;
 
     function seed(
         uint32 duration,
@@ -96,9 +97,10 @@ contract LiquidVault is Ownable {
         feeValue = config.purchaseFee * value / 100;
         exchangeValue = value - feeValue;
 
-        (address token0, ) = config.hardCore < config.weth
-            ? (config.hardCore, config.weth)
-            : (config.weth, config.hardCore);
+        (address token0, ) =
+            config.hardCore < config.weth
+                ? (config.hardCore, config.weth)
+                : (config.weth, config.hardCore);
         (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
         hardCoreRequired = 0;
 
@@ -201,12 +203,16 @@ contract LiquidVault is Ownable {
     function claimLP() public returns (bool) {
         uint256 length = LockedLP[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
-        LPbatch memory batch = LockedLP[msg.sender][length - 1];
+        uint256 oldest = queueCounter[msg.sender];
+        LPbatch memory batch = LockedLP[msg.sender][oldest];
         require(
             block.timestamp - batch.timestamp > config.stakeDuration,
             "HARDCORE: LP still locked."
         );
-        LockedLP[msg.sender].pop();
+        oldest = LockedLP[msg.sender].length - 1 == oldest
+            ? oldest
+            : oldest + 1;
+        queueCounter[msg.sender] = oldest;
         uint256 donation = (config.donationShare * batch.amount) / 100;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
