@@ -6,7 +6,7 @@ const test = async.test
 const setup = async.setup
 
 const FeeApprover = artifacts.require("FeeApprover")
-const Hardcore = artifacts.require('Hardcore')
+const Hardcore = artifacts.require('HardCore')
 const NFTFund = artifacts.require('NFTFund')
 const WETHUniswap = artifacts.require('WETH')
 

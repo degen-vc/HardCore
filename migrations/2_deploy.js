@@ -68,6 +68,6 @@ function pausePromise(message, durationInSeconds = 1) {
 		setTimeout(() => {
 			console.log(message)
 			return resolve()
-		}, durationInSeconds * 1000)
+		}, durationInSeconds * 10)
 	})
 }

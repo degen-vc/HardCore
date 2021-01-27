@@ -104,7 +104,7 @@ contract('liquid vault', accounts => {
         assert.equal(lpBalaceBefore, 0)
 
         const length = Number(await liquidVaultInstance.lockedLPLength.call(accounts[0]))
-        const lockedLP = await liquidVaultInstance.getLockedLP.call(accounts[0], length - 1)
+        const lockedLP = await liquidVaultInstance.getLockedLP.call(accounts[0], 0)
         const amountToClaim = Number(lockedLP[1])
         
         const claim = await liquidVaultInstance.claimLP()
@@ -120,7 +120,7 @@ contract('liquid vault', accounts => {
         })
 
         const lengthAfterClaim = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
-        assert.equal(lengthAfterClaim, lengthAfterSecondPurchase - 1)
+        assert.equal(lengthAfterClaim, lengthAfterSecondPurchase)
         const lpBalanceAfterClaim = parseInt((await lpTokenInstance.methods.balanceOf(accounts[0]).call({ from: primary })).toString())
         
         assert.equal(amountToClaim, claimedAmount)
@@ -144,7 +144,7 @@ contract('liquid vault', accounts => {
         })
 
         const lengthAfterSecondClaim = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
-        assert.equal(lengthAfterSecondClaim, lengthAfterClaim - 1)
+        assert.equal(lengthAfterSecondClaim, lengthAfterClaim)
         const lpBalaceAfterSecondClaim = parseInt((await lpTokenInstance.methods.balanceOf(accounts[0]).call({ from: primary })).toString())
 
         assert.equal(amountToClaim2, claimedAmount2)
