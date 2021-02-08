@@ -39,11 +39,11 @@ contract('NFTFund', accounts => {
 
         nftFundInstance = await NFTFund.new(factoryInstance.address, router.address, hardcoreInstance.address)
 
-        await feeApproverInstance.initialize(hardcoreInstance.address, factoryInstance.address, router.address, liquidVault)
+        uniswapPairAddress = await hardcoreInstance.tokenUniswapPair();
+        await feeApproverInstance.initialize(uniswapPairAddress, liquidVault)
 
         await feeApproverInstance.unPause()
 
-        uniswapPairAddress = await hardcoreInstance.tokenUniswapPair.call()
     })
 
     test('requires a non-null factory, router and token', async () => {
@@ -53,15 +53,7 @@ contract('NFTFund', accounts => {
         )
     })
 
-    test('requires an owner to update factory, router and token addresses', async () => {
-        await expectRevert(
-            nftFundInstance.updateUniswapFactoryAddress(factoryInstance.address, { from: seller }),
-            'Ownable: caller is not the owner'
-        )
-        await expectRevert(
-            nftFundInstance.updateUniswapRouterAddress(router.address, { from: seller }),
-            'Ownable: caller is not the owner'
-        )
+    test('requires an owner to update token address', async () => {
         await expectRevert(
             nftFundInstance.updateTokenAddress(hardcoreInstance.address, { from: seller }),
             'Ownable: caller is not the owner'

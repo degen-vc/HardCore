@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 import "@openzeppelin/contracts/GSN/Context.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
@@ -27,7 +27,6 @@ contract HardCore is Context, IERC20, Ownable {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
-    uint256 public constant initialSupply = 30000e18; // TODO: change
 
     /**
      * @dev Returns the name of the token.
@@ -37,30 +36,21 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     function initialSetup(
-        address router,
-        address factory,
-        address feeApprover,
+        address _router,
+        address _factory,
+        address _feeApprover,
         address _feeDistributor,
         address _liquidVault
     ) public onlyOwner {
-        _name = "Hard Core";
+        _name = "HARDCORE | hcore.finance";
         _symbol = "HCORE";
         _decimals = 18;
-        _mint(msg.sender, initialSupply);
-        uniswapFactory = IUniswapV2Factory(
-            factory != address(0)
-                ? factory
-                : 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f
-        ); // For testing
-        uniswapRouter = IUniswapV2Router02(
-            router != address(0)
-                ? router
-                : 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D
-        ); // For testing
-        transferCheckerAddress = feeApprover;
+        _mint(_msgSender(), 30000e18);
+        uniswapRouter = IUniswapV2Router02(_router);
+        transferCheckerAddress = _feeApprover;
         feeDistributor = _feeDistributor;
         liquidVault = _liquidVault;
-        createUniswapPairMainnet();
+        _createUniswapPairMainnet(IUniswapV2Factory(_factory));
     }
 
     /**
@@ -77,8 +67,6 @@ contract HardCore is Context, IERC20, Ownable {
      * be displayed to a user as `5,05` (`505 / 10 ** 2`).
      *
      * Tokens usually opt for a value of 18, imitating the relationship between
-     * Ether and Wei. This is the value {ERC20} uses, unless {_setupDecimals} is
-     * called.
      *
      * NOTE: This information is only used for _display_ purposes: it in
      * no way affects any of the arithmetic of the contract, including
@@ -105,14 +93,12 @@ contract HardCore is Context, IERC20, Ownable {
         return _balances[_owner];
     }
 
-    IUniswapV2Factory public uniswapFactory;
     IUniswapV2Router02 public uniswapRouter;
 
     address public tokenUniswapPair;
 
-    function createUniswapPairMainnet() public returns (address) {
-        require(tokenUniswapPair == address(0), "Token: pool already created");
-        tokenUniswapPair = uniswapFactory.createPair(
+    function _createUniswapPairMainnet(IUniswapV2Factory _factory) internal returns (address) {
+        tokenUniswapPair = _factory.createPair(
             address(uniswapRouter.WETH()),
             address(this)
         );
@@ -120,7 +106,7 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     function burn(uint256 value) public {
-        _burn(msg.sender, value);
+        _burn(_msgSender(), value);
     }
 
     /**
@@ -306,8 +292,6 @@ contract HardCore is Context, IERC20, Ownable {
         require(sender != address(0), "ERC20: transfer from the zero address");
         require(recipient != address(0), "ERC20: transfer to the zero address");
 
-        _beforeTokenTransfer(sender, recipient, amount);
-
         _balances[sender] = _balances[sender].sub(
             amount,
             "ERC20: transfer amount exceeds balance"
@@ -321,8 +305,6 @@ contract HardCore is Context, IERC20, Ownable {
             recipient,
             amount
         );
-        console.log("Sender is :", sender, "Recipent is :", recipient);
-        console.log("amount is ", amount);
 
         // Addressing a broken checker contract
         require(
@@ -359,8 +341,6 @@ contract HardCore is Context, IERC20, Ownable {
     function _mint(address account, uint256 amount) internal virtual {
         require(account != address(0), "ERC20: mint to the zero address");
 
-        _beforeTokenTransfer(address(0), account, amount);
-
         _totalSupply = _totalSupply.add(amount);
         _balances[account] = _balances[account].add(amount);
         emit Transfer(address(0), account, amount);
@@ -379,8 +359,6 @@ contract HardCore is Context, IERC20, Ownable {
      */
     function _burn(address account, uint256 amount) internal virtual {
         require(account != address(0), "ERC20: burn from the zero address");
-
-        _beforeTokenTransfer(account, address(0), amount);
 
         _balances[account] = _balances[account].sub(
             amount,
@@ -415,36 +393,4 @@ contract HardCore is Context, IERC20, Ownable {
         _allowances[owner][spender] = amount;
         emit Approval(owner, spender, amount);
     }
-
-    /**
-     * @dev Sets {decimals} to a value other than the default one of 18.
-     *
-     * WARNING: This function should only be called from the constructor. Most
-     * applications that interact with token contracts will not expect
-     * {decimals} to ever change, and may work incorrectly if it does.
-     */
-    function _setupDecimals(uint8 decimals_) internal {
-        _decimals = decimals_;
-    }
-
-    /**
-     * @dev Hook that is called before any transfer of tokens. This includes
-     * minting and burning.
-     *
-     * Calling conditions:
-     *
-     * - when `from` and `to` are both non-zero, `amount` of ``from``'s tokens
-     * will be to transferred to `to`.
-     * - when `from` is zero, `amount` tokens will be minted for `to`.
-     * - when `to` is zero, `amount` of ``from``'s tokens will be burned.
-     * - `from` and `to` are never both zero.
-     *
-     * To learn more about hooks,
-     * head to xref:ROOT:extending-contracts.adoc#using-hooks[Using Hooks].
-     */
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
-    ) internal virtual {}
 }

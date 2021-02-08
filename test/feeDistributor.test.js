@@ -105,27 +105,6 @@ contract('FeeDistributor', ([ALICE, BOB, UNISWAP, HACKER]) => {
       );
     });
 
-    it('Should not distribute tokens with low balance', async () => {
-      await feeDistributor.seed(
-        hardCoreToken.address,
-        liquidVault.address,
-        nftFund.address,
-        liquidVaultShare,
-        burnPercentage,
-        { from: ALICE }
-      );
-
-      await expectRevert(
-        feeDistributor.distributeFees({ from: BOB }),
-        "HARDCORE: low token balance"
-      );
-
-      await expectRevert(
-        feeDistributor.distributeFees({ from: ALICE }),
-        "HARDCORE: low token balance"
-      );
-    })
-
     it('Should distribute tokens', async () => {
       liquidVaultShare=30;
       burnPercentage=15;

@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
-import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "./testing/uniswapv2/libraries/UniswapV2Library.sol";
 import "./testing/uniswapv2/libraries/TransferHelper.sol";
@@ -16,19 +15,16 @@ contract NFTFund is Ownable {
     event TokenWithdrawn(uint256 tokenAmount, address indexed token, address indexed to);
     event EthWithdrawn(uint256 weiAmount, address indexed to);
 
-    IUniswapV2Factory public uniswapFactory;
     IUniswapV2Router02 public router;
 
     IERC20 public token;
 
-    constructor(IUniswapV2Factory _factory, IUniswapV2Router02 _router,  IERC20 _token) public {
+    constructor(IUniswapV2Router02 _router,  IERC20 _token) public {
         require(
-            address(_factory) != address(0) && 
-            address(_router) != address(0) && 
+            address(_router) != address(0) &&
             address(_token) != address(0),
-            "NFTFund: factory, router and token are zero addresses"
+            "NFTFund: router and token are zero addresses"
         );
-        uniswapFactory = _factory;
         token = _token;
         router = _router;
     }
@@ -39,18 +35,6 @@ contract NFTFund is Ownable {
         return IERC20(token).balanceOf(address(this));
     }
 
-    function updateUniswapFactoryAddress(address _factory) external onlyOwner {
-        require(_factory != address(0), "NFTFund: factory is a zero address");
-
-        uniswapFactory = IUniswapV2Factory(_factory);
-    }
-
-    function updateUniswapRouterAddress(address _router) external onlyOwner {
-        require(_router != address(0), "NFTFund: router is a zero address");
-
-        router = IUniswapV2Router02(_router);
-    }
-
     function updateTokenAddress(address _token) external onlyOwner {
         require(_token != address(0), "NFTFund: token is a zero address");
 
@@ -59,7 +43,7 @@ contract NFTFund is Ownable {
 
     function swapTokensForETH() external {
         uint amountToSwap = getTokenBalance();
-        _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
+        _swapTokensForETH(amountToSwap);
     }
 
     function swapTokensForETH(uint256 amountToSwap) external {
@@ -68,7 +52,7 @@ contract NFTFund is Ownable {
             "NFTFund: token amount exceeds balance"
         );
 
-        _swapTokensForETH(address(token), amountToSwap, 0, block.timestamp);
+        _swapTokensForETH(amountToSwap);
     }
 
     function withdrawETH() external onlyOwner {
@@ -89,23 +73,22 @@ contract NFTFund is Ownable {
         _withdrawTokens(tokenAmount, address(token), msg.sender);
     }
 
-    function _swapTokensForETH(address _token, uint _amountIn, uint _amountOutMin, uint _deadline)
+    function _swapTokensForETH(uint _amountIn)
         internal
     {
         address[] memory path = new address[](2);
-        path[0] = address(_token);
+        path[0] = address(token);
         path[1] = router.WETH();
-        TransferHelper.safeApprove(address(_token), address(router), _amountIn);
+        TransferHelper.safeApprove(address(token), address(router), _amountIn);
         router.swapExactTokensForETHSupportingFeeOnTransferTokens(
             _amountIn,
-            _amountOutMin,
+            0,
             path,
             address(this),
-            _deadline
+            block.timestamp
         );
-        uint256 weiBalanceAfterSwap = address(this).balance;
 
-        emit TokensForEthSwapped(_amountIn, weiBalanceAfterSwap, msg.sender);
+        emit TokensForEthSwapped(_amountIn, address(this).balance, msg.sender);
     }
 
     function _withdrawTokens(uint256 _tokenAmount, address _token, address _to) internal {
