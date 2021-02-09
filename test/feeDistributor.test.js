@@ -1,11 +1,11 @@
-const UniswapV2Factory = artifacts.require('UniswapV2Factory')
-const UniswapV2Router = artifacts.require('UniswapV2Router02')
-const WETHUniswap = artifacts.require('WETH')
+
 const MockERC20 = artifacts.require('MockERC20')
 
 const FeeDistributor = artifacts.require("FeeDistributor")
 const NFTFund = artifacts.require('NFTFund')
 const LiquidVault = artifacts.require('LiquidVault')
+
+const deployUniswap = require('./helpers/deployUniswap')
 
 const { BN } = require('bn.js')
 const {
@@ -29,29 +29,29 @@ function toWei(x) {
   return web3.utils.toWei(String(x))
 }
 
-contract('FeeDistributor', ([ALICE, BOB, UNISWAP, HACKER]) => {
-  let WETH,
-    uniFactory,
-    uniRouterV2,
-    hardCoreToken,
-    liquidVault,
-    nftFund,
-    feeDistributor;
+contract('FeeDistributor', accounts => {
+  const [ALICE, BOB, UNISWAP, HACKER] = accounts;
+  let hardCoreToken, liquidVault, nftFund, feeDistributor;
+
+  let uniswapPairAddress
+  let uniswapFactory
+  let uniswapRouter
 
   let liquidVaultShare=0,
     burnPercentage=0;
 
   before('Setup', async () => {
-    WETH = await WETHUniswap.new("Wrapped ETH", "WETH", { from: UNISWAP });
-    uniFactory = await UniswapV2Factory.new(UNISWAP, { from: UNISWAP });
-    uniRouterV2 = await UniswapV2Router.new(uniFactory.address, WETH.address, { from: UNISWAP });
+    const contracts = await deployUniswap(accounts);
+    uniswapFactory = contracts.uniswapFactory;
+    uniswapRouter = contracts.uniswapRouter;
+    wethInstance = contracts.weth;
 
     // hardcore
     hardCoreToken = await MockERC20.new("Hardcore Token", "HRD", toWei('1000000').toString(), { from: ALICE });
     liquidVault = await LiquidVault.new({ from: ALICE });
     feeDistributor = await FeeDistributor.new({ from: ALICE });
     nftFund = await NFTFund.new(
-      uniRouterV2.address,
+      uniswapRouter.address,
       hardCoreToken.address,
       {from: ALICE}
     );
