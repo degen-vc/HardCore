@@ -47,7 +47,7 @@ module.exports = async function (deployer, network, accounts) {
         await pausePromise('hardcore initial setup')
     }
     else {
-        await hardCoreInstance.initialSetup('0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);
+        await hardCoreInstance.initialSetup('0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f', feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);
     }
 
     const routerAddress = await hardCoreInstance.uniswapRouter.call()
@@ -55,12 +55,13 @@ module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(NFTFund, routerAddress, hardCoreInstance.address)
 
     await pausePromise('seed feedistributor')
-    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, 40, 1)
+    await feeDistributorInstance.seed(hardCoreInstance.address, liquidVaultInstance.address, NFTFund.address, 40, 0)
     await pausePromise('initialize fee approver')
     uniswapPair = await hardCoreInstance.tokenUniswapPair();
     await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
+    await feeApproverInstance.unPause()
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(2, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 10, 10)
+    await liquidVaultInstance.seed(604800, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20)
 }
 
 function pausePromise(message, durationInSeconds = 1) {
