@@ -4,7 +4,6 @@
 .env
 .idea
 
-build/contracts/*
 !build/contracts/UniswapFactory.json
 !build/contracts/UniswapRouter.json
 !build/contracts/UniswapWETH.json
