@@ -10,7 +10,7 @@ import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
-    uint8 public feePercentX100 = 10;
+    uint8 public feePercentX100 = 5;
     bool paused;
     mapping(address => uint256) public discountFrom;
     mapping(address => uint256) public discountTo;

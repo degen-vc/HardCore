@@ -33,6 +33,7 @@ contract('hardcore unpaused', accounts => {
 		feeApproverInstance = await feeApprover.deployed()
 		distriburorInstance = await distributor.deployed()
 		await feeApproverInstance.unPause()
+		await feeApproverInstance.setFeeMultiplier(10)
 	})
 
 	test("trading exacts a standard fee", async () => {

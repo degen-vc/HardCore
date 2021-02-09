@@ -45,6 +45,7 @@ contract('liquid vault', accounts => {
 
         await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
         await feeApproverInstance.unPause()
+        await feeApproverInstance.setFeeMultiplier(10)
         await liquidVaultInstance.seed(2, hardcoreInstance.address, distributorInstance.address, accounts[7], 10, 10)
         primary = accounts[0]
         await hardcoreInstance.transfer(distributorInstance.address, '25000000000')

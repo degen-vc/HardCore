@@ -42,6 +42,7 @@ contract('NFTFund', accounts => {
         await feeApproverInstance.initialize(uniswapPairAddress, liquidVault)
 
         await feeApproverInstance.unPause()
+        await feeApproverInstance.setFeeMultiplier(10)
     })
 
     test('requires a non-null router and token', async () => {
