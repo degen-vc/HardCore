@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./facades/ERC20Like.sol";
@@ -51,7 +51,9 @@ contract FeeDistributor is Ownable {
     function distributeFees() public seeded {
         uint256 balance = hcore.balanceOf(address(this));
 
-        require(balance > 100, "HARDCORE: low token balance");
+        if (balance < 100) {
+            return;
+        }
 
         uint256 liquidShare;
         uint256 burningShare;

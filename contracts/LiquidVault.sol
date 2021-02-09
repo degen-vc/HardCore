@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/HardCoreLike.sol";
 import "./facades/FeeDistributorLike.sol";
@@ -10,9 +10,9 @@ import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 contract LiquidVault is Ownable {
 
     event EthereumDeposited(
-        address from, 
-        address to, 
-        uint256 amount, 
+        address from,
+        address to,
+        uint256 amount,
         uint256 percentageAmount
     );
 
@@ -46,7 +46,6 @@ contract LiquidVault is Ownable {
         IUniswapV2Router02 uniswapRouter;
         IUniswapV2Pair tokenPair;
         FeeDistributorLike feeDistributor;
-        address self;
         address weth;
         address payable ethReceiver;
         uint32 stakeDuration;
@@ -84,7 +83,6 @@ contract LiquidVault is Ownable {
         );
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
-        config.self = address(this);
         setEthFeeAddress(ethReceiver);
         setParameters(duration, donationShare, purchaseFee);
     }
@@ -97,18 +95,9 @@ contract LiquidVault is Ownable {
         feeValue = config.purchaseFee * value / 100;
         exchangeValue = value - feeValue;
 
-        (address token0, ) =
-            config.hardCore < config.weth
-                ? (config.hardCore, config.weth)
-                : (config.weth, config.hardCore);
         (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
-        hardCoreRequired = 0;
 
-        if (config.tokenPair.totalSupply() == 0) {
-            hardCoreRequired = HardCoreLike(config.hardCore).balanceOf(
-                address(this)
-            );
-        } else if (token0 == config.hardCore) {
+        if (address(config.hardCore) < address(config.weth)) {
             hardCoreRequired = config.uniswapRouter.quote(
                 exchangeValue,
                 reserve2,
@@ -159,7 +148,7 @@ contract LiquidVault is Ownable {
 
         (uint256 feeValue, uint256 exchangeValue, uint256 hardCoreRequired) = calculateHardcoreRequired(msg.value);
 
-        uint256 balance = HardCoreLike(config.hardCore).balanceOf(config.self);
+        uint256 balance = HardCoreLike(config.hardCore).balanceOf(address(this));
         require(
             balance >= hardCoreRequired,
             "HARDCORE: insufficient HardCore in LiquidVault"
@@ -173,7 +162,7 @@ contract LiquidVault is Ownable {
             hardCoreRequired
         );
         config.ethReceiver.transfer(feeValue);
-        uint256 liquidityCreated = config.tokenPair.mint(config.self);
+        uint256 liquidityCreated = config.tokenPair.mint(address(this));
 
         LockedLP[beneficiary].push(
             LPbatch({
@@ -196,11 +185,11 @@ contract LiquidVault is Ownable {
 
     //send eth to match with HCORE tokens in LiquidVault
     function purchaseLP() public payable {
-        this.purchaseLPFor{ value: msg.value }(msg.sender);
+        purchaseLPFor(msg.sender);
     }
 
     //pops latest LP if older than period
-    function claimLP() public returns (bool) {
+    function claimLP() public {
         uint256 length = LockedLP[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
         uint256 oldest = queueCounter[msg.sender];
@@ -219,7 +208,10 @@ contract LiquidVault is Ownable {
             config.tokenPair.transfer(address(0), donation),
             "HardCore: donation transfer failed in LP claim."
         );
-        return config.tokenPair.transfer(batch.holder, batch.amount - donation);
+        require(
+            config.tokenPair.transfer(batch.holder, batch.amount - donation),
+            "HardCore: transfer failed in LP claim."
+        );
     }
 
     function lockedLPLength(address holder) public view returns (uint256) {

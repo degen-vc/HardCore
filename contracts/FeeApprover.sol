@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; // for WETH
@@ -10,33 +10,24 @@ import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
-    function initialize(
-        address _HCAddress,
-        address _uniswapFactory,
-        address _uniswapRouter,
-        address _liquidVault
-    ) public onlyOwner {
-        hardcoreTokenAddress = _HCAddress;
-
-        tokenUniswapPair = IUniswapV2Factory(_uniswapFactory).getPair(
-            IUniswapV2Router02(_uniswapRouter).WETH(),
-            _HCAddress
-        );
-        feePercentX100 = 10;
-        paused = true;
-        _setFeeDiscountTo(tokenUniswapPair, 1000);
-        _setFeeDiscountFrom(tokenUniswapPair, 1000);
-        liquidVault = _liquidVault;
-    }
-
     address tokenUniswapPair;
-    address hardcoreTokenAddress;
-    address liquidVault;
-    uint8 public feePercentX100;
+    uint8 public feePercentX100 = 10;
     bool paused;
     mapping(address => uint256) public discountFrom;
     mapping(address => uint256) public discountTo;
     mapping(address => uint256) public feeBlackList;
+
+    function initialize(
+        address _uniswapPair,
+        address _liquidVault
+    ) public onlyOwner {
+        tokenUniswapPair = _uniswapPair;
+        paused = true;
+        _setFeeDiscountTo(tokenUniswapPair, 1000);
+        _setFeeDiscountFrom(tokenUniswapPair, 1000);
+        _setFeeDiscountTo(_liquidVault, 1000);
+        _setFeeDiscountFrom(_liquidVault, 1000);
+    }
 
     // Once HCore is unpaused, it can never be paused
     function unPause() public onlyOwner {
