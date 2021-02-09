@@ -10,7 +10,6 @@ import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
-    address tokenUniswapPair;
     uint8 public feePercentX100 = 10;
     bool paused;
     mapping(address => uint256) public discountFrom;
@@ -21,10 +20,8 @@ contract FeeApprover is Ownable {
         address _uniswapPair,
         address _liquidVault
     ) public onlyOwner {
-        tokenUniswapPair = _uniswapPair;
         paused = true;
-        _setFeeDiscountTo(tokenUniswapPair, 1000);
-        _setFeeDiscountFrom(tokenUniswapPair, 1000);
+        _setFeeDiscountFrom(_uniswapPair, 600);
         _setFeeDiscountTo(_liquidVault, 1000);
         _setFeeDiscountFrom(_liquidVault, 1000);
     }
