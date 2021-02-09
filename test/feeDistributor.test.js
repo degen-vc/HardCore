@@ -51,7 +51,6 @@ contract('FeeDistributor', ([ALICE, BOB, UNISWAP, HACKER]) => {
     liquidVault = await LiquidVault.new({ from: ALICE });
     feeDistributor = await FeeDistributor.new({ from: ALICE });
     nftFund = await NFTFund.new(
-      uniFactory.address,
       uniRouterV2.address,
       hardCoreToken.address,
       {from: ALICE}
