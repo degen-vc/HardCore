@@ -29,7 +29,7 @@ contract HardCore is Context, IERC20, Ownable {
     uint8 private _decimals;
 
     constructor(address _router) public {
-        _name = "HARDCORE | hcore.finance";
+        _name = "HARDCORE hcore.finance";
         _symbol = "HCORE";
         _decimals = 18;
         _mint(_msgSender(), 30000e18);
@@ -86,9 +86,6 @@ contract HardCore is Context, IERC20, Ownable {
     /**
      * @dev See {IERC20-balanceOf}.
      */
-    // function balanceOf(address account) public override returns (uint256) {
-    //     return _balances[account];
-    // }
     function balanceOf(address _owner) public view override returns (uint256) {
         return _balances[_owner];
     }
