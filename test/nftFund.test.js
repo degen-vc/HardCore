@@ -44,6 +44,7 @@ contract('NFTFund', accounts => {
         await feeApproverInstance.unPause()
         await feeApproverInstance.setFeeMultiplier(10)
         await feeApproverInstance.setFeeDiscountTo(uniswapPairAddress, 0)
+        await feeApproverInstance.setFeeDiscountFrom(uniswapPairAddress, 600)
     })
 
     test('requires a non-null router and token', async () => {
