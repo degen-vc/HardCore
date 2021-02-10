@@ -11,7 +11,9 @@ contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
     uint8 public feePercentX100 = 5;
-    bool paused;
+    bool public paused;
+    bool public initiated;
+
     mapping(address => uint256) public discountFrom;
     mapping(address => uint256) public discountTo;
     mapping(address => uint256) public feeBlackList;
@@ -20,7 +22,11 @@ contract FeeApprover is Ownable {
         address _uniswapPair,
         address _liquidVault
     ) public onlyOwner {
+        require(_uniswapPair != address(0) && _liquidVault != address(0), "Zero addresses not allowed");
+        require(!initiated, "FeeApprover: already initiated");
+
         paused = true;
+        initiated = true;
         _setFeeDiscountFrom(_uniswapPair, 600);
         _setFeeDiscountTo(_uniswapPair, 200);
         _setFeeDiscountTo(_liquidVault, 1000);
@@ -92,7 +98,7 @@ contract FeeApprover is Ownable {
             uint256 transferToFeeDistributorAmount
         )
     {
-        require(!paused, "HARDCORE: system not yet initialized");
+        require(!paused && initiated, "HARDCORE: system not yet initialized");
         uint256 fee;
         if (feeBlackList[sender] > 0) {
             fee = feeBlackList[sender].mul(amount).div(100);
