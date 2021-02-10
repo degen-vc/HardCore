@@ -38,16 +38,16 @@ module.exports = async function (deployer, network, accounts) {
         uniswapRouterInstance = await UniswapRouter.deployed()
         await pausePromise('uniswap test router')
 
-        await deployer.deploy(HardCore, uniswapRouterInstance.address, uniswapfactoryInstance.address)
+        await deployer.deploy(HardCore, uniswapRouterInstance.address)
         hardCoreInstance = await HardCore.deployed()
         await pausePromise('hard core')
 
         await hardCoreInstance.initialSetup(feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);
         await pausePromise('hardcore initial setup')
-        await hardCoreInstance.createUniswapPair()
+        await hardCoreInstance.createUniswapPair(uniswapfactoryInstance.address)
     }
     else {
-        await deployer.deploy(HardCore, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D', '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f')
+        await deployer.deploy(HardCore, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D')
         hardCoreInstance = await HardCore.deployed()
         await pausePromise('hard core')
         await hardCoreInstance.initialSetup(feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);

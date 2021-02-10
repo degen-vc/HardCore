@@ -28,13 +28,12 @@ contract HardCore is Context, IERC20, Ownable {
     string private _symbol;
     uint8 private _decimals;
 
-    constructor(address _router, address _factory) public {
+    constructor(address _router) public {
         _name = "HARDCORE | hcore.finance";
         _symbol = "HCORE";
         _decimals = 18;
         _mint(_msgSender(), 30000e18);
         uniswapRouter = IUniswapV2Router02(_router);
-        uniswapFactory = IUniswapV2Factory(_factory);
     }
 
     /**
@@ -94,12 +93,11 @@ contract HardCore is Context, IERC20, Ownable {
         return _balances[_owner];
     }
 
-    IUniswapV2Factory public uniswapFactory;
     IUniswapV2Router02 public uniswapRouter;
 
     address public tokenUniswapPair;
 
-    function createUniswapPair() public onlyOwner returns (address) {
+    function createUniswapPair(IUniswapV2Factory uniswapFactory) public onlyOwner returns (address) {
         require(tokenUniswapPair == address(0), "Token: pool already created");
         tokenUniswapPair = uniswapFactory.createPair(
             address(uniswapRouter.WETH()),

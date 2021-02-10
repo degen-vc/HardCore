@@ -31,11 +31,11 @@ contract('NFTFund', accounts => {
         uniswapRouter = contracts.uniswapRouter;
         wethInstance = contracts.weth;
 
-        hardcoreInstance = await Hardcore.new(uniswapRouter.address, uniswapFactory.address)
+        hardcoreInstance = await Hardcore.new(uniswapRouter.address)
         feeApproverInstance = await FeeApprover.new()
 
         await hardcoreInstance.initialSetup(feeApproverInstance.address, distributor, liquidVault)
-        await hardcoreInstance.createUniswapPair()
+        await hardcoreInstance.createUniswapPair(uniswapFactory.address)
         nftFundInstance = await NFTFund.new(uniswapRouter.address, hardcoreInstance.address)
 
         uniswapPairAddress = await hardcoreInstance.tokenUniswapPair();
@@ -43,6 +43,7 @@ contract('NFTFund', accounts => {
 
         await feeApproverInstance.unPause()
         await feeApproverInstance.setFeeMultiplier(10)
+        await feeApproverInstance.setFeeDiscountTo(uniswapPairAddress, 0)
     })
 
     test('requires a non-null router and token', async () => {
