@@ -10,7 +10,7 @@ import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
-    uint8 public feePercentX100 = 5;
+    uint8 public feePercentX100 = 4;
     bool public paused;
     bool public initiated;
 
@@ -27,8 +27,7 @@ contract FeeApprover is Ownable {
 
         paused = true;
         initiated = true;
-        _setFeeDiscountFrom(_uniswapPair, 600);
-        _setFeeDiscountTo(_uniswapPair, 200);
+        _setFeeDiscountFrom(_uniswapPair, 500);
         _setFeeDiscountTo(_liquidVault, 1000);
     }
 
