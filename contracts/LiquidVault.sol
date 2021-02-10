@@ -75,7 +75,7 @@ contract LiquidVault is Ownable {
         address payable ethReceiver,
         uint8 donationShare, // LP Token
         uint8 purchaseFee, // ETH
-        PriceOracle _uniswapOracle
+        PriceOracle uniswapOracle
     ) public onlyOwner {
         config.hardCore = hcore;
         config.uniswapRouter = IUniswapV2Router02(
@@ -86,7 +86,7 @@ contract LiquidVault is Ownable {
         );
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
-        config.uniswapOracle = _uniswapOracle;
+        config.uniswapOracle = uniswapOracle;
         setEthFeeAddress(ethReceiver);
         setParameters(duration, donationShare, purchaseFee);
     }
@@ -166,7 +166,7 @@ contract LiquidVault is Ownable {
         );
         config.ethReceiver.transfer(feeValue);
         config.uniswapOracle.update();
-        
+
         uint256 liquidityCreated = config.tokenPair.mint(address(this));
 
         LockedLP[beneficiary].push(
