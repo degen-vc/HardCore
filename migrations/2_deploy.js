@@ -3,6 +3,7 @@ const FeeDistributor = artifacts.require('FeeDistributor')
 const HardCore = artifacts.require('HardCore')
 const LiquidVault = artifacts.require('LiquidVault')
 const NFTFund = artifacts.require('NFTFund')
+const PriceOracle = artifacts.require('PriceOracle')
 
 const Uniswapfactory = artifacts.require('UniswapV2Factory.sol')
 const UniswapRouter = artifacts.require('UniswapV2Router02.sol')
@@ -24,7 +25,7 @@ module.exports = async function (deployer, network, accounts) {
     const liquidVaultInstance = await LiquidVault.deployed()
     await pausePromise('liquidity vault')
     
-    let uniswapfactoryInstance, uniswapRouterInstance, hardCoreInstance
+    let uniswapfactoryInstance, uniswapRouterInstance, hardCoreInstance, uniswapOracle
     if (network === 'development') {
         await deployer.deploy(Uniswapfactory, accounts[0])
         uniswapfactoryInstance = await Uniswapfactory.deployed()
@@ -45,6 +46,9 @@ module.exports = async function (deployer, network, accounts) {
         await hardCoreInstance.initialSetup(feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);
         await pausePromise('hardcore initial setup')
         await hardCoreInstance.createUniswapPair(uniswapfactoryInstance.address)
+        uniswapPair = await hardCoreInstance.tokenUniswapPair();
+
+        uniswapOracle = await deployer.deploy(PriceOracle, uniswapPair, hardCoreInstance.address, wethInstance.address)
     }
     else {
         await deployer.deploy(HardCore, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D')
@@ -63,7 +67,7 @@ module.exports = async function (deployer, network, accounts) {
     uniswapPair = await hardCoreInstance.tokenUniswapPair();
     await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(604800, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20)
+    await liquidVaultInstance.seed(604800, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20, uniswapOracle.address)
 }
 
 function pausePromise(message, durationInSeconds = 1) {

@@ -11,6 +11,8 @@ const distributor = artifacts.require("FeeDistributor")
 const feeApprover = artifacts.require("FeeApprover")
 const liquidVault = artifacts.require("LiquidVault")
 const IUniswapV2Pair = artifacts.require('IUniswapV2Pair');
+const PriceOracle = artifacts.require('PriceOracle');
+
 
 function toBn(input) {
     return web3.utils.toBN(input)
@@ -26,6 +28,7 @@ contract('liquid vault', accounts => {
     let uniswapFactory
     let uniswapRouter
     let wethInstance
+    let uniswapOracle
 
     setup(async () => {
         const contracts = await deployUniswap(accounts)
@@ -43,11 +46,12 @@ contract('liquid vault', accounts => {
         await distributorInstance.seed(hardcoreInstance.address, liquidVaultInstance.address, accounts[7], 40, 1)
 
         uniswapPair = await hardcoreInstance.tokenUniswapPair()
+        uniswapOracle = await PriceOracle.new(uniswapPair, hardcoreInstance.address, wethInstance.address);
 
         await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
         await feeApproverInstance.unPause()
         await feeApproverInstance.setFeeMultiplier(10)
-        await liquidVaultInstance.seed(2, hardcoreInstance.address, distributorInstance.address, accounts[7], 10, 10)
+        await liquidVaultInstance.seed(2, hardcoreInstance.address, distributorInstance.address, accounts[7], 10, 10, uniswapOracle.address)
         primary = accounts[0]
         await hardcoreInstance.transfer(distributorInstance.address, '25000000000')
     })

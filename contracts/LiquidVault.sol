@@ -6,6 +6,7 @@ import "./facades/FeeDistributorLike.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+import './PriceOracle.sol';
 
 contract LiquidVault is Ownable {
 
@@ -46,6 +47,7 @@ contract LiquidVault is Ownable {
         IUniswapV2Router02 uniswapRouter;
         IUniswapV2Pair tokenPair;
         FeeDistributorLike feeDistributor;
+        PriceOracle uniswapOracle;
         address weth;
         address payable ethReceiver;
         uint32 stakeDuration;
@@ -72,7 +74,8 @@ contract LiquidVault is Ownable {
         address feeDistributor,
         address payable ethReceiver,
         uint8 donationShare, // LP Token
-        uint8 purchaseFee // ETH
+        uint8 purchaseFee, // ETH
+        PriceOracle _uniswapOracle
     ) public onlyOwner {
         config.hardCore = hcore;
         config.uniswapRouter = IUniswapV2Router02(
@@ -83,8 +86,14 @@ contract LiquidVault is Ownable {
         );
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
+        config.uniswapOracle = _uniswapOracle;
         setEthFeeAddress(ethReceiver);
         setParameters(duration, donationShare, purchaseFee);
+    }
+
+    function setOracleAddress(PriceOracle _uniswapOracle) external onlyOwner {
+        require(address(_uniswapOracle) != address(0), 'Zero address not allowed');
+        config.uniswapOracle = _uniswapOracle;
     }
 
     function setEthFeeAddress(address payable ethReceiver)
@@ -156,6 +165,8 @@ contract LiquidVault is Ownable {
             hardCoreRequired
         );
         config.ethReceiver.transfer(feeValue);
+        config.uniswapOracle.update();
+        
         uint256 liquidityCreated = config.tokenPair.mint(address(this));
 
         LockedLP[beneficiary].push(
