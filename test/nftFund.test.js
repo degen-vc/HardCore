@@ -31,11 +31,11 @@ contract('NFTFund', accounts => {
         uniswapRouter = contracts.uniswapRouter;
         wethInstance = contracts.weth;
 
-        hardcoreInstance = await Hardcore.new()
+        hardcoreInstance = await Hardcore.new(uniswapRouter.address, uniswapFactory.address)
         feeApproverInstance = await FeeApprover.new()
 
-        await hardcoreInstance.initialSetup(uniswapRouter.address, uniswapFactory.address, feeApproverInstance.address, distributor, liquidVault)
-
+        await hardcoreInstance.initialSetup(feeApproverInstance.address, distributor, liquidVault)
+        await hardcoreInstance.createUniswapPair()
         nftFundInstance = await NFTFund.new(uniswapRouter.address, hardcoreInstance.address)
 
         uniswapPairAddress = await hardcoreInstance.tokenUniswapPair();
@@ -105,10 +105,7 @@ contract('NFTFund', accounts => {
         const ethBalanceBefore = Number(await web3.eth.getBalance(nftFundInstance.address))
         const amountToCalculate = await hardcoreInstance.balanceOf(nftFundInstance.address)
         const expectedFee = Math.floor((amountToCalculate / 100) * 10)
-        console.log('expected fee', expectedFee);
-        
         const feeAmount = await feeApproverInstance.calculateAmountsAfterFee(nftFundInstance.address, uniswapPairAddress, amountToCalculate)
-        console.log('fee', feeAmount[1]);
         await nftFundInstance.methods['swapTokensForETH()'] ({ from: seller})
         
         const ethBalance = Number(await web3.eth.getBalance(nftFundInstance.address))

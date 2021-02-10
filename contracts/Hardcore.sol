@@ -28,6 +28,15 @@ contract HardCore is Context, IERC20, Ownable {
     string private _symbol;
     uint8 private _decimals;
 
+    constructor(address _router, address _factory) public {
+        _name = "HARDCORE | hcore.finance";
+        _symbol = "HCORE";
+        _decimals = 18;
+        _mint(_msgSender(), 30000e18);
+        uniswapRouter = IUniswapV2Router02(_router);
+        uniswapFactory = IUniswapV2Factory(_factory);
+    }
+
     /**
      * @dev Returns the name of the token.
      */
@@ -36,21 +45,13 @@ contract HardCore is Context, IERC20, Ownable {
     }
 
     function initialSetup(
-        address _router,
-        address _factory,
         address _feeApprover,
         address _feeDistributor,
         address _liquidVault
     ) public onlyOwner {
-        _name = "HARDCORE | hcore.finance";
-        _symbol = "HCORE";
-        _decimals = 18;
-        _mint(_msgSender(), 30000e18);
-        uniswapRouter = IUniswapV2Router02(_router);
         transferCheckerAddress = _feeApprover;
         feeDistributor = _feeDistributor;
         liquidVault = _liquidVault;
-        _createUniswapPairMainnet(IUniswapV2Factory(_factory));
     }
 
     /**
@@ -93,12 +94,14 @@ contract HardCore is Context, IERC20, Ownable {
         return _balances[_owner];
     }
 
+    IUniswapV2Factory public uniswapFactory;
     IUniswapV2Router02 public uniswapRouter;
 
     address public tokenUniswapPair;
 
-    function _createUniswapPairMainnet(IUniswapV2Factory _factory) internal returns (address) {
-        tokenUniswapPair = _factory.createPair(
+    function createUniswapPair() public onlyOwner returns (address) {
+        require(tokenUniswapPair == address(0), "Token: pool already created");
+        tokenUniswapPair = uniswapFactory.createPair(
             address(uniswapRouter.WETH()),
             address(this)
         );

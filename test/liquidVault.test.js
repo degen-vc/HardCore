@@ -33,12 +33,13 @@ contract('liquid vault', accounts => {
         uniswapRouter = contracts.uniswapRouter
         wethInstance = contracts.weth
 
-        hardcoreInstance = await hardcore.new()
+        hardcoreInstance = await hardcore.new(uniswapRouter.address, uniswapFactory.address)
         liquidVaultInstance = await liquidVault.new()
         feeApproverInstance = await feeApprover.new()
         distributorInstance = await distributor.new()
 
-        await hardcoreInstance.initialSetup(uniswapRouter.address, uniswapFactory.address, feeApproverInstance.address, distributorInstance.address, liquidVaultInstance.address)
+        await hardcoreInstance.initialSetup(feeApproverInstance.address, distributorInstance.address, liquidVaultInstance.address)
+        await hardcoreInstance.createUniswapPair()
         await distributorInstance.seed(hardcoreInstance.address, liquidVaultInstance.address, accounts[7], 40, 1)
 
         uniswapPair = await hardcoreInstance.tokenUniswapPair()
