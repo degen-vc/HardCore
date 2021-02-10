@@ -10,7 +10,7 @@ import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
-    uint8 public feePercentX100 = 10;
+    uint8 public feePercentX100 = 5;
     bool paused;
     mapping(address => uint256) public discountFrom;
     mapping(address => uint256) public discountTo;
@@ -22,8 +22,8 @@ contract FeeApprover is Ownable {
     ) public onlyOwner {
         paused = true;
         _setFeeDiscountFrom(_uniswapPair, 600);
+        _setFeeDiscountTo(_uniswapPair, 200);
         _setFeeDiscountTo(_liquidVault, 1000);
-        _setFeeDiscountFrom(_liquidVault, 1000);
     }
 
     // Once HCore is unpaused, it can never be paused
