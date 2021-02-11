@@ -67,7 +67,7 @@ module.exports = async function (deployer, network, accounts) {
     uniswapPair = await hardCoreInstance.tokenUniswapPair();
     await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
-    await liquidVaultInstance.seed(604800, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20, uniswapOracle.address)
+    await liquidVaultInstance.seed(7, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20, uniswapOracle.address)
 }
 
 function pausePromise(message, durationInSeconds = 1) {
