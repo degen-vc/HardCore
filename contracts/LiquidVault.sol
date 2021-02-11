@@ -1,15 +1,25 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./facades/HardCoreLike.sol";
 import "./facades/FeeDistributorLike.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+import './PriceOracle.sol';
 
 contract LiquidVault is Ownable {
+
+    event EthereumDeposited(
+        address from,
+        address to,
+        uint256 amount,
+        uint256 percentageAmount
+    );
+
     /*
-        A user can hold multiple locked LP batches. Each batch takes 30 days to incubate
+    * A user can hold multiple locked LP batches.
+    * Each batch takes 30 days to incubate
     */
     event LPQueued(
         address holder,
@@ -37,11 +47,12 @@ contract LiquidVault is Ownable {
         IUniswapV2Router02 uniswapRouter;
         IUniswapV2Pair tokenPair;
         FeeDistributorLike feeDistributor;
-        uint256 stakeDuration;
-        address self;
+        PriceOracle uniswapOracle;
         address weth;
-        address donation;
-        uint256 donationShare; //0-100
+        address payable ethReceiver;
+        uint32 stakeDuration;
+        uint8 donationShare; //0-100
+        uint8 purchaseFee; //0-100
     }
 
     bool private locked;
@@ -55,19 +66,17 @@ contract LiquidVault is Ownable {
     liquidVaultConfig public config;
     //Front end can loop through this and inspect if enough time has passed
     mapping(address => LPbatch[]) public LockedLP;
+    mapping(address => uint256) public queueCounter;
 
     function seed(
-        uint256 duration,
+        uint32 duration,
         address hcore,
         address feeDistributor,
-        address donation,
-        uint256 donationShare
-    ) public onlyOwner{
-        require(
-            donationShare <= 100,
-            "HardCore: donation share % between 0 and 100"
-        );
-        config.stakeDuration = duration * 1 days;
+        address payable ethReceiver,
+        uint8 donationShare, // LP Token
+        uint8 purchaseFee, // ETH
+        PriceOracle uniswapOracle
+    ) public onlyOwner {
         config.hardCore = hcore;
         config.uniswapRouter = IUniswapV2Router02(
             HardCoreLike(hcore).uniswapRouter()
@@ -77,51 +86,88 @@ contract LiquidVault is Ownable {
         );
         config.feeDistributor = FeeDistributorLike(feeDistributor);
         config.weth = config.uniswapRouter.WETH();
-        config.self = address(this);
-        config.donation = donation;
+        config.uniswapOracle = uniswapOracle;
+        setEthFeeAddress(ethReceiver);
+        setParameters(duration, donationShare, purchaseFee);
+    }
+
+    function setOracleAddress(PriceOracle _uniswapOracle) external onlyOwner {
+        require(address(_uniswapOracle) != address(0), 'Zero address not allowed');
+        config.uniswapOracle = _uniswapOracle;
+    }
+
+    function setEthFeeAddress(address payable ethReceiver)
+        public
+        onlyOwner
+    {
+        require(
+            ethReceiver != address(0),
+            "LiquidVault: eth receiver is zero address"
+        );
+
+        config.ethReceiver = ethReceiver;
+    }
+
+    function setParameters(uint32 duration, uint8 donationShare, uint8 purchaseFee)
+        public
+        onlyOwner
+    {
+        require(
+            donationShare <= 100,
+            "HardCore: donation share % between 0 and 100"
+        );
+        require(
+            purchaseFee <= 100,
+            "HardCore: purchase fee share % between 0 and 100"
+        );
+
+        config.stakeDuration = duration * 1 days;
         config.donationShare = donationShare;
+        config.purchaseFee = purchaseFee;
     }
 
     function purchaseLPFor(address beneficiary) public payable lock {
-         config.feeDistributor.distributeFees();
+        config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
-        (address token0, ) = config.hardCore < config.weth
-            ? (config.hardCore, config.weth)
-            : (config.weth, config.hardCore);
-        (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
-        uint256 hardCoreRequired = 0;
 
-        if (config.tokenPair.totalSupply() == 0) {
-            hardCoreRequired = HardCoreLike(config.hardCore).balanceOf(
-                address(this)
-            );
-        } else if (token0 == config.hardCore) {
+        uint256 feeValue = config.purchaseFee * msg.value / 100;
+        uint256 exchangeValue = msg.value - feeValue;
+
+        (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
+
+        uint256 hardCoreRequired;
+
+        if (address(config.hardCore) < address(config.weth)) {
             hardCoreRequired = config.uniswapRouter.quote(
-                msg.value,
+                exchangeValue,
                 reserve2,
                 reserve1
             );
         } else {
             hardCoreRequired = config.uniswapRouter.quote(
-                msg.value,
+                exchangeValue,
                 reserve1,
                 reserve2
             );
         }
-        uint256 balance = HardCoreLike(config.hardCore).balanceOf(config.self);
+
+        uint256 balance = HardCoreLike(config.hardCore).balanceOf(address(this));
         require(
             balance >= hardCoreRequired,
             "HARDCORE: insufficient HardCore in LiquidVault"
         );
 
-        IWETH(config.weth).deposit{value: msg.value}();
+        IWETH(config.weth).deposit{ value: exchangeValue }();
         address tokenPairAddress = address(config.tokenPair);
-        IWETH(config.weth).transfer(tokenPairAddress, msg.value);
+        IWETH(config.weth).transfer(tokenPairAddress, exchangeValue);
         HardCoreLike(config.hardCore).transfer(
             tokenPairAddress,
             hardCoreRequired
         );
-        uint256 liquidityCreated = config.tokenPair.mint(config.self);
+        config.ethReceiver.transfer(feeValue);
+        config.uniswapOracle.update();
+
+        uint256 liquidityCreated = config.tokenPair.mint(address(this));
 
         LockedLP[beneficiary].push(
             LPbatch({
@@ -134,34 +180,43 @@ contract LiquidVault is Ownable {
         emit LPQueued(
             beneficiary,
             liquidityCreated,
-            msg.value,
+            exchangeValue,
             hardCoreRequired,
             block.timestamp
         );
+
+        emit EthereumDeposited(msg.sender, config.ethReceiver, exchangeValue, feeValue);
     }
 
     //send eth to match with HCORE tokens in LiquidVault
     function purchaseLP() public payable {
-       this.purchaseLPFor{value:msg.value}(msg.sender);
+        purchaseLPFor(msg.sender);
     }
 
     //pops latest LP if older than period
-    function claimLP() public returns (bool) {
+    function claimLP() public {
         uint256 length = LockedLP[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
-        LPbatch memory batch = LockedLP[msg.sender][length - 1];
+        uint256 oldest = queueCounter[msg.sender];
+        LPbatch memory batch = LockedLP[msg.sender][oldest];
         require(
             block.timestamp - batch.timestamp > config.stakeDuration,
             "HARDCORE: LP still locked."
         );
-        LockedLP[msg.sender].pop();
+        oldest = LockedLP[msg.sender].length - 1 == oldest
+            ? oldest
+            : oldest + 1;
+        queueCounter[msg.sender] = oldest;
         uint256 donation = (config.donationShare * batch.amount) / 100;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
-            config.tokenPair.transfer(config.donation, donation),
+            config.tokenPair.transfer(address(0), donation),
             "HardCore: donation transfer failed in LP claim."
         );
-        return config.tokenPair.transfer(batch.holder, batch.amount - donation);
+        require(
+            config.tokenPair.transfer(batch.holder, batch.amount - donation),
+            "HardCore: transfer failed in LP claim."
+        );
     }
 
     function lockedLPLength(address holder) public view returns (uint256) {

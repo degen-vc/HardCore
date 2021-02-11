@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.6.12;
+pragma solidity 0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol"; // for WETH
@@ -10,35 +10,26 @@ import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 contract FeeApprover is Ownable {
     using SafeMath for uint256;
 
-    function initialize(
-        address _HCAddress,
-        address _uniswapFactory,
-        address _uniswapRouter,
-        address _liquidVault
-    ) public {
-        hardcoreTokenAddress = _HCAddress;
+    uint8 public feePercentX100 = 4;
+    bool public paused;
+    bool public initiated;
 
-        tokenUniswapPair = IUniswapV2Factory(_uniswapFactory).getPair(
-            IUniswapV2Router02(_uniswapRouter).WETH(),
-            _HCAddress
-        );
-        feePercentX100 = 10;
-        paused = true;
-        _setFeeDiscountTo(tokenUniswapPair, 1000);
-        _setFeeDiscountFrom(tokenUniswapPair, 1000);
-        liquidVault = _liquidVault;
-    }
-
-    address tokenUniswapPair;
-    IUniswapV2Factory public uniswapFactory;
-    address hardcoreTokenAddress;
-    address liquidVault;
-    uint8 public feePercentX100;
-    uint256 public lastTotalSupplyOfLPTokens;
-    bool paused;
     mapping(address => uint256) public discountFrom;
     mapping(address => uint256) public discountTo;
     mapping(address => uint256) public feeBlackList;
+
+    function initialize(
+        address _uniswapPair,
+        address _liquidVault
+    ) public onlyOwner {
+        require(_uniswapPair != address(0) && _liquidVault != address(0), "Zero addresses not allowed");
+        require(!initiated, "FeeApprover: already initiated");
+
+        paused = true;
+        initiated = true;
+        _setFeeDiscountFrom(_uniswapPair, 500);
+        _setFeeDiscountTo(_liquidVault, 1000);
+    }
 
     // Once HCore is unpaused, it can never be paused
     function unPause() public onlyOwner {
@@ -106,7 +97,7 @@ contract FeeApprover is Ownable {
             uint256 transferToFeeDistributorAmount
         )
     {
-        require(!paused, "HARDCORE: system not yet initialized");
+        require(!paused && initiated, "HARDCORE: system not yet initialized");
         uint256 fee;
         if (feeBlackList[sender] > 0) {
             fee = feeBlackList[sender].mul(amount).div(100);
