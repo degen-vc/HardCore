@@ -1,43 +1,52 @@
 
 const async = require('./helpers/async.js')
 const expectThrow = require('./helpers/expectThrow').handle
-
+const deployUniswap = require('./helpers/deployUniswap')
 const test = async.test
 const setup = async.setup
 const hardcore = artifacts.require("HardCore")
 const distributor = artifacts.require("FeeDistributor")
 const feeApprover = artifacts.require("FeeApprover")
+const liquidVault = artifacts.require("LiquidVault")
 let primary = ""
-contract('hardcore paused', accounts => {
-	var hardcoreInstance
+
+contract('hardcore', accounts => {
+	var hardcoreInstance, feeApproverInstance, distributorInstance
 	const primaryOptions = { from: accounts[0], gas: "0x6091b7" }
 
+	let uniswapPairAddress
+	let uniswapFactory
+	let uniswapRouter
+	let wethInstance
+	let uniswapOracle
+
 	setup(async () => {
-		hardcoreInstance = await hardcore.deployed()
 		primary = accounts[0]
+		const contracts = await deployUniswap(accounts)
+		uniswapFactory = contracts.uniswapFactory
+		uniswapRouter = contracts.uniswapRouter
+		wethInstance = contracts.weth
+
+		hardcoreInstance = await hardcore.new(uniswapRouter.address)
+		liquidVaultInstance = await liquidVault.new()
+		feeApproverInstance = await feeApprover.new()
+		distributorInstance = await distributor.new()
+
+		await hardcoreInstance.initialSetup(feeApproverInstance.address, distributorInstance.address, liquidVaultInstance.address)
+		await hardcoreInstance.createUniswapPair(uniswapFactory.address)
+		const uniswapPair = await hardcoreInstance.tokenUniswapPair();
+		await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
+		await distributorInstance.seed(hardcoreInstance.address, liquidVaultInstance.address, accounts[7], 40, 1)
 	})
 
 	test("transfer while paused fails", async () => {
 		await expectThrow(hardcoreInstance.transfer(accounts[2], "1000", { from: primary }), 'HARDCORE: system not yet initialized')
 	})
 
-})
-
-contract('hardcore unpaused', accounts => {
-	var hardcoreInstance, feeApproverInstance, distriburorInstance
-	const primaryOptions = { from: accounts[0], gas: "0x6091b7" }
-
-	setup(async () => {
-		hardcoreInstance = await hardcore.deployed()
-		primary = accounts[0]
-		feeApproverInstance = await feeApprover.deployed()
-		distriburorInstance = await distributor.deployed()
+	test("trading exacts a standard fee", async () => {
 		await feeApproverInstance.unPause()
 		await feeApproverInstance.setFeeMultiplier(10)
-	})
-
-	test("trading exacts a standard fee", async () => {
-		const feeDistributorBalanceBefore = (await hardcoreInstance.balanceOf(distriburorInstance.address)).toNumber()
+		const feeDistributorBalanceBefore = (await hardcoreInstance.balanceOf(distributorInstance.address)).toNumber()
 
 		const feePercentage = (await feeApproverInstance.feePercentX100.call()).toNumber()
 		assert.equal(feePercentage, 10)
@@ -46,11 +55,13 @@ contract('hardcore unpaused', accounts => {
 		hardcoreInstance.transfer(accounts[2], "100000", { from: primary })
 		const receiverBalanceAfter = (await hardcoreInstance.balanceOf.call(accounts[2])).toNumber()
 		assert.equal(receiverBalanceAfter - receiverBalanceBefore, 90000)
-		const feeDistributorBalanceAfter = (await hardcoreInstance.balanceOf(distriburorInstance.address)).toNumber()
+		const feeDistributorBalanceAfter = (await hardcoreInstance.balanceOf(distributorInstance.address)).toNumber()
 		assert.equal(feeDistributorBalanceAfter - feeDistributorBalanceBefore, 10000)
 	})
 
 	test("transfer to a toDiscount account reduces fee while from does not", async () => {
+		await feeApproverInstance.unPause()
+		await feeApproverInstance.setFeeMultiplier(10)
 		await feeApproverInstance.setFeeDiscountTo(accounts[3], 600) //60%
 		const receiverBalanceBefore = (await hardcoreInstance.balanceOf.call(accounts[3])).toNumber()
 		await hardcoreInstance.transfer(accounts[3], "20000", { from: primary })
@@ -60,6 +71,8 @@ contract('hardcore unpaused', accounts => {
 	})
 
 	test("transfer to a fromDiscount account has no effect on fees while from it reduces fee", async () => {
+		await feeApproverInstance.unPause()
+		await feeApproverInstance.setFeeMultiplier(10)
 		await feeApproverInstance.setFeeDiscountFrom(accounts[4], 550)
 		const receiverBalanceBefore = (await hardcoreInstance.balanceOf.call(accounts[4])).toNumber()
 		await hardcoreInstance.transfer(accounts[4], "15000", { from: primary })
@@ -75,6 +88,8 @@ contract('hardcore unpaused', accounts => {
 	})
 
 	test("blacklist", async () => {
+		await feeApproverInstance.unPause()
+		await feeApproverInstance.setFeeMultiplier(10)
 		await feeApproverInstance.setFeeBlackList(accounts[8], 60)
 
 		let receiverBalanceBefore = (await hardcoreInstance.balanceOf.call(accounts[8])).toNumber()

@@ -12,7 +12,7 @@ const WETH = artifacts.require('WETH')
 const fs = require('fs')
 
 module.exports = async function (deployer, network, accounts) {
-
+    
     await deployer.deploy(FeeApprover)
     const feeApproverInstance = await FeeApprover.deployed()
     await pausePromise('Fee Approver')
