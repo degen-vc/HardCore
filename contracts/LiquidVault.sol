@@ -40,6 +40,7 @@ contract LiquidVault is Ownable {
         address holder;
         uint256 amount;
         uint256 timestamp;
+        bool claimed;
     }
 
     struct liquidVaultConfig {
@@ -173,7 +174,8 @@ contract LiquidVault is Ownable {
             LPbatch({
                 holder: beneficiary,
                 amount: liquidityCreated,
-                timestamp: block.timestamp
+                timestamp: block.timestamp,
+                claimed: false
             })
         );
 
@@ -198,7 +200,8 @@ contract LiquidVault is Ownable {
         uint256 length = LockedLP[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
         uint256 oldest = queueCounter[msg.sender];
-        LPbatch memory batch = LockedLP[msg.sender][oldest];
+        LPbatch storage batch = LockedLP[msg.sender][oldest];
+        require(batch.claimed == false, "HARDCORE: The batch is already claimed");
         require(
             block.timestamp - batch.timestamp > config.stakeDuration,
             "HARDCORE: LP still locked."
@@ -208,6 +211,7 @@ contract LiquidVault is Ownable {
             : oldest + 1;
         queueCounter[msg.sender] = oldest;
         uint256 donation = (config.donationShare * batch.amount) / 100;
+        batch.claimed = true;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
             config.tokenPair.transfer(address(0), donation),

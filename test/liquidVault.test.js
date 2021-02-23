@@ -114,6 +114,9 @@ contract('liquid vault', accounts => {
 
         await hardcoreInstance.transfer(distributorInstance.address, "1000000000")
         await liquidVaultInstance.purchaseLP({ value: '7000000' })
+        const purchase2 = await liquidVaultInstance.purchaseLP({ value: '100000000', from: accounts[2]})
+        console.log('purchase 2', JSON.stringify(purchase2));
+        
 
         const lengthAfterSecondPurchase = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
         assert.equal(lengthAfterSecondPurchase - lengthAfter, 1)
@@ -140,6 +143,7 @@ contract('liquid vault', accounts => {
 
         const length = Number(await liquidVaultInstance.lockedLPLength.call(accounts[0]))
         const lockedLP = await liquidVaultInstance.getLockedLP.call(accounts[0], 0)
+        
         const amountToClaim = Number(lockedLP[1])
         
         const claim = await liquidVaultInstance.claimLP()
@@ -185,6 +189,9 @@ contract('liquid vault', accounts => {
         assert.equal(amountToClaim2, claimedAmount2)
         assert.equal(expectedFee2, exitFee2)
         assert.equal(lpBalaceAfterSecondClaim, lpBalanceAfterClaim + (claimedAmount2 - exitFee2))
+
+        await expectThrow(liquidVaultInstance.claimLP(), "HARDCORE: The batch is already claimed")
+        
     })
 
     test("transferGrab sends tokens while increasing LP balance", async () => {
