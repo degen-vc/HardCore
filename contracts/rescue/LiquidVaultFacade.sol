@@ -23,4 +23,14 @@ abstract contract LiquidVaultFacade is Ownable {
     function purchaseLP() public payable virtual;
 
     function claimLP() public virtual;
+
+    function getLockedLP(address holder, uint256 position)
+        public
+        view
+        virtual
+        returns (
+            address, //holder
+            uint256, //amount
+            uint256 //timestamp
+        );
 }

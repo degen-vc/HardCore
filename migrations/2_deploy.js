@@ -2,6 +2,7 @@ const FeeApprover = artifacts.require('FeeApprover')
 const FeeDistributor = artifacts.require('FeeDistributor')
 const HardCore = artifacts.require('HardCore')
 const LiquidVault = artifacts.require('LiquidVault')
+const BrokenVault = artifacts.require('BrokenVault')
 const NFTFund = artifacts.require('NFTFund')
 const PriceOracle = artifacts.require('PriceOracle')
 
@@ -24,13 +25,17 @@ module.exports = async function (deployer, network, accounts) {
     await deployer.deploy(LiquidVault)
     const liquidVaultInstance = await LiquidVault.deployed()
     await pausePromise('liquidity vault')
-    
+
+    await deployer.deploy(BrokenVault)
+    const brokenVaultInstance = await BrokenVault.deployed()
+
+
     let uniswapfactoryInstance, uniswapRouterInstance, hardCoreInstance, uniswapOracle
     if (network === 'development') {
         await deployer.deploy(Uniswapfactory, accounts[0])
         uniswapfactoryInstance = await Uniswapfactory.deployed()
         await pausePromise('uniswap test factory')
-        
+
         await deployer.deploy(WETH, 'WETH', 'WTH')
         const wethInstance = await WETH.deployed()
         await pausePromise('test weth')
@@ -68,13 +73,13 @@ module.exports = async function (deployer, network, accounts) {
     await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
     await pausePromise('seed liquid vault')
     await liquidVaultInstance.seed(7, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20, uniswapOracle.address)
+    await brokenVaultInstance.seed(7, hardCoreInstance.address, feeDistributorInstance.address, NFTFund.address, 5, 20, uniswapOracle.address)
 }
-
 function pausePromise(message, durationInSeconds = 1) {
-	return new Promise(function (resolve, error) {
-		setTimeout(() => {
-			console.log(message)
-			return resolve()
-		}, durationInSeconds * 10)
-	})
+    return new Promise(function (resolve, error) {
+        setTimeout(() => {
+            console.log(message)
+            return resolve()
+        }, durationInSeconds * 10)
+    })
 }

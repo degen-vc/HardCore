@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.6.12;
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./facades/HardCoreLike.sol";
-import "./facades/FeeDistributorLike.sol";
+import "../facades/HardCoreLike.sol";
+import "../facades/FeeDistributorLike.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
-import './PriceOracle.sol';
+import '../PriceOracle.sol';
 
-contract LiquidVault is Ownable {
+contract BrokenVault is Ownable {
 
     event EthereumDeposited(
         address from,
@@ -129,7 +129,6 @@ contract LiquidVault is Ownable {
     function purchaseLPFor(address beneficiary) public payable lock {
         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
-
         uint256 feeValue = config.purchaseFee * msg.value / 100;
         uint256 exchangeValue = msg.value - feeValue;
 
@@ -199,6 +198,7 @@ contract LiquidVault is Ownable {
         require(length > 0, "HARDCORE: No locked LP.");
         uint256 oldest = queueCounter[msg.sender];
         LPbatch memory batch = LockedLP[msg.sender][oldest];
+        require(config.stakeDuration ==0, "what's this about?");
         require(
             block.timestamp - batch.timestamp > config.stakeDuration,
             "HARDCORE: LP still locked."

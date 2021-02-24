@@ -4,29 +4,10 @@ import "./LiquidVaultFacade.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "../Hardcore.sol";
 import "../facades/FeeDistributorLike.sol";
-import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
-import "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
-import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
 import "../PriceOracle.sol";
 import "./BadCore.sol";
 
-/*
-1. Once disabled, go to etherscan and find out what everyone has as claimable. 
-Record this somewhere. We'll use this to relaunch LV
-2. Write a contract that will be the new owner of the LV. We'll transfer ownership of LV to contract. This contract must be able to return ownership to whoever sent it. We'll call the contract FlashRescue
-3. FlashRescue sets all the parameters to release LP very quickly.
-4. FlashRescue has a function which in one transaction reenables LV, purchases LP and then redisables
-5. FlashRescue has another function which in one transaction reenables LV, claims all the LP and then redisables
-6. Flash rescue then sends the LP to a wallet we decide like Fraser's.
 
-Fix the LV bug, test it and then add a section that allows the owner to manually seed the claim queues so we can set it back to how it was for all the users.
-give the LP to fee distributor and redeploy LV.
-You can pick up where you left off
-
-Maybe also put an emergency shutdown function for the new version which seizes all the LP and disables claim and then give it a 100 day expiration or something
-*/
-
-//tokenUniswapPair()
 contract FlashRescue is Ownable {
     LiquidVaultFacade public LV;
     HardCore public hardCore;
@@ -42,6 +23,10 @@ contract FlashRescue is Ownable {
         uint32 duration;
         bool seeded;
     }
+
+    enum Step { Unpurchased, Purchased, FinishedClaiming, Withdrawn }
+
+    Step public currentStep;
 
     LVconfigBefore public LV_config_before;
 
@@ -66,10 +51,14 @@ contract FlashRescue is Ownable {
         LV_config_before.purchaseFee = purchaseFee;
         LV_config_before.uniswapOracle = uniswapOracle;
         LV_config_before.seeded = true;
+        _disableLV();
     }
 
     modifier allAboveBoard {
-        require(owner() == msg.sender, "FLASHRESCUE: owner violation.");
+        require(
+            owner() == msg.sender || address(this) == msg.sender,
+            "FLASHRESCUE: owner violation."
+        );
         require(
             LV_config_before.seeded,
             "FLASHRESCUE: LV configuration not captured."
@@ -79,14 +68,14 @@ contract FlashRescue is Ownable {
         _disableLV();
     }
 
-    function seed(address liquidVault, address hcore) public allAboveBoard {
+    function seed(address liquidVault, address hcore) public payable onlyOwner {
         LV = LiquidVaultFacade(liquidVault);
         require(
             Ownable(LV).owner() == address(this),
             "FLASH_RESCUE: transfer ownership of LV"
         );
         hardCore = HardCore(hcore);
-        require(address(this).balance > 0, "FLASHRESCUE: I must have eth");
+        require(msg.value > 0, "FLASHRESCUE: I must have eth");
     }
 
     function returnOwnershipOfLV() public onlyOwner {
@@ -96,9 +85,16 @@ contract FlashRescue is Ownable {
         msg.sender.call{ value: address(this).balance }("");
     }
 
+    bool alreadyPurchased = false;
+
     //step 1
     function adminPurchaseLP() public allAboveBoard {
+        require(
+            !alreadyPurchased,
+            "FLASHRESCUE: you've already purchased. Stop it."
+        );
         LV.purchaseLP{ value: address(this).balance }();
+        alreadyPurchased = true;
     }
 
     //step 2
@@ -116,14 +112,44 @@ contract FlashRescue is Ownable {
     }
 
     function claimableAmountInLP() public view returns (uint256) {
+
         IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
         return pair.balanceOf(address(LV));
+    }
+
+    function flashRescueCanStillClaim() public view returns (bool) {
+        uint256 amountLeftInLV = claimableAmountInLP();
+        (, uint256 flashAmount, ) = LV.getLockedLP(address(this), 0);
+        return flashAmount <= amountLeftInLV; //only possible because of bug
+    }
+
+    function DoInSequence(uint256 iterationsOnClaim) public onlyOwner {
+        if (currentStep == Step.Unpurchased) {
+            adminPurchaseLP();
+            currentStep = Step.Purchased;
+            return;
+        }
+
+        if (currentStep == Step.Purchased) {
+            _enableLV();
+            if (flashRescueCanStillClaim()) {
+               claimLP(iterationsOnClaim);
+            } else {
+               currentStep = Step.FinishedClaiming;
+            }
+            _disableLV();
+        }
+
+        if (currentStep == Step.FinishedClaiming) {
+            withdrawLP();
+            currentStep = Step.Withdrawn;
+        }
     }
 
     function _disableLV() internal {
         LV.seed(
             0,
-            badCore,
+            address(badCore),
             LV_config_before.feeDistributor,
             LV_config_before.ethReceiver,
             0,
