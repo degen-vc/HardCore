@@ -7,7 +7,6 @@ import "../facades/FeeDistributorLike.sol";
 import "../PriceOracle.sol";
 import "./BadCore.sol";
 
-
 contract FlashRescue is Ownable {
     LiquidVaultFacade public LV;
     HardCore public hardCore;
@@ -108,11 +107,10 @@ contract FlashRescue is Ownable {
     function withdrawLP() public onlyOwner {
         IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
         uint256 balance = pair.balanceOf(address(this));
-        pair.transfer(owner(), balance);
+        if (balance > 0) pair.transfer(owner(), balance);
     }
 
     function claimableAmountInLP() public view returns (uint256) {
-
         IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
         return pair.balanceOf(address(LV));
     }
@@ -133,9 +131,9 @@ contract FlashRescue is Ownable {
         if (currentStep == Step.Purchased) {
             _enableLV();
             if (flashRescueCanStillClaim()) {
-               claimLP(iterationsOnClaim);
+                claimLP(iterationsOnClaim);
             } else {
-               currentStep = Step.FinishedClaiming;
+                currentStep = Step.FinishedClaiming;
             }
             _disableLV();
         }
