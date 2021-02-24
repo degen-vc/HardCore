@@ -69,6 +69,8 @@ contract LiquidVault is Ownable {
     mapping(address => LPbatch[]) public LockedLP;
     mapping(address => uint256) public queueCounter;
 
+    bool public batchInsertionAllowed = true;
+
     function seed(
         uint32 duration,
         address hcore,
@@ -125,6 +127,24 @@ contract LiquidVault is Ownable {
         config.stakeDuration = duration * 1 days;
         config.donationShare = donationShare;
         config.purchaseFee = purchaseFee;
+    }
+
+    function insertUnclaimedBatchFor(address _holder, uint256 _amount, uint256 _timestamp) public onlyOwner {
+        require(batchInsertionAllowed, "HARDCORE: Manual batch insertion is no longer allowed.");
+        require(_amount > 0, "HARDCORE: LP amount should not be zero.");
+        
+        LockedLP[_holder].push(
+            LPbatch({
+                holder: _holder,
+                amount: _amount,
+                timestamp: _timestamp,
+                claimed: false
+            })
+        );
+    }
+
+    function disableManualBatchInsertion() public onlyOwner {
+        batchInsertionAllowed = false;
     }
 
     function purchaseLPFor(address beneficiary) public payable lock {
