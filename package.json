@@ -33,6 +33,7 @@
     "prettier": "^2.1.2",
     "prettier-plugin-solidity": "^1.0.0-alpha.59",
     "truffle": "5.1.53",
+    "truffle-flattener": "^1.5.0",
     "truffle-plugin-verify": "^0.5.2"
   }
 }
