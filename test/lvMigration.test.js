@@ -19,7 +19,7 @@ const assertBNequal = (bnOne, bnTwo) => assert.equal(bnOne.toString(), bnTwo.toS
 let primary = ""
 contract('liquid vault', accounts => {
     var hardcoreInstance, liquidVaultInstance, feeApproverInstance, distributorInstance
-    const [ owner, nonOwner, lpHolder, ethReceiver ] = accounts
+    const [ owner, nonOwner, lpHolder, ethReceiver, lpHolder2 ] = accounts
     const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
     const baseUnit = bn('1000000000000000000');
     const startTime = Math.floor(Date.now() / 1000);
@@ -105,12 +105,72 @@ contract('liquid vault', accounts => {
       const lpLength = await liquidVaultInstance.lockedLPLength(lpHolder)
       assertBNequal(lpLength, 1)
       
-      const { holder, amount, timestamp, claimed } = await liquidVaultInstance.LockedLP(lpHolder, 0)
+      const { holder, amount, timestamp } = await liquidVaultInstance.LockedLP(lpHolder, 0)
       assertBNequal(amount, holdersLpAmount)
       assertBNequal(startTime, timestamp)
       assert.equal(holder, lpHolder)
-      assert.equal(claimed, false)
     })
+
+    test('manual batch insertion performed along with the regular purchaseLP', async () => {
+      const lpTokenInstance = await IUniswapV2Pair.at(uniswapPair)
+      const holdersLpAmount = bn('4').mul(baseUnit)
+
+      const lpLengthBefore = await liquidVaultInstance.lockedLPLength(lpHolder2)
+      assertBNequal(lpLengthBefore, 0)
+      
+      await liquidVaultInstance.insertUnclaimedBatchFor(lpHolder2, holdersLpAmount, startTime)
+      const lpLengthAfter = await liquidVaultInstance.lockedLPLength(lpHolder2)
+      assertBNequal(lpLengthAfter, 1)
+
+      await hardcoreInstance.transfer(liquidVaultInstance.address, '1000000000000000000000')
+      const purchase = await liquidVaultInstance.purchaseLP({ value: bn('1').mul(baseUnit), from: lpHolder2 })
+      const lpLengthAfter2 = await liquidVaultInstance.lockedLPLength(lpHolder2)
+      assertBNequal(lpLengthAfter2, 2)
+
+      const { holder, amount, timestamp } = await liquidVaultInstance.LockedLP(lpHolder2, 1)
+      assertBNequal(amount, bn('7684334714209161776'))
+      assertBNequal(purchase.receipt.logs[0].args[4], timestamp)
+      assert.equal(holder, lpHolder2)
+    })
+
+    test('all batches are claimed by lpHolder2 in the correct order', async () => {
+      const lpTokenInstance = await IUniswapV2Pair.at(uniswapPair)
+      const holdersLpAmount = bn('4').mul(baseUnit)
+      const holdersLpAmountSecond = bn('7684334714209161776')
+
+      const lpLength = await liquidVaultInstance.lockedLPLength(lpHolder2)
+      assertBNequal(lpLength, 2)
+
+      const { holder: firstBatchHolder, amount: firstBatchAmount } = await liquidVaultInstance.LockedLP(lpHolder2, 0)
+      assertBNequal(firstBatchAmount, holdersLpAmount)
+      assert.equal(firstBatchHolder, lpHolder2)
+
+      const { holder: secondBatchHolder, amount: secondBatchAmount } = await liquidVaultInstance.LockedLP(lpHolder2, 1)
+      assertBNequal(secondBatchAmount, holdersLpAmountSecond)
+      assert.equal(secondBatchHolder, lpHolder2)
+
+      const firstClaim = await liquidVaultInstance.claimLP({ from: lpHolder2 })
+      const lpBalanceAfterFirstClaim = await lpTokenInstance.balanceOf(lpHolder2)
+      const exitFeeFirst = firstClaim.receipt.logs[0].args[3]
+      const expectedBalanceAfterFirst = holdersLpAmount.sub(exitFeeFirst)
+
+      assert.equal(firstClaim.receipt.logs[0].args[0], lpHolder2)
+      assertBNequal(firstClaim.receipt.logs[0].args[1], holdersLpAmount)
+      assertBNequal(lpBalanceAfterFirstClaim, expectedBalanceAfterFirst)
+
+      await time.advanceTime(1)
+
+      const secondClaim = await liquidVaultInstance.claimLP({ from: lpHolder2 })
+      const lpBalanceAfterSecondClaim = await lpTokenInstance.balanceOf(lpHolder2)
+      const exitFeeSecond = secondClaim.receipt.logs[0].args[3]
+      const expectedBalanceAfterSecond = expectedBalanceAfterFirst.add(holdersLpAmountSecond.sub(exitFeeSecond))
+
+      assert.equal(secondClaim.receipt.logs[0].args[0], lpHolder2)
+      assertBNequal(secondClaim.receipt.logs[0].args[1], holdersLpAmountSecond)
+      assertBNequal(lpBalanceAfterSecondClaim, expectedBalanceAfterSecond)
+    })
+
+    //TODO: test case for nothing to claim
 
     test('manual batch insertion disabling fails for non-owner', async () => {
       await expectRevert(
