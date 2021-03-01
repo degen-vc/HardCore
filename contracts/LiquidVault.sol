@@ -6,10 +6,9 @@ import "./facades/FeeDistributorLike.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@uniswap/v2-periphery/contracts/interfaces/IWETH.sol";
 import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
-import './PriceOracle.sol';
+import "./PriceOracle.sol";
 
 contract LiquidVault is Ownable {
-
     event EthereumDeposited(
         address from,
         address to,
@@ -18,9 +17,9 @@ contract LiquidVault is Ownable {
     );
 
     /*
-    * A user can hold multiple locked LP batches.
-    * Each batch takes 30 days to incubate
-    */
+     * A user can hold multiple locked LP batches.
+     * Each batch takes 30 days to incubate
+     */
     event LPQueued(
         address holder,
         uint256 amount,
@@ -68,6 +67,8 @@ contract LiquidVault is Ownable {
     mapping(address => LPbatch[]) public LockedLP;
     mapping(address => uint256) public queueCounter;
 
+    bool public batchInsertionAllowed = true;
+
     function seed(
         uint32 duration,
         address hcore,
@@ -92,14 +93,11 @@ contract LiquidVault is Ownable {
     }
 
     function setOracleAddress(PriceOracle _uniswapOracle) external onlyOwner {
-        require(address(_uniswapOracle) != address(0), 'Zero address not allowed');
+        require(address(_uniswapOracle) != address(0), "Zero address not allowed");
         config.uniswapOracle = _uniswapOracle;
     }
 
-    function setEthFeeAddress(address payable ethReceiver)
-        public
-        onlyOwner
-    {
+    function setEthFeeAddress(address payable ethReceiver) public onlyOwner {
         require(
             ethReceiver != address(0),
             "LiquidVault: eth receiver is zero address"
@@ -126,11 +124,28 @@ contract LiquidVault is Ownable {
         config.purchaseFee = purchaseFee;
     }
 
+    function insertUnclaimedBatchFor(address _holder, uint256 _amount, uint256 _timestamp) public onlyOwner {
+        require(batchInsertionAllowed, "HARDCORE: Manual batch insertion is no longer allowed.");
+        require(_amount > 0, "HARDCORE: LP amount should not be zero.");
+        
+        LockedLP[_holder].push(
+            LPbatch({
+                holder: _holder,
+                amount: _amount,
+                timestamp: _timestamp
+            })
+        );
+    }
+
+    function disableManualBatchInsertion() public onlyOwner {
+        batchInsertionAllowed = false;
+    }
+
     function purchaseLPFor(address beneficiary) public payable lock {
         config.feeDistributor.distributeFees();
         require(msg.value > 0, "HARDCORE: eth required to mint Hardcore LP");
 
-        uint256 feeValue = config.purchaseFee * msg.value / 100;
+        uint256 feeValue = (config.purchaseFee * msg.value) / 100;
         uint256 exchangeValue = msg.value - feeValue;
 
         (uint256 reserve1, uint256 reserve2, ) = config.tokenPair.getReserves();
@@ -197,16 +212,18 @@ contract LiquidVault is Ownable {
     function claimLP() public {
         uint256 length = LockedLP[msg.sender].length;
         require(length > 0, "HARDCORE: No locked LP.");
-        uint256 oldest = queueCounter[msg.sender];
-        LPbatch memory batch = LockedLP[msg.sender][oldest];
+        uint256 next = queueCounter[msg.sender];
+        require(
+            next < LockedLP[msg.sender].length,
+            "HARDCORE: nothing to claim."
+        );
+        LPbatch storage batch = LockedLP[msg.sender][next];
         require(
             block.timestamp - batch.timestamp > config.stakeDuration,
             "HARDCORE: LP still locked."
         );
-        oldest = LockedLP[msg.sender].length - 1 == oldest
-            ? oldest
-            : oldest + 1;
-        queueCounter[msg.sender] = oldest;
+        next++;
+        queueCounter[msg.sender] = next;
         uint256 donation = (config.donationShare * batch.amount) / 100;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
