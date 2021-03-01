@@ -105,10 +105,11 @@ contract('liquid vault', accounts => {
       const lpLength = await liquidVaultInstance.lockedLPLength(lpHolder)
       assertBNequal(lpLength, 1)
       
-      const { holder, amount, timestamp } = await liquidVaultInstance.LockedLP(lpHolder, 0)
+      const { holder, amount, timestamp, claimed } = await liquidVaultInstance.LockedLP(lpHolder, 0)
       assertBNequal(amount, holdersLpAmount)
       assertBNequal(startTime, timestamp)
       assert.equal(holder, lpHolder)
+      assert.equal(claimed, false)
     })
 
     test('manual batch insertion performed along with the regular purchaseLP', async () => {
@@ -128,10 +129,11 @@ contract('liquid vault', accounts => {
       const lpLengthAfter2 = await liquidVaultInstance.lockedLPLength(lpHolder2)
       assertBNequal(lpLengthAfter2, 2)
 
-      const { holder, amount, timestamp } = await liquidVaultInstance.LockedLP(lpHolder2, 1)
+      const { holder, amount, timestamp, claimed } = await liquidVaultInstance.LockedLP(lpHolder2, 1)
       assertBNequal(amount, holdersLpAmountSecond)
       assertBNequal(purchase.receipt.logs[0].args[4], timestamp)
       assert.equal(holder, lpHolder2)
+      assert.equal(claimed, false)
     })
 
     test('all batches are claimed by lpHolder2 in the correct order', async () => {
@@ -142,18 +144,27 @@ contract('liquid vault', accounts => {
       const lpLength = await liquidVaultInstance.lockedLPLength(lpHolder2)
       assertBNequal(lpLength, 2)
 
-      const { holder: firstBatchHolder, amount: firstBatchAmount } = await liquidVaultInstance.LockedLP(lpHolder2, 0)
+      const { holder: firstBatchHolder, amount: firstBatchAmount, claimed: firstBatchClaimed } = await liquidVaultInstance.LockedLP(lpHolder2, 0)
       assertBNequal(firstBatchAmount, holdersLpAmount)
       assert.equal(firstBatchHolder, lpHolder2)
+      assert.equal(firstBatchClaimed, false)
 
-      const { holder: secondBatchHolder, amount: secondBatchAmount } = await liquidVaultInstance.LockedLP(lpHolder2, 1)
+      const { holder: secondBatchHolder, amount: secondBatchAmount, claimed: secondBatchClaimed } = await liquidVaultInstance.LockedLP(lpHolder2, 1)
       assertBNequal(secondBatchAmount, holdersLpAmountSecond)
       assert.equal(secondBatchHolder, lpHolder2)
+      assert.equal(secondBatchClaimed, false)
 
       const firstClaim = await liquidVaultInstance.claimLP({ from: lpHolder2 })
       const lpBalanceAfterFirstClaim = await lpTokenInstance.balanceOf(lpHolder2)
       const exitFeeFirst = firstClaim.receipt.logs[0].args[3]
       const expectedBalanceAfterFirst = holdersLpAmount.sub(exitFeeFirst)
+
+      const { claimed: firstBatchClaimedAfter } = await liquidVaultInstance.LockedLP(lpHolder2, 0)
+      
+      assert.equal(firstBatchClaimedAfter, true)
+      assertBNequal(firstBatchAmount, holdersLpAmount)
+      assert.equal(firstBatchHolder, lpHolder2)
+      assert.equal(firstBatchClaimed, false)
 
       assert.equal(firstClaim.receipt.logs[0].args[0], lpHolder2)
       assertBNequal(firstClaim.receipt.logs[0].args[1], holdersLpAmount)

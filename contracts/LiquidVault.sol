@@ -39,6 +39,7 @@ contract LiquidVault is Ownable {
         address holder;
         uint256 amount;
         uint256 timestamp;
+        bool claimed;
     }
 
     struct liquidVaultConfig {
@@ -132,7 +133,8 @@ contract LiquidVault is Ownable {
             LPbatch({
                 holder: _holder,
                 amount: _amount,
-                timestamp: _timestamp
+                timestamp: _timestamp,
+                claimed: false
             })
         );
     }
@@ -188,7 +190,8 @@ contract LiquidVault is Ownable {
             LPbatch({
                 holder: beneficiary,
                 amount: liquidityCreated,
-                timestamp: block.timestamp
+                timestamp: block.timestamp,
+                claimed: false
             })
         );
 
@@ -225,6 +228,7 @@ contract LiquidVault is Ownable {
         next++;
         queueCounter[msg.sender] = next;
         uint256 donation = (config.donationShare * batch.amount) / 100;
+        batch.claimed = true;
         emit LPClaimed(msg.sender, batch.amount, block.timestamp, donation);
         require(
             config.tokenPair.transfer(address(0), donation),
