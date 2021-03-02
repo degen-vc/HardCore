@@ -124,6 +124,11 @@ contract FlashRescue is Ownable {
         if (balance > 0) pair.transfer(to, balance);
     }
 
+    function withdrawLPAmount(uint256 amount) public onlyOwner {
+        IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
+        pair.transfer(owner(), amount);
+    }
+
     function claimableAmountInLP() public view returns (uint256) {
         IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
         return pair.balanceOf(address(LV));
