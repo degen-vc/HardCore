@@ -84,6 +84,14 @@ contract FlashRescue is Ownable {
         msg.sender.call{ value: address(this).balance }("");
     }
 
+    function returnOwnershipOfLvWithoutWithdraw() public onlyOwner {
+        Ownable(LV).transferOwnership(owner());
+    }
+
+    function emergencyWithdrawETH(uint256 weiAmount) public onlyOwner {
+        msg.sender.transfer(weiAmount);
+    }
+
     bool alreadyPurchased = false;
 
     //step 1
@@ -108,6 +116,12 @@ contract FlashRescue is Ownable {
         IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
         uint256 balance = pair.balanceOf(address(this));
         if (balance > 0) pair.transfer(owner(), balance);
+    }
+
+    function withdrawLPTo(address to) public onlyOwner {
+        IUniswapV2Pair pair = IUniswapV2Pair(hardCore.tokenUniswapPair());
+        uint256 balance = pair.balanceOf(address(this));
+        if (balance > 0) pair.transfer(to, balance);
     }
 
     function claimableAmountInLP() public view returns (uint256) {
