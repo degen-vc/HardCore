@@ -1,7 +1,12 @@
-const HDWalletProvider = require('@truffle/hdwallet-provider');
-require('dotenv').config()
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+require("dotenv").config();
 
-const {MNEMONIC_DEV, PRIVATE_KEY_PROD, INFURA_TOKEN, ETHERSCAN_API_KEY} = process.env;
+const {
+  MNEMONIC_DEV,
+  PRIVATE_KEY_PROD,
+  INFURA_PROJECT_ID,
+  ETHERSCAN_API_KEY,
+} = process.env;
 
 module.exports = {
   /**
@@ -15,32 +20,61 @@ module.exports = {
    */
 
   networks: {
-
     development: {
-      host: "127.0.0.1",     // Localhost (default: none)
-      port: 8545,            // Standard Ethereum port (default: none)
-      network_id: "*",       // Any network (default: none)
+      host: "127.0.0.1", // Localhost (default: none)
+      port: 8545, // Standard Ethereum port (default: none)
+      network_id: "*", // Any network (default: none)
     },
 
-		kovan: {
-			provider: () => new HDWalletProvider(MNEMONIC_DEV, `https://kovan.infura.io/v3/${INFURA_TOKEN}`),
-			network_id: 42,       // Kovan's id
-			gas: '12100000',
+    mumbai: {
+      provider: () =>
+        new HDWalletProvider(MNEMONIC_DEV, `https://rpc-mumbai.matic.today`), // polygon testnet
+      network_id: 80001,
+      confirmations: 2,
+      gasPrice: 5000000000,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+    },
+
+    polygon: {
+      provider: () =>
+        new HDWalletProvider(
+          MNEMONIC_DEV,
+          `https://rpc-mainnet.maticvigil.com/`
+        ),
+      network_id: 137,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+    },
+
+    kovan: {
+      provider: () =>
+        new HDWalletProvider(
+          MNEMONIC_DEV,
+          `https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`
+        ),
+      network_id: 42, // Kovan's id
+      gas: "12100000",
       networkCheckTimeout: 100000,
       // gasLimit:'0x9999969101',
-			confirmations: 1,    // # of confs to wait between deployments. (default: 0)
-			timeoutBlocks: 1,  // # of blocks before a deployment times out  (minimum/default: 50)
-			skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-		},
+      confirmations: 1, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 1, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
 
     mainnet: {
-      provider: () => new HDWalletProvider(PRIVATE_KEY_PROD, `https://mainnet.infura.io/v3/${INFURA_TOKEN}`),
+      provider: () =>
+        new HDWalletProvider(
+          PRIVATE_KEY_PROD,
+          `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`
+        ),
       network_id: 1,
-      gas: '12100000',
+      gas: "12100000",
       confirmations: 1,
       timeoutBlocks: 1,
-      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    }
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -51,23 +85,22 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.6.12",    // Fetch exact version from solc-bin (default: truffle's version)
-      docker: false,        // Use "0.5.1" you've installed locally with docker (default: false)
-      settings: {          // See the solidity docs for advice about optimization and evmVersion
+      version: "0.6.12", // Fetch exact version from solc-bin (default: truffle's version)
+      docker: false, // Use "0.5.1" you've installed locally with docker (default: false)
+      settings: {
+        // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: true,
-          runs: 200
+          runs: 200,
         },
-       evmVersion: "istanbul"
-      }
-    }
+        evmVersion: "istanbul",
+      },
+    },
   },
 
-  plugins: [
-    'truffle-plugin-verify'
-  ],
+  plugins: ["truffle-plugin-verify"],
 
   api_keys: {
-    etherscan: ETHERSCAN_API_KEY
-  }
-}
+    etherscan: ETHERSCAN_API_KEY,
+  },
+};

@@ -8,9 +8,12 @@
   },
   "scripts": {
     "test": "truffle test",
+    "test:mumbai": "truffle test --network mumbai --verbose-rpc",
     "compile": "truffle compile",
     "ganache": "ganache-cli",
     "deploy:kovan": "npm run compile && truffle migrate --network kovan",
+    "deploy:mumbai": "npm run compile --network mumbai && truffle migrate --reset --network mumbai --verbose-rpc",
+    "deploy:polygon": "npm run compile --network polygon && truffle migrate --network polygon --verbose-rpc",
     "lint:sol": "solhint contracts/*.sol",
     "prettier:sol": "./node_modules/.bin/prettier --write contracts/*.sol contracts/**/*.sol"
   },
