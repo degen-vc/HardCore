@@ -26,11 +26,12 @@ module.exports = {
       network_id: "*", // Any network (default: none)
     },
 
+    // polygon testnet
     mumbai: {
       provider: () =>
-        new HDWalletProvider(MNEMONIC_DEV, `https://rpc-mumbai.matic.today`), // polygon testnet
+        new HDWalletProvider(MNEMONIC_DEV, `https://rpc-mumbai.matic.today`), 
       network_id: 80001,
-      confirmations: 2,
+      confirmations: 1,
       gasPrice: 5000000000,
       timeoutBlocks: 200,
       skipDryRun: true,
@@ -47,6 +48,33 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true,
     },
+
+    ropsten: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: MNEMONIC_DEV,
+          providerOrUrl: `https://ropsten.infura.io/v3/${INFURA_PROJECT_ID}`,
+        }),
+      network_id: 3,
+      gasPrice: 5000000000,
+      // gasLimit:'0x9999969101',
+      confirmations: 1, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 1, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
+
+    goerli: {
+      provider: () =>
+        new HDWalletProvider({
+          mnemonic: MNEMONIC_DEV,
+          providerOrUrl: `https://goerli.infura.io/v3/${INFURA_PROJECT_ID}`,
+        }),
+      network_id: 5,
+      confirmations: 0, // # of confs to wait between deployments. (default: 0)
+      // timeoutBlocks: 1, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
+    
 
     kovan: {
       provider: () =>

@@ -12,7 +12,6 @@ const WETH = artifacts.require('WETH')
 const fs = require('fs')
 
 module.exports = async function (deployer, network, accounts) {
-
     await deployer.deploy(FeeApprover)
     const feeApproverInstance = await FeeApprover.deployed()
     await pausePromise('Fee Approver')
@@ -26,7 +25,13 @@ module.exports = async function (deployer, network, accounts) {
     await pausePromise('liquidity vault')
     
     let uniswapfactoryInstance, uniswapRouterInstance, hardCoreInstance, uniswapOracle
-    if (network === 'development') {
+    
+    if (network === 'mainnet') {
+        await deployer.deploy(HardCore, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D')
+        hardCoreInstance = await HardCore.deployed()
+        await pausePromise('hard core')
+        await hardCoreInstance.initialSetup(feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);
+    } else {
         await deployer.deploy(Uniswapfactory, accounts[0])
         uniswapfactoryInstance = await Uniswapfactory.deployed()
         await pausePromise('uniswap test factory')
@@ -49,12 +54,6 @@ module.exports = async function (deployer, network, accounts) {
         uniswapPair = await hardCoreInstance.tokenUniswapPair();
 
         uniswapOracle = await deployer.deploy(PriceOracle, uniswapPair, hardCoreInstance.address, wethInstance.address)
-    }
-    else {
-        await deployer.deploy(HardCore, '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D')
-        hardCoreInstance = await HardCore.deployed()
-        await pausePromise('hard core')
-        await hardCoreInstance.initialSetup(feeApproverInstance.address, feeDistributorInstance.address, liquidVaultInstance.address);
     }
 
     const routerAddress = await hardCoreInstance.uniswapRouter.call()
