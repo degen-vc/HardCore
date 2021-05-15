@@ -29,7 +29,7 @@ module.exports = {
     // polygon testnet
     mumbai: {
       provider: () =>
-        new HDWalletProvider(MNEMONIC_DEV, `https://rpc-mumbai.matic.today`), 
+        new HDWalletProvider(MNEMONIC_DEV, `https://polygon-mumbai.infura.io/v3/${INFURA_PROJECT_ID}`), 
       network_id: 80001,
       confirmations: 1,
       gasPrice: 5000000000,
@@ -41,7 +41,7 @@ module.exports = {
       provider: () =>
         new HDWalletProvider(
           MNEMONIC_DEV,
-          `https://rpc-mainnet.maticvigil.com/`
+          `https://polygon-mainnet.infura.io/v3/${INFURA_PROJECT_ID}`
         ),
       network_id: 137,
       confirmations: 2,
