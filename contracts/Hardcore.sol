@@ -5,14 +5,9 @@ import "@openzeppelin/contracts/GSN/Context.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
-import "./facades/FeeApproverLike.sol";
-import "@nomiclabs/buidler/console.sol";
-
-import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
-import "@uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
-import "@uniswap/v2-periphery/contracts/interfaces/IUniswapV2Router02.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./facades/LiquidVaultLike.sol";
+
+import "./facades/FeeApproverLike.sol";
 
 contract HardCore is Context, IERC20, Ownable {
     using SafeMath for uint256;
@@ -21,19 +16,17 @@ contract HardCore is Context, IERC20, Ownable {
     mapping(address => uint256) private _balances;
 
     mapping(address => mapping(address => uint256)) private _allowances;
-    address public liquidVault;
     uint256 private _totalSupply;
 
     string private _name;
     string private _symbol;
     uint8 private _decimals;
 
-    constructor(address _router) public {
+    constructor() public {
         _name = "HARDCORE hcore.finance";
         _symbol = "HCORE";
         _decimals = 18;
         _mint(_msgSender(), 30000e18);
-        uniswapRouter = IUniswapV2Router02(_router);
     }
 
     /**
@@ -45,12 +38,10 @@ contract HardCore is Context, IERC20, Ownable {
 
     function initialSetup(
         address _feeApprover,
-        address _feeDistributor,
-        address _liquidVault
+        address _feeDistributor
     ) public onlyOwner {
         transferCheckerAddress = _feeApprover;
         feeDistributor = _feeDistributor;
-        liquidVault = _liquidVault;
     }
 
     /**
@@ -90,19 +81,6 @@ contract HardCore is Context, IERC20, Ownable {
         return _balances[_owner];
     }
 
-    IUniswapV2Router02 public uniswapRouter;
-
-    address public tokenUniswapPair;
-
-    function createUniswapPair(IUniswapV2Factory uniswapFactory) public onlyOwner returns (address) {
-        require(tokenUniswapPair == address(0), "Token: pool already created");
-        tokenUniswapPair = uniswapFactory.createPair(
-            address(uniswapRouter.WETH()),
-            address(this)
-        );
-        return tokenUniswapPair;
-    }
-
     function burn(uint256 value) public {
         _burn(_msgSender(), value);
     }
@@ -122,18 +100,6 @@ contract HardCore is Context, IERC20, Ownable {
         returns (bool)
     {
         _transfer(_msgSender(), recipient, amount);
-        return true;
-    }
-
-    function transferGrabLP(address recipient, uint256 amount)
-        public
-        payable
-        returns (bool)
-    {
-        _transfer(_msgSender(), recipient, amount);
-        LiquidVaultLike(liquidVault).purchaseLPFor{ value: msg.value }(
-            _msgSender()
-        );
         return true;
     }
 
