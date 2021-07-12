@@ -24,7 +24,7 @@ contract('liquid vault', accounts => {
     const primaryOptions = { from: accounts[0], gas: "0x6091b7" }
     const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-    let uniswapPairAddress
+    let uniswapPair
     let uniswapFactory
     let uniswapRouter
     let wethInstance
@@ -36,36 +36,37 @@ contract('liquid vault', accounts => {
         uniswapRouter = contracts.uniswapRouter
         wethInstance = contracts.weth
 
-        hardcoreInstance = await hardcore.new(uniswapRouter.address)
+        hardcoreInstance = await hardcore.new()
         liquidVaultInstance = await liquidVault.new()
         feeApproverInstance = await feeApprover.new()
         distributorInstance = await distributor.new()
 
-        await hardcoreInstance.initialSetup(feeApproverInstance.address, distributorInstance.address, liquidVaultInstance.address)
-        await hardcoreInstance.createUniswapPair(uniswapFactory.address)
+        await hardcoreInstance.initialSetup(feeApproverInstance.address, distributorInstance.address)
+        console.log('here');
+        await uniswapFactory.createPair(hardcoreInstance.address, wethInstance.address)
         await distributorInstance.seed(hardcoreInstance.address, liquidVaultInstance.address, accounts[7], 40, 1)
 
-        uniswapPair = await hardcoreInstance.tokenUniswapPair()
+        uniswapPair = await uniswapFactory.getPair(hardcoreInstance.address, wethInstance.address)
         uniswapOracle = await PriceOracle.new(uniswapPair, hardcoreInstance.address, wethInstance.address);
 
         await feeApproverInstance.initialize(uniswapPair, liquidVaultInstance.address)
         await feeApproverInstance.unPause()
         await feeApproverInstance.setFeeMultiplier(10)
-        await liquidVaultInstance.seed(2, hardcoreInstance.address, distributorInstance.address, accounts[7], 10, 10, uniswapOracle.address)
+        await liquidVaultInstance.seed(2, hardcoreInstance.address, uniswapPair, uniswapRouter.address, distributorInstance.address, accounts[7], 10, 10, uniswapOracle.address)
         primary = accounts[0]
         await hardcoreInstance.transfer(distributorInstance.address, '25000000000')
     })
 
     test("purchaseLP with no eth fails", async () => {
-        await expectThrow(liquidVaultInstance.purchaseLP({ value: '0' }), 'HARDCORE: eth required to mint Hardcore LP')
+        await expectThrow(liquidVaultInstance.purchaseLP({ value: '0' }), 'LiquidVault: ETH required to mint HCORE LP.')
     })
 
     test('setParameters from non-owner fails', async () => {
         await expectThrow(liquidVaultInstance.setParameters(2, 10, 5, { from: accounts[3] }), 'Ownable: caller is not the owner')
     })
 
-    test('setEthFeeAddress with zero addresses fails', async () => {
-        await expectThrow(liquidVaultInstance.setEthFeeAddress(ZERO_ADDRESS), 'LiquidVault: eth receiver is zero address')
+    test('setFeeReceiverAddress with zero addresses fails', async () => {
+        await expectThrow(liquidVaultInstance.setFeeReceiverAddress(ZERO_ADDRESS), 'LiquidVault: ETH receiver is zero address')
     })
 
     test('sending eth on purchase increases queue size by 1', async () => {
@@ -87,15 +88,15 @@ contract('liquid vault', accounts => {
             { value: liquidityEtherAmount }
         );
 
-        await liquidVaultInstance.setEthFeeAddress(accounts[1])
+        await liquidVaultInstance.setFeeReceiverAddress(accounts[1])
         const lengthBefore = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
         const ethReceiverBalanceBefore = await web3.eth.getBalance(accounts[1])
 
         const liquidVaultHcoreBalance = await hardcoreInstance.balanceOf(liquidVaultInstance.address)
         const purchase = await liquidVaultInstance.purchaseLP({ value: '100000000000' })
         const ethReceiverBalanceAfter = await web3.eth.getBalance(accounts[1])
-        const feeAmount = purchase.receipt.logs[1].args[3].toString()
-        const ethForPurchase = purchase.receipt.logs[1].args[2].toString()
+        const feeAmount = purchase.receipt.logs[1].args[2].toString()
+        const ethForPurchase = purchase.receipt.logs[1].args[1].toString()
         const lengthAfter = (await liquidVaultInstance.lockedLPLength.call(accounts[0])).toNumber()
         const expectedFeeAmount = '10000000000'
 
@@ -127,11 +128,11 @@ contract('liquid vault', accounts => {
         assert.isAbove(amount2, 0)
         assert.isAbove(timestamp2, 0)
 
-        await expectThrow(liquidVaultInstance.purchaseLP({ value: '20000000000000000000' }), "HARDCORE: insufficient HardCore in LiquidVault")
+        await expectThrow(liquidVaultInstance.purchaseLP({ value: '20000000000000000000' }), "LiquidVault: insufficient HCORE tokens in LiquidVault")
 
-        await expectThrow(liquidVaultInstance.claimLP({ from: accounts[3] }), "HARDCORE: No locked LP.")
+        await expectThrow(liquidVaultInstance.claimLP({ from: accounts[3] }), "LiquidVault: nothing to claim.")
 
-        await expectThrow(liquidVaultInstance.claimLP(), "HARDCORE: LP still locked.")
+        await expectThrow(liquidVaultInstance.claimLP(), "LiquidVault: LP still locked.")
 
         await time.advanceTime(172801) //just over 2 days
 
@@ -187,7 +188,7 @@ contract('liquid vault', accounts => {
         assert.equal(expectedFee2, exitFee2)
         assert.equal(lpBalaceAfterSecondClaim, lpBalanceAfterClaim + (claimedAmount2 - exitFee2))
 
-        await expectThrow(liquidVaultInstance.claimLP(), "HARDCORE: nothing to claim")
+        await expectThrow(liquidVaultInstance.claimLP(), "LiquidVault: nothing to claim")
 
         await hardcoreInstance.transfer(distributorInstance.address, "1000000000")
         await liquidVaultInstance.purchaseLP({ value: '7000000' }) //purchase3
@@ -218,34 +219,4 @@ contract('liquid vault', accounts => {
         assert.equal(expectedFee3, exitFee3)
         assert.equal(lpBalaceAfterThirdClaim, lpBalaceAfterSecondClaim + (claimedAmount3 - exitFee3))
     })
-
-    test("transferGrab sends tokens while increasing LP balance", async () => {
-        const lpAddress = (await hardcoreInstance.tokenUniswapPair.call()).toString()
-        console.log('LPADDRESS: ' + lpAddress)
-        const lpTokenInstance = await IUniswapV2Pair.at(uniswapPair);
-
-        await hardcoreInstance.transfer(distributorInstance.address, "100000000000")
-
-        await hardcoreInstance.transfer(accounts[4], "25000000000")
-
-        const lockedLengthBefore = (await liquidVaultInstance.lockedLPLength.call(accounts[4])).toNumber()
-        assert.equal(lockedLengthBefore, 0)
-
-        await hardcoreInstance.transferGrabLP(accounts[5], '10000000', { from: accounts[4], value: 20000 })
-
-        const balanceOf5 = (await hardcoreInstance.balanceOf.call(accounts[5])).toString()
-        assert.equal(balanceOf5, "9000000")
-
-        const lockedLPLengthAfter = (await liquidVaultInstance.lockedLPLength.call(accounts[4])).toNumber()
-        assert.equal(lockedLPLengthAfter, 1)
-
-        const lp = await liquidVaultInstance.getLockedLP.call(accounts[4], 0)
-        const sender = lp[0].toString()
-        const amount = lp[1].toNumber()
-        const timestamp = lp[2].toNumber()
-
-        assert.equal(sender, accounts[4])
-        assert.isAbove(amount, 0)
-    })
-
 })

@@ -11,16 +11,6 @@
       "error",
       "double"
     ],
-    "max-line-length": [
-      "error",
-      80
-    ],
-    "reason-string": [
-      "warn",
-      {
-        "maxLength": 32
-      }
-    ],
     "no-unused-vars": "error",
     "avoid-suicide": "error",
     "avoid-sha3": "warn",
