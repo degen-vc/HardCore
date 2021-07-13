@@ -1,7 +1,7 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 require('dotenv').config()
 
-const {MNEMONIC_DEV, PRIVATE_KEY_PROD, INFURA_TOKEN, ETHERSCAN_API_KEY} = process.env;
+const {MNEMONIC_DEV, PRIVATE_KEY_PROD, INFURA_TOKEN, ETHERSCAN_API_KEY, POLYGONSCAN_API_KEY} = process.env;
 
 module.exports = {
   /**
@@ -40,6 +40,19 @@ module.exports = {
       confirmations: 1,
       timeoutBlocks: 1,
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+    },
+
+    mumbai: { // truffle deploy --network mumbai --reset
+      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, 'https://matic-mumbai.chainstacklabs.com'),
+      network_id: 80001,
+      gas: 3000000,
+      skipDryRun: true,
+    },
+    matic: { // truffle deploy --network matic --reset
+      provider: () => new HDWalletProvider(process.env.PRIVATE_KEY_PROD, 'https://rpc-mainnet.matic.network'),
+      network_id: 137,
+      gas: 3000000,
+      skipDryRun: true,
     }
   },
 
@@ -68,6 +81,7 @@ module.exports = {
   ],
 
   api_keys: {
-    etherscan: ETHERSCAN_API_KEY
+    etherscan: ETHERSCAN_API_KEY,
+    polygonscan: POLYGONSCAN_API_KEY
   }
 }

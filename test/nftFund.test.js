@@ -31,14 +31,14 @@ contract('NFTFund', accounts => {
         uniswapRouter = contracts.uniswapRouter;
         wethInstance = contracts.weth;
 
-        hardcoreInstance = await Hardcore.new(uniswapRouter.address)
+        hardcoreInstance = await Hardcore.new()
         feeApproverInstance = await FeeApprover.new()
 
-        await hardcoreInstance.initialSetup(feeApproverInstance.address, distributor, liquidVault)
-        await hardcoreInstance.createUniswapPair(uniswapFactory.address)
+        await hardcoreInstance.initialSetup(feeApproverInstance.address, distributor)
+        await uniswapFactory.createPair(hardcoreInstance.address, wethInstance.address)
         nftFundInstance = await NFTFund.new(uniswapRouter.address, hardcoreInstance.address)
 
-        uniswapPairAddress = await hardcoreInstance.tokenUniswapPair();
+        uniswapPairAddress = await await uniswapFactory.getPair(hardcoreInstance.address, wethInstance.address)
         await feeApproverInstance.initialize(uniswapPairAddress, liquidVault)
 
         await feeApproverInstance.unPause()

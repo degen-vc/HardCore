@@ -2,6 +2,7 @@
 /temp
 .env
 .idea
+.vscode
 
 build/contracts/*
 !build/contracts/UniswapFactory.json
