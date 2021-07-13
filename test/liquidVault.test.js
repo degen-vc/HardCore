@@ -42,7 +42,6 @@ contract('liquid vault', accounts => {
         distributorInstance = await distributor.new()
 
         await hardcoreInstance.initialSetup(feeApproverInstance.address, distributorInstance.address)
-        console.log('here');
         await uniswapFactory.createPair(hardcoreInstance.address, wethInstance.address)
         await distributorInstance.seed(hardcoreInstance.address, liquidVaultInstance.address, accounts[7], 40, 1)
 
