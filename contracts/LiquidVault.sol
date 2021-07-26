@@ -127,7 +127,7 @@ contract LiquidVault is Ownable {
           "LiquidVault: purchase fee share % between 0 and 100"
       );
 
-      config.stakeDuration = duration * 1 days;
+      config.stakeDuration = duration * 1 hours;
       config.donationShare = donationShare;
       config.purchaseFee = purchaseFee;
   }
